@@ -16,9 +16,12 @@ module.exports = (app) => {
   app.delete('/api/users/:userId', userController.delete);
   app.put('/api/users/:userId', userController.UpdateUser);
   app.get('/api/users/', userController.paginatedUsers);
-  app.post('/api/documents', documentController.create);
-  app.get('/api/documents', documentController.FindDocument);
-  app.get('/api/documents/:documentId', documentController.FindOneDocument);
   app.get('/api/search/users/', userController.searchUser);
+  // documents routes
+  app.post('/api/documents', documentController.create);
+  app.get('/api/documents/', documentController.FindDocument);
+  app.get('/api/documents/:documentId', documentController.FindOneDocument);
   app.get('/api/search/documents/:name', documentController.searchDocument);
+  app.delete('/api/documents/:documentId', documentController.delete);
+
 };

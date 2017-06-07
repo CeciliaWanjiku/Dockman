@@ -20,6 +20,11 @@ module.exports = {
       .catch(error => res.status(400).send(error));
   },
   FindOneDocument(req, res) {
+    if (req.query.limit || req.query.offset) {
+      return document.findAll({ offset: req.query.offset, limit: req.query.limit })
+      .then(response => res.status(200).send(response))
+      .catch(error => res.status(400).send(error));
+    }
     return document
       .findById(req.params.documentId, {
         include: [{
@@ -50,5 +55,19 @@ module.exports = {
       .then(response => res.status(200).send(response))
       .catch(error => res.status(400).send(error));
     }
-  }
+  },
+  delete(req, res) {
+    document.findById(req.params.documentId)
+      .then((resp) => {
+        if (!resp) {
+          return res.status(404).send({
+            message: 'Document Not Found',
+          });
+        }
+        resp.destroy()
+          .then(() => res.status(200).send({ message: 'Document deleted' }))
+          .catch(error => res.status(400).send(error));
+      })
+      .catch(error => res.status(400).send(error));
+  },
 };
