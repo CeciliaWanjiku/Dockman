@@ -6,6 +6,7 @@ const secretKey = 'sec';
 const saltRounds = 10;
 
 const user = db.User;
+const Document = db.Document;
 module.exports = {
   // create a new user
   create(req, res) {
@@ -73,7 +74,12 @@ module.exports = {
       .then(response => res.status(200).send(response))
       .catch(error => res.status(400).send(error));
     }
-    return user.all()
+    return user.all({
+      include: [{
+        model: Document,
+        as: 'documents',
+
+      }] })
       .then(resp => res.status(200).send(resp))
       .catch(error => res.status(400).send(error));
   },
@@ -101,7 +107,7 @@ module.exports = {
     .findById(req.params.userId, {
       include: [{
         model: user,
-        as: 'user',
+        as: 'userId',
       }],
     })
     .then((resp) => {

@@ -1,7 +1,7 @@
 
 
 module.exports = {
-  up: (queryInterface, Sequelize) => queryInterface.createTable('documents', {
+  up: (queryInterface, Sequelize) => queryInterface.createTable('Documents', {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -11,11 +11,18 @@ module.exports = {
     name: {
       type: Sequelize.STRING
     },
-    Content: {
+    content: {
       type: Sequelize.TEXT
     },
     userId: {
-      type: Sequelize.INTEGER
+      type: Sequelize.INTEGER,
+      onDelete: 'CASCADE',
+      references: {
+        model: 'Users',
+        key: 'id',
+        as: 'userId',
+        allowNull: false,
+      },
     },
     createdAt: {
       allowNull: false,
@@ -26,7 +33,7 @@ module.exports = {
       type: Sequelize.DATE
     }
   }),
-  down(queryInterface, Sequelize) {
-    return queryInterface.dropTable('documents');
+  down(queryInterface) {
+    return queryInterface.dropTable('Documents');
   }
 };

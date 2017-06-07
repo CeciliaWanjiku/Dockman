@@ -1,14 +1,16 @@
-
+const User = require('./user');
 
 module.exports = (sequelize, DataTypes) => {
   const Document = sequelize.define('Document', {
     name: DataTypes.STRING,
-    Content: DataTypes.TEXT,
-    userId: DataTypes.INTEGER
+    content: DataTypes.TEXT,
   }, {
     classMethods: {
-      associate(models) {
-        // associations can be defined here
+      associate: (models) => {
+        Document.belongsTo(models.User, {
+          foreignKey: 'userId',
+          onDelete: 'CASCADE'
+        });
       }
     }
   });

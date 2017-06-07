@@ -12,7 +12,7 @@ module.exports = {
       documentid: {
         type: Sequelize.INTEGER
       },
-      userid: {
+      userId: {
         type: Sequelize.INTEGER
       },
       role: {
@@ -28,7 +28,7 @@ module.exports = {
       }
     });
   },
-  down(queryInterface, Sequelize) {
+  down(queryInterface) {
     return queryInterface.dropTable('AccessMappings');
   }
 };
