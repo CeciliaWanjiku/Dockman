@@ -1,11 +1,12 @@
 const db = require('../models');
 
 
-const document = db.Document;
+const Document = db.Document;
+const User = db.User;
 
 module.exports = {
   create(req, res) {
-    document.create({
+    Document.create({
       name: req.body.name,
       content: req.body.content,
       userId: req.body.userId
@@ -14,28 +15,23 @@ module.exports = {
       .catch(error => res.status(400).send(error));
   },
   FindDocument(req, res) {
-    return document
+    if (req.query.limit || req.query.offset) {
+      return Document.findAll({ offset: req.query.offset, limit: req.query.limit })
+      .then(response => res.status(200).send(response))
+      .catch(error => res.status(400).send(error));
+    }
+    return Document
       .all()
       .then(resp => res.status(201).send(resp))
       .catch(error => res.status(400).send(error));
   },
   FindOneDocument(req, res) {
-    if (req.query.limit || req.query.offset) {
-      return document.findAll({ offset: req.query.offset, limit: req.query.limit })
-      .then(response => res.status(200).send(response))
-      .catch(error => res.status(400).send(error));
-    }
-    return document
-      .findById(req.params.documentId, {
-        include: [{
-          model: document,
-          as: 'documents'
-        }]
-      })
+    return Document
+      .findById(req.params.documentId)
       .then((resp) => {
         if (!resp) {
           return res.status(404).send({
-            message: 'user Not Found',
+            message: 'Document Not Found',
 
           });
         }
@@ -45,19 +41,37 @@ module.exports = {
   },
   searchDocument(req, res) {
     if (req.query.name) {
-      return document.findAll({
+      return Document.findAll({
         where: {
-          $or: [
-            { name: { $like: `%${req.query.name}%` } }
-          ]
+          name: { $like: `%${req.query.name}%` }
         }
       })
       .then(response => res.status(200).send(response))
       .catch(error => res.status(400).send(error));
     }
   },
+  UpdateDocument(req, res) {
+    Document.findById(req.params.id, {
+    })
+    .then((document) => {
+      if (!document) {
+        return res.status(404).send({
+          message: 'Document Not Found',
+        });
+      }
+      return Document
+        .update({
+          name: req.body.name || document.name,
+          content: req.body.content || document.email,
+
+        })
+        .then(() => res.status(200).send(document))
+        .catch(error => res.status(400).send(error));
+    })
+    .catch(error => res.status(400).send(error));
+  },
   delete(req, res) {
-    document.findById(req.params.documentId)
+    Document.findById(req.params.documentId)
       .then((resp) => {
         if (!resp) {
           return res.status(404).send({

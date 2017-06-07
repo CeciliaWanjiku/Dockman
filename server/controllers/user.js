@@ -87,8 +87,8 @@ module.exports = {
     return user
       .findById(req.params.userId, {
         include: [{
-          model: user,
-          as: 'users'
+          model: Document,
+          as: 'documents'
         }]
       })
       .then((resp) => {
@@ -103,15 +103,14 @@ module.exports = {
       .catch(error => res.status(400).send(error));
   },
   UpdateUser(req, res) {
-    return user
-    .findById(req.params.userId, {
+    user.findById(req.params.userId, {
       include: [{
-        model: user,
-        as: 'userId',
+        model: Document,
+        as: 'documents',
       }],
     })
-    .then((resp) => {
-      if (!resp) {
+    .then((user) => {
+      if (!user) {
         return res.status(404).send({
           message: 'user Not Found',
         });
