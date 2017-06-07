@@ -20,4 +20,5 @@ module.exports = (app) => {
   app.get('/api/documents', documentController.FindDocument);
   app.get('/api/documents/:documentId', documentController.FindOneDocument);
   app.get('/api/search/users/', userController.searchUser);
+  app.get('/api/search/documents/:name', documentController.searchDocument);
 };

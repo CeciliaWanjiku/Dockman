@@ -40,4 +40,17 @@ module.exports = {
       })
       .catch(error => res.status(400).send(error));
   },
+  searchDocument(req, res) {
+    if (req.query.name) {
+      return document.findAll({
+        where: {
+          $or: [
+            { name: { $like: `%${req.query.name}%` } }
+          ]
+        }
+      })
+      .then(response => res.status(200).send(response))
+      .catch(error => res.status(400).send(error));
+    }
+  }
 };

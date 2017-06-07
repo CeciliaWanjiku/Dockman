@@ -1,12 +1,13 @@
-'use strict';
-module.exports = function(sequelize, DataTypes) {
-  var AccessMapping = sequelize.define('AccessMapping', {
+
+
+module.exports = function (sequelize, DataTypes) {
+  const AccessMapping = sequelize.define('AccessMapping', {
     documentid: DataTypes.INTEGER,
     userid: DataTypes.INTEGER,
     role: DataTypes.STRING
   }, {
     classMethods: {
-      associate: function(models) {
+      associate(models) {
         // associations can be defined here
       }
     }

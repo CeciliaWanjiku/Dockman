@@ -1,10 +1,10 @@
 
 
-module.exports = function (sequelize, DataTypes) {
-  let Document = sequelize.define('Document', {
-    title: DataTypes.STRING,
-    content: DataTypes.TEXT,
-    ownerid: DataTypes.INTEGER
+module.exports = (sequelize, DataTypes) => {
+  const Document = sequelize.define('Document', {
+    name: DataTypes.STRING,
+    Content: DataTypes.TEXT,
+    userId: DataTypes.INTEGER
   }, {
     classMethods: {
       associate(models) {

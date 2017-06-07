@@ -104,8 +104,8 @@ module.exports = {
         as: 'user',
       }],
     })
-    .then((user) => {
-      if (!user) {
+    .then((resp) => {
+      if (!resp) {
         return res.status(404).send({
           message: 'user Not Found',
         });
@@ -114,7 +114,7 @@ module.exports = {
         .update({
           name: req.body.name || user.name,
           email: req.body.email || user.email,
-          password: req.body.password || user.password,
+          password: req.body.password || user.password
 
         })
         .then(() => res.status(200).send(user))
