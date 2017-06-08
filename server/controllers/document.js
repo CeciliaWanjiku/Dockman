@@ -43,7 +43,7 @@ module.exports = {
     if (req.query.name) {
       return Document.findAll({
         where: {
-          name: { $like: `%${req.query.name}%` }
+          name: { $like: `%${req.query.q}%` }
         }
       })
       .then(response => res.status(200).send(response))
