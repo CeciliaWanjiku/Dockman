@@ -1,10 +1,24 @@
+import path from 'path';
+import webpack from 'webpack';
+import open from 'open';
+import config from '../webpack.config.dev';
 const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 
+
 // Set up the express app
 const app = express();
+const compiler = webpack(config);
+
+app.use(require('webpack-dev-middleware')(compiler, {
+  noInfo: true,
+  publicPath: config.output.publicPath
+}));
+
+app.use(require('webpack-hot-middleware')(compiler));
+
 
 // Log requests to the console.
 app.use(logger('dev'));
@@ -18,8 +32,8 @@ app.use(passport.initialize());
 
 require('../server/routes')(app);
 
-app.get('*', (req, res) => res.status(200).send({
-  message: 'Welcome to the beginning',
-}));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/src/index.html'));
+});
 
 module.exports = app;
