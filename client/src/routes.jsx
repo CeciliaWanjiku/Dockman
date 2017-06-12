@@ -10,7 +10,7 @@ export default (
   <Route path="/" component={App}>
     <IndexRoute component={HomePage} />
     <Route path="about" component={AboutPage} />
-    <Route path="documents" component={DocumentsPage} />
+    <Route path="document" component={DocumentsPage} />
     <Route path="document/:id" component={ManageDocumentPage} />
   </Route>
 );

@@ -10,17 +10,17 @@ class DocumentsPage extends React.Component {
     super(props, context);
     this.props.actions.loadDocuments();
 
-    this.state = {
-      document: { name: '' }
-    };
-    this.onTitleChange = this.onTitleChange.bind(this);
+    // this.state = {
+    //   document: { name: '' }
+    // // };
+    // this.onTitleChange = this.onTitleChange.bind(this);
     // this.onClickSave = this.onClickSave.bind(this);
   }
-  onTitleChange(event) {
-    const document = this.state.document;
-    document.name = event.target.value;
-    this.setState({ document });
-  }
+  // onTitleChange(event) {
+  //   const document = this.state.document;
+  //   document.name = event.target.value;
+  //   this.setState({ document });
+  // }
   // onClickSave() {
   //   this.props.actions.createDocument(this.state.document);
   // }
