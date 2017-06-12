@@ -4,11 +4,13 @@ import App from './components/App.jsx';
 import HomePage from './components/home/homePage.jsx';
 import AboutPage from './components/about/aboutPage.jsx';
 import DocumentsPage from './components/document/documentsPage.jsx';
+import ManageDocumentPage from './components/document/manageDocumentPage.jsx';
 
 export default (
   <Route path="/" component={App}>
     <IndexRoute component={HomePage} />
     <Route path="about" component={AboutPage} />
-    <Route path="document" component={DocumentsPage} />
+    <Route path="documents" component={DocumentsPage} />
+    <Route path="document/:id" component={ManageDocumentPage} />
   </Route>
 );
