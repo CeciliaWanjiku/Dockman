@@ -22,3 +22,10 @@ export function postEndpoint(endpoint) {
     .post(url)
   );
 }
+export function deleteEndpoint(endpoint) {
+  const url = endpoint;
+  return (
+    request
+    .delete(url)
+  );
+}

@@ -14,7 +14,7 @@ class ManageDocumentPage extends React.Component {
     };
     this.updateDocumentState = this.updateDocumentState.bind(this);
     this.updateDocument = this.updateDocument.bind(this);
-
+    this.deleteDocument = this.deleteDocument.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -42,17 +42,28 @@ class ManageDocumentPage extends React.Component {
       this.props.actions.updateDocument(this.state.document);
     }
   }
+  deleteDocument(event) {
+    this.props.actions.deleteDocument(this.state.document);
+  }
+
 
   render() {
     return (
-      <DocumentForm
-        allAuthors={this.props.users}
-        onChange={this.updateDocumentState}
-        onSave={this.updateDocument}
-        document={this.state.document}
-        errors={this.state.error}
-      />
-
+      <div>
+        <DocumentForm
+          allAuthors={this.props.users}
+          onChange={this.updateDocumentState}
+          onSave={this.updateDocument}
+          document={this.state.document}
+          errors={this.state.error}
+        />
+        <button
+          onClick={this.deleteDocument}
+          className="btn btn-default"
+        >
+           Delete Document
+       </button>
+      </div>
     );
   }
 }

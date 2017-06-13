@@ -1,5 +1,5 @@
 import * as types from './actionTypes';
-import { getEndpoint, putEndpoint, postEndpoint } from '../../utils/documentsAPI';
+import { getEndpoint, putEndpoint, postEndpoint, deleteEndpoint } from '../../utils/documentsAPI';
 
 export function loadDocumentsSuccess(documents) {
   return { type: types.LOAD_DOCUMENT_SUCCESS, documents };
@@ -10,6 +10,10 @@ export function createDocumentsSuccess(document) {
 export function updateDocumentsSuccess(document) {
   return { type: types.UPDATE_DOCUMENT_SUCCESS, document };
 }
+export function deleteDocumentsSuccess(document) {
+  return { type: types.DELETE_DOCUMENT_SUCCESS, document };
+}
+
 
 export function loadDocuments() {
   return function (dispatch) {
@@ -29,5 +33,12 @@ export function updateDocument(doc) {
     putEndpoint(`/api/documents/${doc.id}`)
     .send(doc)
     .end((err, res) => dispatch(updateDocumentsSuccess({ document: res.body })));
+  };
+}
+export function deleteDocument(doc) {
+  return function (dispatch) {
+    deleteEndpoint(`/api/documents/${doc.id}`)
+    .send(doc)
+    .end((err, res) => dispatch(deleteDocumentsSuccess({ document: res.body })));
   };
 }

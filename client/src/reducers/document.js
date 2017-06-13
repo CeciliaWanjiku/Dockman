@@ -1,3 +1,4 @@
+import { browserHistory } from 'react-router';
 import * as types from '../actions/actionTypes';
 
 export default function document(state = [], action) {
@@ -14,6 +15,13 @@ export default function document(state = [], action) {
         ...state.filter(doc => doc.id !== action.document.id),
         Object.assign({}, action.document)
       ];
+    case types.DELETE_DOCUMENT_SUCCESS: {
+      const newState = Object.assign([], state);
+      const indexOfDocumentToDelete = state.findIndex(doc => doc.id === action.document.id);
+      newState.splice(indexOfDocumentToDelete, 1);
+      browserHistory.push('/cats');
+      return newState;
+    }
 
     default:
       return state;
