@@ -12,11 +12,19 @@ class ManageDocumentPage extends React.Component {
       document: Object.assign({}, this.props.document),
       errors: {}
     };
+    this.updateDocumentState = this.updateDocumentState.bind(this);
+  }
+  updateDocumentState(event) {
+    const field = event.target.name;
+    const document = this.state.documment;
+    document[field] = event.target.value;
+    return this.setState({ document });
   }
   render() {
     return (
       <DocumentForm
-        allAuthors={[]}
+        allAuthors={this.props.users}
+        onChange={this.updateDocumentState}
         document={this.state.document}
         errors={this.state.error}
       />
@@ -26,13 +34,19 @@ class ManageDocumentPage extends React.Component {
 }
 
 ManageDocumentPage.propTypes = {
-  document: PropTypes.object.isRequired
+  document: PropTypes.object.isRequired,
+  users: PropTypes.array.isRequired
 };
 
 function mapStateToProps(state, ownProps) {
   const document = { id: '', name: '', ownerId: '', category: '' };
+  const usersFormattedForDropdown = state.users.map(user => ({
+    value: user.id,
+    text: user.name
+  }));
   return {
-    document
+    document,
+    users: usersFormattedForDropdown
   };
 }
 

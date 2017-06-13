@@ -8,3 +8,10 @@ export function getEndpoint(endpoint) {
     .get(url)
   );
 }
+export function putEndpoint(endpoint) {
+  const url = endpoint;
+  return (
+    request
+    .put(url)
+  );
+}

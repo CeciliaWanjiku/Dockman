@@ -1,8 +1,11 @@
 import * as types from './actionTypes';
-import { getEndpoint } from '../../utils/documentsAPI';
+import { getEndpoint, putEndpoint } from '../../utils/documentsAPI';
 
-export function loadDocumentsSuccess(documents) {
-  return { type: types.LOAD_DOCUMENT_SUCCESS, documents };
+export function loadDocumentsSuccess(users) {
+  return { type: types.LOAD_DOCUMENT_SUCCESS, users };
+}
+export function updateDocumentsSuccess(documents) {
+  return { type: types.UPDATE_DOCUMENT_SUCCESS, documents };
 }
 
 export function loadDocuments() {
@@ -11,4 +14,9 @@ export function loadDocuments() {
     .end((err, res) => dispatch(loadDocumentsSuccess(res.body)));
   };
 }
-
+export function updateDocument(document) {
+  return function (dispatch, getState) {
+    putEndpoint('/api/documents/:userId')
+    .end((err, res) => dispatch(updateDocumentsSuccess(res.body)));
+  };
+}

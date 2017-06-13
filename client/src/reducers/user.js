@@ -1,7 +1,7 @@
 import * as types from '../actions/actionTypes';
-export default function document(state = [], actions) {
+export default function user(state = [], actions) {
   switch (actions.type) {
-    case types.LOAD_DOCUMENT_SUCCESS:
+    case types.LOAD_USER_SUCCESS:
       return actions.users;
     default:
       return state;
