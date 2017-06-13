@@ -11,7 +11,7 @@ module.exports = {
   // create a new user
   create(req, res) {
     // checks if email and password have been provided
-    if (!req.body.email || !req.body.password) {
+    if (!req.body.email && !req.body.password) {
       res.json({ success: false, msg: 'Please add an email and password.' });
       // Check that the correct email format is entered
     } else if (!(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(req.body.email))) {

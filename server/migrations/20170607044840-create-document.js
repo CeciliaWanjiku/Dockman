@@ -14,6 +14,9 @@ module.exports = {
     content: {
       type: Sequelize.TEXT
     },
+    category: {
+      type: Sequelize.TEXT
+    },
     userId: {
       type: Sequelize.INTEGER,
       onDelete: 'CASCADE',

@@ -1,24 +1,37 @@
 import React from 'react';
 import TextInput from '../common/TextInput.jsx';
 import SelectInput from '../common/SelectInput.jsx';
+import TextArea from '../common/TextArea.jsx';
 
 
 const DocumentForm = ({ document, allAuthors, onSave, onChange, loading, errors }) => (
-  <form>
+  <form onSubmit={onSave}>
     <h1> Manage Document </h1>
     <TextInput
       name="name"
-      label="name"
+      label="Title"
       value={document.name}
       onChange={onChange}
-      
+
     />
-    <SelectInput
+    {/* <SelectInput
       name="name"
       label="name"
       value={document.userId}
       defaultOption="Select Doc Owner"
       options={allAuthors}
+    />*/}
+    {/* <textarea
+      name="content"
+      label="content"
+      value={document.content}
+      onChange={onChange}
+    />*/}
+    <TextArea
+      name="content"
+      label="Content Area"
+      value={document.content}
+      onChange={onChange}
     />
     <TextInput
       name="category"

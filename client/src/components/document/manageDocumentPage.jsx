@@ -13,18 +13,29 @@ class ManageDocumentPage extends React.Component {
       errors: {}
     };
     this.updateDocumentState = this.updateDocumentState.bind(this);
+    this.updateDocument = this.updateDocument.bind(this);
+  }
+  componentWillReceiveProps(nextProps) {
+    if (this.props.document.id !== nextProps.document.id) {
+      this.setState({ document: Object.assign({}, nextProps.document) });
+    }
   }
   updateDocumentState(event) {
     const field = event.target.name;
-    const document = this.state.documment;
+    const document = this.state.document;
     document[field] = event.target.value;
     return this.setState({ document });
+  }
+  updateDocument(event) {
+    event.preventDefault();
+    this.props.actions.updateDocument(this.state.document);
   }
   render() {
     return (
       <DocumentForm
         allAuthors={this.props.users}
         onChange={this.updateDocumentState}
+        onSave={this.updateDocument}
         document={this.state.document}
         errors={this.state.error}
       />
@@ -35,11 +46,22 @@ class ManageDocumentPage extends React.Component {
 
 ManageDocumentPage.propTypes = {
   document: PropTypes.object.isRequired,
-  users: PropTypes.array.isRequired
+  users: PropTypes.array.isRequired,
+  actions: PropTypes.object.isRequired
 };
-
+function getDocumentById(documents, id) {
+  const document = documents.filter(document => document.id == id);
+  if (document) return document[0];
+  return null;
+}
 function mapStateToProps(state, ownProps) {
-  const document = { id: '', name: '', ownerId: '', category: '' };
+  const documentId = ownProps.params.id;
+
+  let document = { id: '', name: '', content: '', category: '' };
+
+  if (documentId && state.documents.length > 0) {
+    document = getDocumentById(state.documents, documentId);
+  }
   const usersFormattedForDropdown = state.users.map(user => ({
     value: user.id,
     text: user.name

@@ -23,5 +23,5 @@ module.exports = (app) => {
   app.get('/api/documents/:documentId', documentController.FindOneDocument);
   app.get('/api/search/documents/', documentController.searchDocument);
   app.delete('/api/documents/:documentId', documentController.delete);
-  app.put('/api/documents/:userId', documentController.UpdateDocument);
+  app.put('/api/documents/:documentId', documentController.UpdateDocument);
 };

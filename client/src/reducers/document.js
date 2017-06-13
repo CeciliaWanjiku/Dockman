@@ -1,8 +1,20 @@
 import * as types from '../actions/actionTypes';
-export default function document(state = [], actions) {
-  switch (actions.type) {
+
+export default function document(state = [], action) {
+  switch (action.type) {
     case types.LOAD_DOCUMENT_SUCCESS:
-      return actions.users;
+      return action.documents;
+    case types.CREATE_DOCUMENT_SUCCESS:
+      return [
+        ...state,
+        Object.assign({}, action.document)
+      ];
+    case types.UPDATE_DOCUMENT_SUCCESS:
+      return [
+        ...state.filter(doc => doc.id !== action.document.id),
+        Object.assign({}, action.document)
+      ];
+
     default:
       return state;
   }

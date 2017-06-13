@@ -9,6 +9,7 @@ module.exports = {
     Document.create({
       name: req.body.name,
       content: req.body.content,
+      category: req.body.category,
       userId: req.body.userId
     })
       .then(document => res.status(201).send(document))
@@ -51,7 +52,7 @@ module.exports = {
     }
   },
   UpdateDocument(req, res) {
-    Document.findById(req.params.id, {
+    Document.findById(req.params.documentId, {
     })
     .then((document) => {
       if (!document) {
@@ -59,10 +60,11 @@ module.exports = {
           message: 'Document Not Found',
         });
       }
-      return Document
+      return document
         .update({
           name: req.body.name || document.name,
-          content: req.body.content || document.email,
+          content: req.body.content || document.content,
+          category: req.body.category || document.category
 
         })
         .then(() => res.status(200).send(document))

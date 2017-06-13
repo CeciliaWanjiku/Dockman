@@ -1,8 +1,9 @@
 import * as types from '../actions/actionTypes';
-export default function user(state = [], actions) {
-  switch (actions.type) {
+
+export default function user(state = [], action) {
+  switch (action.type) {
     case types.LOAD_USER_SUCCESS:
-      return actions.users;
+      return action.users;
     default:
       return state;
   }

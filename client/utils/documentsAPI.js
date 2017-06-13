@@ -15,3 +15,10 @@ export function putEndpoint(endpoint) {
     .put(url)
   );
 }
+export function postEndpoint(endpoint) {
+  const url = endpoint;
+  return (
+    request
+    .post(url)
+  );
+}
