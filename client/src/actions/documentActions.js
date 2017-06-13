@@ -1,11 +1,11 @@
 import * as types from './actionTypes';
-import { getEndpoint, putEndpoint } from '../../utils/documentsAPI';
+import { getEndpoint, putEndpoint, postEndpoint } from '../../utils/documentsAPI';
 
 export function loadDocumentsSuccess(documents) {
   return { type: types.LOAD_DOCUMENT_SUCCESS, documents };
 }
-export function createDocumentsSuccess(documents) {
-  return { type: types.CREATE_DOCUMENT_SUCCESS, documents };
+export function createDocumentsSuccess(document) {
+  return { type: types.CREATE_DOCUMENT_SUCCESS, document };
 }
 export function updateDocumentsSuccess(document) {
   return { type: types.UPDATE_DOCUMENT_SUCCESS, document };
@@ -17,10 +17,11 @@ export function loadDocuments() {
     .end((err, res) => dispatch(loadDocumentsSuccess(res.body)));
   };
 }
-export function createDocument() {
+export function createDocument(doc) {
   return function (dispatch) {
     postEndpoint('/api/documents')
-    .end((err, res) => dispatch(createDocumentsSuccess(res.body)));
+    .send(doc)
+    .end((err, res) => dispatch(createDocumentsSuccess({ document: res.body })));
   };
 }
 export function updateDocument(doc) {

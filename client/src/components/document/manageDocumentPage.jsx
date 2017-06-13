@@ -14,22 +14,35 @@ class ManageDocumentPage extends React.Component {
     };
     this.updateDocumentState = this.updateDocumentState.bind(this);
     this.updateDocument = this.updateDocument.bind(this);
+
   }
+
   componentWillReceiveProps(nextProps) {
+    if (/\/create$/.test(nextProps.location.pathname)) {
+      return;
+    }
     if (this.props.document.id !== nextProps.document.id) {
       this.setState({ document: Object.assign({}, nextProps.document) });
     }
   }
+
+
   updateDocumentState(event) {
     const field = event.target.name;
     const document = this.state.document;
     document[field] = event.target.value;
     return this.setState({ document });
   }
+
   updateDocument(event) {
     event.preventDefault();
-    this.props.actions.updateDocument(this.state.document);
+    if (/\/create$/.test(this.props.location.pathname)) {
+      this.props.actions.createDocument(this.state.document);
+    } else {
+      this.props.actions.updateDocument(this.state.document);
+    }
   }
+
   render() {
     return (
       <DocumentForm
