@@ -1,8 +1,11 @@
 import React, { PropTypes } from 'react';
+import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as documenActions from '../../actions/documentActions';
 import DocumentForm from './documentForm.jsx';
+import toastr from 'toastr';
+import _ from 'lodash';
 
 class ManageDocumentPage extends React.Component {
   constructor(props, context) {
@@ -10,13 +13,13 @@ class ManageDocumentPage extends React.Component {
 
     this.state = {
       document: Object.assign({}, this.props.document),
-      errors: {}
+      errors: {},
+      saving: false
     };
     this.updateDocumentState = this.updateDocumentState.bind(this);
     this.updateDocument = this.updateDocument.bind(this);
     this.deleteDocument = this.deleteDocument.bind(this);
   }
-
   componentWillReceiveProps(nextProps) {
     if (/\/create$/.test(nextProps.location.pathname)) {
       return;
@@ -36,12 +39,20 @@ class ManageDocumentPage extends React.Component {
 
   updateDocument(event) {
     event.preventDefault();
+    this.setState({ saving: true });
     if (/\/create$/.test(this.props.location.pathname)) {
       this.props.actions.createDocument(this.state.document);
     } else {
       this.props.actions.updateDocument(this.state.document);
     }
+    this.redirect();
   }
+  redirect() {
+    this.setState({ saving: false });
+    toastr.success('Document saved');
+    browserHistory.push('/document');
+  }
+
   deleteDocument(event) {
     this.props.actions.deleteDocument(this.state.document);
   }
@@ -56,6 +67,7 @@ class ManageDocumentPage extends React.Component {
           onSave={this.updateDocument}
           document={this.state.document}
           errors={this.state.error}
+          saving={this.state.saving}
         />
         <button
           onClick={this.deleteDocument}
@@ -73,32 +85,19 @@ ManageDocumentPage.propTypes = {
   users: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired
 };
-function getDocumentById(documents, id) {
-  const document = documents.filter(document => document.id == id);
-  if (document) return document[0];
-  return null;
+
+function getDocumentById(documents, docId) {
+  const document = _.find(documents, o => o.id === parseInt(docId, 10));
+  return document;
 }
-function mapStateToProps(state, ownProps) {
-  const documentId = ownProps.params.id;
-
-  let document = { id: '', name: '', content: '', category: '' };
-
-  if (documentId && state.documents.length > 0) {
-    document = getDocumentById(state.documents, documentId);
-  }
-  const usersFormattedForDropdown = state.users.map(user => ({
-    value: user.id,
-    text: user.name
-  }));
+const mapStateToProps = (state, ownProps) => {
+  const document = getDocumentById(state.documents, ownProps.params.id);
   return {
     document,
-    users: usersFormattedForDropdown
   };
-}
+};
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(documenActions, dispatch)
-  };
-}
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(documenActions, dispatch)
+});
 export default connect(mapStateToProps, mapDispatchToProps)(ManageDocumentPage);

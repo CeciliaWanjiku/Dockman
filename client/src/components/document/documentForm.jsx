@@ -2,9 +2,10 @@ import React from 'react';
 import TextInput from '../common/TextInput.jsx';
 import SelectInput from '../common/SelectInput.jsx';
 import TextArea from '../common/TextArea.jsx';
+import SelectOption from '../common/SelectOption.jsx';
 
 
-const DocumentForm = ({ document, allAuthors, onSave, onChange, loading, errors }) => (
+const DocumentForm = ({ document, allAuthors, onSave, onChange, saving, errors }) => (
   <form onSubmit={onSave}>
     <h1> Manage Document </h1>
     <TextInput
@@ -33,17 +34,24 @@ const DocumentForm = ({ document, allAuthors, onSave, onChange, loading, errors 
       value={document.content}
       onChange={onChange}
     />
-    <TextInput
+    {/* <TextInput
       name="category"
       label="category"
       value={document.category}
       onChange={onChange}
 
+    />*/}
+    <SelectOption
+      name="category"
+      label="category"
+      value={document.category}
+      onChange={onChange}
     />
+
     <input
       type="submit"
-      disabled={loading}
-      value={loading ? 'Saving...' : 'Save'}
+      disabled={saving}
+      value={saving ? 'Saving...' : 'Save'}
       onClick={onSave}
     />
   </form>
@@ -53,7 +61,7 @@ DocumentForm.propTypes = {
   allAuthors: React.PropTypes.array,
   onSave: React.PropTypes.func.isRequired,
   onChange: React.PropTypes.isRequired,
-  loading: React.PropTypes.bool,
+  saving: React.PropTypes.bool
   // errors: React.PropTypes.object
 };
 export default DocumentForm;

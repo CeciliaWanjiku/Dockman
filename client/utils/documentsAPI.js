@@ -1,31 +1,31 @@
 import request from 'superagent';
 
 
-export function getEndpoint(endpoint) {
+export const getEndpoint = (endpoint) => {
   const url = endpoint;
   return (
   request
     .get(url)
   );
-}
-export function putEndpoint(endpoint) {
+};
+export const putEndpoint = (endpoint) => {
   const url = endpoint;
   return (
     request
     .put(url)
   );
-}
-export function postEndpoint(endpoint) {
+};
+export const postEndpoint = (endpoint) => {
   const url = endpoint;
   return (
     request
     .post(url)
   );
-}
-export function deleteEndpoint(endpoint) {
+};
+export const deleteEndpoint = (endpoint) => {
   const url = endpoint;
   return (
     request
     .delete(url)
   );
-}
+};

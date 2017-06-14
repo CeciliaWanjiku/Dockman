@@ -22,6 +22,8 @@ export default function document(state = [], action) {
       browserHistory.push('/cats');
       return newState;
     }
+    case types.SEARCH_DOCUMENT_SUCCESS:
+      return action.documents;
 
     default:
       return state;

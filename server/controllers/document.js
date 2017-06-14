@@ -41,10 +41,10 @@ module.exports = {
       .catch(error => res.status(400).send(error));
   },
   searchDocument(req, res) {
-    if (req.query.name) {
+    if (req.query.q) {
       return Document.findAll({
         where: {
-          name: { $like: `%${req.query.q}%` }
+          name: { $iLike: `%${req.query.q}%` }
         }
       })
       .then(response => res.status(200).send(response))
