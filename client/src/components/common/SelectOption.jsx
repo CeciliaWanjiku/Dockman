@@ -8,8 +8,8 @@ const SelectOption = ({ name, label, onChange, defaultOption, value, error, opti
         value={value}
         onChange={onChange}
       >
-        <option value=" ">Public</option>
-        <option value=" ">Private</option>
+        <option value="public">Public</option>
+        <option value="private">Private</option>
       </select>
       {error && <div className="alert-danger">{error}</div>}
     </div>

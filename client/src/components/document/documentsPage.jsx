@@ -10,7 +10,6 @@ import DocumentList from './documentsList.jsx';
 class DocumentsPage extends React.Component {
   constructor(props, context) {
     super(props);
-    console.log(props);
     this.state = { activePage: 1, limit: 5, totalDocuments: null, searchValue: '' };
 
     this.redirectToAddDocumentPage = this.redirectToAddDocumentPage.bind(this);
@@ -20,6 +19,7 @@ class DocumentsPage extends React.Component {
   }
   componentDidMount() {
     this.setState({ totalDocuments: this.props.documents.length });
+    this.props.actions.loadDocuments(this.state.limit, 0);
   }
   searchDocument(searchValue) {
     this.props.actions.searchDocument(searchValue);
@@ -56,7 +56,7 @@ class DocumentsPage extends React.Component {
         <Pagination
           activePage={this.state.activePage}
           itemsCountPerPage={this.state.limit}
-          totalItemsCount={150}
+          totalItemsCount={50}
           pageRangeDisplayed={5}
           onChange={this.handlePageChange}
         />

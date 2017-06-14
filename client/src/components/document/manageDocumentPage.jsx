@@ -31,6 +31,7 @@ class ManageDocumentPage extends React.Component {
 
 
   updateDocumentState(event) {
+    console.log(event.target.value);
     const field = event.target.name;
     const document = this.state.document;
     document[field] = event.target.value;
@@ -39,6 +40,7 @@ class ManageDocumentPage extends React.Component {
 
   updateDocument(event) {
     event.preventDefault();
+    console.log(this.state.document);
     this.setState({ saving: true });
     if (/\/create$/.test(this.props.location.pathname)) {
       this.props.actions.createDocument(this.state.document);
