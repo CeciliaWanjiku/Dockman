@@ -19,7 +19,7 @@ const DocumentList = ({ documents }) => (
       </tbody>
     </table>
   );
-DocumentList.PropTypes = {
+DocumentList.propTypes = {
   documents: PropTypes.array.isRequired
 };
 

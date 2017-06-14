@@ -10,7 +10,7 @@ const DocumentListRow = ({ document }) => (
     <td>{document.name}</td>
   </tr>
   );
-DocumentListRow.PropTypes = {
+DocumentListRow.propTypes = {
   document: PropTypes.object.isRequired
 };
 export default DocumentListRow;

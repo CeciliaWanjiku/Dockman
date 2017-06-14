@@ -9,6 +9,7 @@ import DocumentForm from './components/document/documentForm.jsx';
 import UsersPage from './components/user/usersPage.jsx';
 import ManageUserPage from './components/user/manageUserPage.jsx';
 import UserForm from './components/user/userForm.jsx';
+import LogInPage from './components/user/userLogin.jsx';
 
 export default (
   <Route path="/" component={App}>
@@ -20,5 +21,7 @@ export default (
     <Route path="user" component={UsersPage} />
     <Route path="user/:id" component={ManageUserPage} />
     <Route path="user/create" component={UserForm} />
+    <Route path="userLogin" component={LogInPage} />
+
   </Route>
 );
