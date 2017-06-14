@@ -19,7 +19,7 @@ export default function document(state = [], action) {
       const newState = Object.assign([], state);
       const indexOfDocumentToDelete = state.findIndex(doc => doc.id === action.document.id);
       newState.splice(indexOfDocumentToDelete, 1);
-      browserHistory.push('/cats');
+      browserHistory.push('/documents');
       return newState;
     }
     case types.SEARCH_DOCUMENT_SUCCESS:
