@@ -1,5 +1,5 @@
 import * as types from './actionTypes';
-import { getEndpoint, postEndpoint } from '../../utils/documentsAPI';
+import { getEndpoint, postEndpoint, putEndpoint, deleteEndpoint } from '../../utils/documentsAPI';
 
 export const loadUsersSuccess = users => ({ type: types.LOAD_USER_SUCCESS, users });
 
@@ -20,25 +20,21 @@ export const createUser = user => (dispatch) => {
     .send(user)
     .end((err, res) => dispatch(createUsersSuccess({ user: res.body })));
 };
-export function updateUser(user) {
-  return function (dispatch) {
-    putEndpoint(`/api/users/${user.id}`)
+export const updateUser = user => (dispatch) => {
+  putEndpoint(`/api/users/${user.id}`)
     .send(user)
     .end((err, res) => dispatch(updateUsersSuccess({ user: res.body })));
-  };
-}
-export function deleteUser(user) {
-  return function (dispatch) {
-    deleteEndpoint(`/api/user/${doc.id}`)
+};
+export const deleteUser = user => (dispatch) => {
+  deleteEndpoint(`/api/user/${user.id}`)
     .send(user)
     .end((err, res) => dispatch(deleteUsersSuccess({ user: res.body })));
-  };
-}
-export function searchUser(searchValue) {
+};
+export const searchUser = (searchValue) => {
   searchValue = encodeURIComponent(searchValue);
-  return function (dispatch) {
+  return (dispatch) => {
     getEndpoint(`/api/search/user?q=${searchValue}`)
     .end((err, res) => dispatch(searchUsersSuccess(res.body)));
   };
-}
+};
 

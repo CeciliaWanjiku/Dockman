@@ -88,10 +88,10 @@ ManageDocumentPage.propTypes = {
   actions: PropTypes.object.isRequired
 };
 
-function getDocumentById(documents, docId) {
+const getDocumentById = (documents, docId) => {
   const document = _.find(documents, o => o.id === parseInt(docId, 10));
   return document;
-}
+};
 const mapStateToProps = (state, ownProps) => {
   const document = getDocumentById(state.documents, ownProps.params.id);
   return {

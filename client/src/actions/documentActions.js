@@ -16,33 +16,25 @@ export const loadDocuments = (limit = 10, offset = 0) => (dispatch) => {
   getEndpoint(`/api/documents/?limit=${limit}&offset=${offset}`)
     .end((err, res) => dispatch(loadDocumentsSuccess(res.body)));
 };
-export function createDocument(doc) {
-  return function (dispatch) {
-    postEndpoint('/api/documents')
+export const createDocument = doc => (dispatch) => {
+  postEndpoint('/api/documents')
     .send(doc)
     .end((err, res) => dispatch(createDocumentsSuccess({ document: res.body })));
-  };
-}
-export function updateDocument(doc) {
-  return function (dispatch) {
-    putEndpoint(`/api/documents/${doc.id}`)
+};
+export const updateDocument = doc => (dispatch) => {
+  putEndpoint(`/api/documents/${doc.id}`)
     .send(doc)
     .end((err, res) => dispatch(updateDocumentsSuccess({ document: res.body })));
-  };
-}
-export function deleteDocument(doc) {
-  return function (dispatch) {
-    deleteEndpoint(`/api/documents/${doc.id}`)
+};
+export const deleteDocument = doc => (dispatch) => {
+  deleteEndpoint(`/api/documents/${doc.id}`)
     .send(doc)
     .end((err, res) => dispatch(deleteDocumentsSuccess({ document: res.body })));
-  };
-}
-export function searchDocument(searchValue) {
-  console.log(searchValue);
+};
+export const searchDocument = (searchValue) => {
   searchValue = encodeURIComponent(searchValue);
-  console.log(searchValue);
-  return function (dispatch) {
+  return (dispatch) => {
     getEndpoint(`/api/search/documents?q=${searchValue}`)
     .end((err, res) => dispatch(searchDocumentsSuccess(res.body)));
   };
-}
+};

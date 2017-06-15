@@ -85,10 +85,10 @@ ManageUserPage.propTypes = {
   actions: PropTypes.object.isRequired
 };
 
-function getUserById(users, userId) {
+const getUserById = (users, userId) => {
   const user = _.find(users, o => o.id === parseInt(userId, 10));
   return user;
-}
+};
 const mapStateToProps = (state, ownProps) => {
   const user = getUserById(state.users, ownProps.params.id);
   return {

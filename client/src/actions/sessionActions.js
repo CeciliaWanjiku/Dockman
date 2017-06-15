@@ -1,17 +1,14 @@
 import * as types from './actionTypes';
-import { getEndpoint, postEndpoint } from '../../utils/documentsAPI';
+import { postEndpoint } from '../../utils/documentsAPI';
 import authenticate from '../authenticate/authenticate';
 
 
-export function loginSuccess() {
-  return { type: types.LOG_IN_SUCCESS };
-}
-export function loginUser(credentials) {
-  return function (dispatch) {
-    postEndpoint('/api/users/login')
+export const loginSuccess = () => ({ type: types.LOG_IN_SUCCESS });
+export const loginUser = credentials => (dispatch) => {
+  postEndpoint('/api/users/login')
     .send(credentials)
     .end((err, res) => dispatch(loginSuccess({ response: res.body })));
-  };
+}
 
 // export function loginUser(credentials) {
 //   return function (dispatch) {
@@ -24,7 +21,7 @@ export function loginUser(credentials) {
 //     });
 //   };
 // }
-}
+;
 // export function logOutUser() {
 //   authenticate.logOut();
 //   return { type: types.LOG_OUT };
