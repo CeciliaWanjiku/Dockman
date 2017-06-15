@@ -15,7 +15,7 @@ const Authenticate = {
 
     // If token is given
     if (token) {
-      jwt.verify(token, process.env.SECRET_TOKEN_KEY, (error, decoded) => {
+      jwt.verify(token, process.env.SECRET_KEY, (error, decoded) => {
         // If token is invalid
         if (error) {
           // Set status to unauthorized and return fail json

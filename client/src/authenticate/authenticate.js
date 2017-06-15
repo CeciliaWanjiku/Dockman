@@ -1,10 +1,10 @@
 class Authenticate {
   static loggedIn() {
-    return !!sessionStorage.jwt;
+    return !!sessionStorage.token;
   }
 
   static logOut() {
-    sessionStorage.removeItem('jwt');
+    sessionStorage.removeItem('token');
   }
 }
 

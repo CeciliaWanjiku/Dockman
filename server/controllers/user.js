@@ -2,7 +2,10 @@ const db = require('../models');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const secretKey = 'sec';
+const secretKey = process.env.SECRET_KEY;
+
+
+// const secretKey = 'sec';
 const saltRounds = 10;
 
 const user = db.User;
@@ -33,25 +36,33 @@ module.exports = {
   },
   // login a existing user
   login(req, res) {
+    console.log(req.body)
     if (!req.body.email || !req.body.password) {
       res.json({ success: false, msg: 'Please provide email and password.' });
     } else {
       user.findOne({ where: { email: req.body.email } })
+
         .then((response) => {
+          if (!response) {
+            return res.status(404).send({
+              message: 'User Not Found',
+            });
+          }
           // console.log('LOGIN', response.dataValues);
           if (bcrypt.compareSync(req.body.password, response.password)) {
             const token = jwt.sign({ data: user.id }, secretKey, {
               expiresIn: 60 * 60
             });
             return res.status(200).json(Object.assign({},
-              { id: user.id, email: req.body.email }, { token }));
+              { id: user.id, email: req.body.email, name: req.body.name }, { token }));
             // return token
           }
           // return error: Password is incorrect
           return res.status(401).json({
             message: 'Invalid password'
           });
-        });
+        })
+        .catch(err => console.log(err));
     }
   },
   delete(req, res) {

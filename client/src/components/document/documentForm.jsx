@@ -6,7 +6,10 @@ import SelectOption from '../common/SelectOption.jsx';
 
 
 const DocumentForm = ({ document, allAuthors, onSave, onChange, saving, errors }) => (
-  <form onSubmit={onSave}>
+  <form
+    className="col s12"
+    onSubmit={onSave}
+  >
     <h1> Manage Document </h1>
     <TextInput
       name="name"
@@ -15,33 +18,15 @@ const DocumentForm = ({ document, allAuthors, onSave, onChange, saving, errors }
       onChange={onChange}
 
     />
-    {/* <SelectInput
-      name="name"
-      label="name"
-      value={document.userId}
-      defaultOption="Select Doc Owner"
-      options={allAuthors}
-    />*/}
-    {/* <textarea
-      name="content"
-      label="content"
-      value={document.content}
-      onChange={onChange}
-    />*/}
     <TextArea
+      className="materialize-textarea"
       name="content"
       label="Content Area"
       value={document.content}
       onChange={onChange}
     />
-    {/* <TextInput
-      name="category"
-      label="category"
-      value={document.category}
-      onChange={onChange}
-
-    />*/}
     <SelectOption
+      className="input-field col s12"
       name="category"
       label="category"
       value={document.category}
@@ -49,6 +34,7 @@ const DocumentForm = ({ document, allAuthors, onSave, onChange, saving, errors }
     />
 
     <input
+      className="waves-effect waves-light btn"
       type="submit"
       disabled={saving}
       value={saving ? 'Saving...' : 'Save'}

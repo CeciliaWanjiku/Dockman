@@ -7,7 +7,7 @@ export const loginSuccess = () => ({ type: types.LOG_IN_SUCCESS });
 export const loginUser = credentials => (dispatch) => {
   postEndpoint('/api/users/login')
     .send(credentials)
-    .end((err, res) => dispatch(loginSuccess({ response: res.body })));
+    .end((err, res) => dispatch(loginSuccess({ response: res.token })));
 }
 
 // export function loginUser(credentials) {

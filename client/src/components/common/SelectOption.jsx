@@ -4,6 +4,7 @@ const SelectOption = ({ name, label, onChange, defaultOption, value, error, opti
     <label htmlFor={name}>{label}</label>
     <div className="field">
       <select
+        className="input-field col s12"
         name={name}
         value={value}
         onChange={onChange}

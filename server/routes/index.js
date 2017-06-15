@@ -1,17 +1,11 @@
 const userController = require('../controllers').user;
 const documentController = require('../controllers').document;
+const authenticate = require('../middleware/authenticate');
 
 module.exports = (app) => {
-  app.get('/api', (req, res) => res.status(200).send({
-    message: 'welcome to the user api',
-  }));
-    // login//
-
-    // middware (req,res)
-
-
   app.post('/api/users', userController.create);
   app.post('/api/users/login', userController.login);
+  app.use('/api', authenticate.token);
   app.get('/api/users/:userId', userController.findOneUser);
   app.delete('/api/users/:userId', userController.delete);
   app.put('/api/users/:userId', userController.UpdateUser);

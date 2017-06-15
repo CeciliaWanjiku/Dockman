@@ -1,14 +1,15 @@
-import * as types from '../actions/actionTypes';
 import { browserHistory } from 'react-router';
+import * as types from '../actions/actionTypes';
+
 
 export default function sessionReducer(state = [], action) {
   switch (action.type) {
     case types.LOG_IN_SUCCESS:
-      browserHistory.push('/users');
-      return !!sessionStorage.jwt;
+      browserHistory.push('/document');
+      return !!action.token;
     case types.LOG_OUT:
       browserHistory.push('/');
-      return !!sessionStorage.jwt;
+      return !!action.token;
     default:
       return state;
   }

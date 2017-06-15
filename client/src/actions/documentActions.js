@@ -14,7 +14,12 @@ export const searchDocumentsSuccess = documents =>
 
 export const loadDocuments = (limit = 10, offset = 0) => (dispatch) => {
   getEndpoint(`/api/documents/?limit=${limit}&offset=${offset}`)
-    .end((err, res) => dispatch(loadDocumentsSuccess(res.body)));
+    .end((err, res) => {
+      if (err || !res.ok) {
+        return ('error');
+      }
+      dispatch(loadDocumentsSuccess(res.body));
+    });
 };
 export const createDocument = doc => (dispatch) => {
   postEndpoint('/api/documents')

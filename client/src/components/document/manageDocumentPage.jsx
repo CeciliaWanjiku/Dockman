@@ -40,7 +40,6 @@ class ManageDocumentPage extends React.Component {
 
   updateDocument(event) {
     event.preventDefault();
-    console.log(this.state.document);
     this.setState({ saving: true });
     if (/\/create$/.test(this.props.location.pathname)) {
       this.props.actions.createDocument(this.state.document);

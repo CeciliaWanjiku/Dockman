@@ -9,6 +9,7 @@ import { loadUsers } from './actions/userActions.js';
 import Route from './routes.jsx';
 import './styles/styles.css';
 import '../../node_modules/toastr/build/toastr.min.css';
+import '../../node_modules/materialize-css/dist/css/materialize.min.css';
 const store = configureStore();
 // store.dispatch(loadDocuments());
 store.dispatch(loadUsers());
