@@ -36,7 +36,7 @@ module.exports = {
   },
   // login a existing user
   login(req, res) {
-    console.log(req.body)
+    console.log(req.body);
     if (!req.body.email || !req.body.password) {
       res.json({ success: false, msg: 'Please provide email and password.' });
     } else {
@@ -50,7 +50,7 @@ module.exports = {
           }
           // console.log('LOGIN', response.dataValues);
           if (bcrypt.compareSync(req.body.password, response.password)) {
-            const token = jwt.sign({ data: user.id }, secretKey, {
+            const token = jwt.sign({ data: { id: response.id, name: response.name } }, secretKey, {
               expiresIn: 60 * 60
             });
             return res.status(200).json(Object.assign({},
@@ -95,6 +95,25 @@ module.exports = {
       .catch(error => res.status(400).send(error));
   },
   findOneUser(req, res) {
+    return user
+      .findById(req.params.userId, {
+        include: [{
+          model: Document,
+          as: 'documents'
+        }]
+      })
+      .then((resp) => {
+        if (!resp) {
+          return res.status(404).send({
+            message: 'user Not Found',
+
+          });
+        }
+        return res.status(200).send(resp);
+      })
+      .catch(error => res.status(400).send(error));
+  },
+  userDocuments(req, res) {
     return user
       .findById(req.params.userId, {
         include: [{

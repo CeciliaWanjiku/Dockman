@@ -1,0 +1,6 @@
+{
+  "/users(/*)?": {
+    "get": ["admin"],
+    "post": ["admin"]
+  }
+  }

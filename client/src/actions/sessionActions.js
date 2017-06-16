@@ -3,11 +3,15 @@ import { postEndpoint } from '../../utils/documentsAPI';
 import authenticate from '../authenticate/authenticate';
 
 
-export const loginSuccess = () => ({ type: types.LOG_IN_SUCCESS });
+export const loginSuccess = res => ({ type: types.LOG_IN_SUCCESS, token: res.token });
+
 export const loginUser = credentials => (dispatch) => {
   postEndpoint('/api/users/login')
     .send(credentials)
-    .end((err, res) => dispatch(loginSuccess({ response: res.token })));
+    .end((err, res) => {
+      localStorage.setItem('jwt', res.body.token);
+      return dispatch(loginSuccess({ token: res.body.token }));
+    });
 }
 
 // export function loginUser(credentials) {

@@ -9,6 +9,7 @@ const passport = require('passport');
 const dotenv = require('dotenv');
 
 
+
 // Set up the express app
 const app = express();
 const compiler = webpack(config);
@@ -35,6 +36,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // Setup a default catch-all route that sends back a welcome message in JSON format.
 app.use(passport.initialize());
+app.use((req, res, next) => {
+  req.user = {};
+  const auth = req.get('Authorization');
+  if (typeof auth !== 'undefined') { req.user.roles = auth.split(' '); } else { req.user.roles = []; }
+  next();
+});
 
 require('../server/routes')(app);
 
