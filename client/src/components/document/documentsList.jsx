@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import DocumentListRow from './DocumentListRow.jsx';
+import DocumentListRow from './documentListRow.jsx';
 
 
 const DocumentList = ({ documents }) => (
@@ -7,9 +7,9 @@ const DocumentList = ({ documents }) => (
     <thead>
       <tr>
         <th> Title </th>
-        <th> Author </th>
-        <th> Category </th>
         <th> Content </th>
+        <th> Category </th>
+        <th> Owner Id </th>
       </tr>
     </thead>
     <tbody>

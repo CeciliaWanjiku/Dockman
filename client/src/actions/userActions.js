@@ -3,8 +3,16 @@ import { getEndpoint, postEndpoint, putEndpoint, deleteEndpoint } from '../../ut
 
 export const loadUsersSuccess = users => ({ type: types.LOAD_USER_SUCCESS, users });
 
-export const loadUsers = () => dispatch => getEndpoint('/api/users/').end((err, res) =>
-dispatch(loadUsersSuccess(res.body)));
+export const loadUsers = () => dispatch => getEndpoint('/api/users/')
+  .set('access-token', localStorage.getItem('jwt'))
+  .end((err, res) => {
+    if (!err) {
+      dispatch(loadUsersSuccess(res.body));
+    } else {
+      console.log(err);
+      //alert('Unauthorized!');
+    }
+  });
 export const createUsersSuccess = user => ({
   type: types.CREATE_USERS_SUCCESS, user });
 export const updateUsersSuccess = user => ({
@@ -30,6 +38,7 @@ export const deleteUser = user => (dispatch) => {
     .send(user)
     .end((err, res) => dispatch(deleteUsersSuccess({ user: res.body })));
 };
+
 export const searchUser = (searchValue) => {
   searchValue = encodeURIComponent(searchValue);
   return (dispatch) => {

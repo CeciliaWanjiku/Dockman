@@ -38,7 +38,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
 app.use((req, res, next) => {
   req.user = {};
-  const auth = req.get('Authorization');
+  const auth = req.get('access-token');
+  console.log('---Authorization---', auth);
   if (typeof auth !== 'undefined') { req.user.roles = auth.split(' '); } else { req.user.roles = []; }
   next();
 });

@@ -7,7 +7,7 @@ import DocumentForm from './documentForm.jsx';
 import toastr from 'toastr';
 import _ from 'lodash';
 
-class ManageDocumentPage extends React.Component {
+export class ManageDocumentPage extends React.Component {
   constructor(props, context) {
     super(props, context);
 
@@ -31,17 +31,34 @@ class ManageDocumentPage extends React.Component {
 
 
   updateDocumentState(event) {
-    console.log(event.target.value);
     const field = event.target.name;
     const document = this.state.document;
     document[field] = event.target.value;
     return this.setState({ document });
   }
+  documentFormIsValid() {
+    let formIsValid = true;
+    const errors = {};
+
+    if (this.state.document.name.length < 5) {
+      errors.name = 'Title must be at least 5 characters.';
+      formIsValid = false;
+    }
+
+    this.setState({ errors });
+    return formIsValid;
+  }
 
   updateDocument(event) {
     event.preventDefault();
+    if (!this.documentFormIsValid()) {
+      toastr.error('Document title should be longer than 5 characters!!');
+      return;
+    }
     this.setState({ saving: true });
+
     if (/\/create$/.test(this.props.location.pathname)) {
+      this.state.document['category'] = this.state.document['category'] || 'public';
       this.props.actions.createDocument(this.state.document);
     } else {
       this.props.actions.updateDocument(this.state.document);

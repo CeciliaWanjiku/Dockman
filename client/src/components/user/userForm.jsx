@@ -24,6 +24,7 @@ const UserForm = ({ user, email, onSave, onChange, saving, errors }) => (
     <TextInput
       name="password"
       label="password"
+      type="password"
       value={user.password}
       onChange={onChange}
     />

@@ -1,19 +1,18 @@
 import React, { PropTypes } from 'react';
+const styleVisible = {display: 'block'}
 const SelectOption = ({ name, label, onChange, defaultOption, value, error, options }) => (
-  <div className="select=form">
-    <label htmlFor={name}>{label}</label>
-    <div className="field">
-      <select
-        className="input-field col s12"
-        name={name}
-        value={value}
-        onChange={onChange}
-      >
-        <option value="public">Public</option>
-        <option value="private">Private</option>
-      </select>
-      {error && <div className="alert-danger">{error}</div>}
-    </div>
+  <div className="col s12">
+    <label htmlFor={name} style={styleVisible}>{label}</label>
+    <select
+      name={name}
+      value={value || 'public'}
+      onChange={onChange}
+      style={styleVisible}
+    >
+      <option value="public">Public</option>
+      <option value="private">Private</option>
+    </select>
+    {error && <div className="alert-danger">{error}</div>}
   </div>
 
     );

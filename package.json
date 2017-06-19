@@ -10,6 +10,7 @@
     "start-dev": "nodemon ./index",
     "lint": "./node_modules/.bin/eslint -c .eslintrc ./server",
     "test": "mocha server/test",
+    "test:front": "mocha --reporter progress client/tools/testSetup.js \"client/src/**/*.test.js\"",
     "lint:watch": "npm run lint -- --watch"
   },
   "author": "Cecilia Wahome",
@@ -21,6 +22,7 @@
     "chai": "^4.0.2",
     "chai-http": "^3.0.0",
     "dotenv": "^4.0.0",
+    "expect": "^1.19.0",
     "express": "^4.15.3",
     "jquery": "2.2.3",
     "jsonwebtoken": "^7.4.1",

@@ -26,6 +26,9 @@ const Authenticate = {
         }
         // Valid, save decoded object for possibly other routes to use
         req.decoded = decoded;
+        req.user = req.user ? req.user : {};
+        req.user.roles = [decoded.data.role];
+        console.log('-----DECODED---', decoded);
         // Execute route
         next();
       });

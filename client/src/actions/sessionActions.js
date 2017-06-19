@@ -4,13 +4,18 @@ import authenticate from '../authenticate/authenticate';
 
 
 export const loginSuccess = res => ({ type: types.LOG_IN_SUCCESS, token: res.token });
+export const logOut = res => ({ type: types.LOG_OUT, token: res.token });
 
 export const loginUser = credentials => (dispatch) => {
   postEndpoint('/api/users/login')
     .send(credentials)
     .end((err, res) => {
-      localStorage.setItem('jwt', res.body.token);
-      return dispatch(loginSuccess({ token: res.body.token }));
+      if (!err) {
+        localStorage.setItem('jwt', res.body.token);
+        localStorage.setItem('user_id', res.body.id);
+        return dispatch(loginSuccess({ token: res.body.token }));
+      }
+      console.log('Login error: ', err);
     });
 }
 
@@ -26,6 +31,16 @@ export const loginUser = credentials => (dispatch) => {
 //   };
 // }
 ;
-// export function logOutUser() {
+export const LogOutUser = credentials => (dispatch) => {
+  postEndpoint('api/users/logout')
+  .send(credentials)
+  .end((err, res) => {
+    if (!err) {
+      localStorage.removeItem('jwt', res.body.token);
+      return dispatch(logOut({ token: res.body.token }));
+    }
+  });
+};
+// export const logOutUser = ()=>  {
 //   authenticate.logOut();
 //   return { type: types.LOG_OUT };

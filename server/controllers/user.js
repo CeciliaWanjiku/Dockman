@@ -23,6 +23,7 @@ module.exports = {
       user.create({
         name: req.body.name,
         email: req.body.email,
+        role: req.body.role || 'user',
         password: bcrypt.hashSync(req.body.password, saltRounds),
         // role: req.body.role
       })
@@ -50,11 +51,11 @@ module.exports = {
           }
           // console.log('LOGIN', response.dataValues);
           if (bcrypt.compareSync(req.body.password, response.password)) {
-            const token = jwt.sign({ data: { id: response.id, name: response.name } }, secretKey, {
+            const token = jwt.sign({ data: { id: response.id, name: response.name, role: response.role } }, secretKey, {
               expiresIn: 60 * 60
             });
             return res.status(200).json(Object.assign({},
-              { id: user.id, email: req.body.email, name: req.body.name }, { token }));
+              { id: response.id, email: req.body.email, name: req.body.name }, { token }));
             // return token
           }
           // return error: Password is incorrect
@@ -95,25 +96,6 @@ module.exports = {
       .catch(error => res.status(400).send(error));
   },
   findOneUser(req, res) {
-    return user
-      .findById(req.params.userId, {
-        include: [{
-          model: Document,
-          as: 'documents'
-        }]
-      })
-      .then((resp) => {
-        if (!resp) {
-          return res.status(404).send({
-            message: 'user Not Found',
-
-          });
-        }
-        return res.status(200).send(resp);
-      })
-      .catch(error => res.status(400).send(error));
-  },
-  userDocuments(req, res) {
     return user
       .findById(req.params.userId, {
         include: [{

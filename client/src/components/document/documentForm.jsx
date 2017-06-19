@@ -10,7 +10,7 @@ const DocumentForm = ({ document, allAuthors, onSave, onChange, saving, errors }
     className="col s12"
     onSubmit={onSave}
   >
-    <h1> Manage Document </h1>
+    <h1>Manage Document</h1>
     <TextInput
       name="name"
       label="Title"

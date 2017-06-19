@@ -2,5 +2,9 @@
   "/users(/*)?": {
     "get": ["admin"],
     "post": ["admin"]
+  },
+  "/documents(/*)?": {
+    "get": ["user"],
+    "post": ["user"]
   }
-  }
+}

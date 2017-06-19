@@ -1,19 +1,20 @@
 const db = require('../models');
-
+const jwt = require('jsonwebtoken');
 
 const Document = db.Document;
 const User = db.User;
 
 module.exports = {
   create(req, res) {
+    const decoded = jwt.verify(req.headers['access-token'], process.env.SECRET_KEY);
     Document.create({
       name: req.body.name,
       content: req.body.content,
       category: req.body.category,
-      userId: req.body.userId
+      userId: decoded.data.id
     })
-      .then(document => res.status(201).send(document))
-      .catch(error => res.status(400).send(error));
+    .then(document => res.status(201).send(document))
+    .catch(error => res.status(400).send(error));
   },
   FindDocument(req, res) {
     if (req.query.limit || req.query.offset) {
@@ -86,4 +87,39 @@ module.exports = {
       })
       .catch(error => res.status(400).send(error));
   },
+  FindPublicDocuments(req, res) {
+    return Document.findAll({
+      where: {
+        category: { $iLike: 'public' }
+      }
+    })
+      .then((resp) => {
+        if (!resp) {
+          return res.status(404).send({
+            message: 'Documents Not Found',
+
+          });
+        }
+        return res.status(200).send(resp);
+      })
+      .catch(error => res.status(400).send(error));
+  },
+  userDocuments(req, res) {
+    return Document.findAll({
+      where: {
+        userId: req.params.userId
+      }
+    })
+      .then((resp) => {
+        if (!resp) {
+          return res.status(404).send({
+            message: 'Documents Not Found',
+
+          });
+        }
+        return res.status(200).send(resp);
+      })
+      .catch(error => res.status(400).send(error));
+  }
+
 };

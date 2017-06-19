@@ -8,11 +8,10 @@ const UsersList = ({ users }) => (
       <tr>
         <th> Name </th>
         <th> Email </th>
-        <th> Password </th>
       </tr>
     </thead>
     <tbody>
-      {users.map(user =>
+      {users && users.map(user =>
         <UserListRow key={user.id} user={user} />
       )}
     </tbody>

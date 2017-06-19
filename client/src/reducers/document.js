@@ -5,6 +5,12 @@ export default function document(state = [], action) {
   switch (action.type) {
     case types.LOAD_DOCUMENT_SUCCESS:
       return action.documents;
+    case types.LOAD_PUBLIC_DOCUMENTS_SUCCESS:
+      return action.documents;
+    case types.USER_DOCUMENTS_SUCCESS:
+      return action.documents;
+
+
     case types.CREATE_DOCUMENT_SUCCESS:
       return [
         ...state,

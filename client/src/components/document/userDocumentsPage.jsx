@@ -5,20 +5,17 @@ import { Link } from 'react-router';
 import * as documentActions from '../../actions/documentActions.js';
 import DocumentList from '../document/documentsList.jsx';
 
-class HomePage extends React.Component {
+class UserDocumentsPage extends React.Component {
   constructor(props) {
     super(props);
-    // this.state = props.documents;
   }
   componentWillMount() {
-    // this.setState({ publicDocuments: this.props.documents });
-    this.props.actions.loadPublicDocuments(this.props.documents);
+    this.props.actions.userDocuments(this.props.documents);
   }
   render() {
     return (
       <div>
-        <h2> Welcome to Dockman </h2>
-        <p>Public Documents</p>
+        <h2> User Documents </h2>
         <DocumentList documents={this.props.documents} />
       </div>
 
@@ -30,4 +27,4 @@ const mapStateToProps = (state, ownProps) => ({ documents: state.documents });
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(documentActions, dispatch)
 });
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
+export default connect(mapStateToProps, mapDispatchToProps)(UserDocumentsPage);

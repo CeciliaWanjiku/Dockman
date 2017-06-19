@@ -10,12 +10,14 @@ import UsersPage from './components/user/usersPage.jsx';
 import ManageUserPage from './components/user/manageUserPage.jsx';
 import UserForm from './components/user/userForm.jsx';
 import LogInPage from './components/user/userLogin.jsx';
+import UserDocumentsPage from './components/document/userDocumentsPage.jsx';
 
 export default (
   <Route path="/" component={App}>
     <IndexRoute component={HomePage} />
     <Route path="about" component={AboutPage} />
     <Route path="document" component={DocumentsPage} />
+    <Route path="document/userdocuments" component={UserDocumentsPage} />
     <Route path="document/:id" component={ManageDocumentPage} />
     <Route path="document/create" component={DocumentForm} />
     <Route path="user" component={UsersPage} />

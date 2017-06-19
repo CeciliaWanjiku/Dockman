@@ -38,6 +38,7 @@ class LogInPage extends React.Component {
           <TextInput
             name="password"
             label="password"
+            type="password"
             value={this.state.credentials.password}
             onChange={this.onChange}
           />
