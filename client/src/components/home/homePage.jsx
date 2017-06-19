@@ -19,7 +19,7 @@ class HomePage extends React.Component {
       <div>
         <h2> Welcome to Dockman </h2>
         <p>Public Documents</p>
-        <DocumentList documents={this.props.documents} />
+        <DocumentList documents={this.props.documents} view />
       </div>
 
     );

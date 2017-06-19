@@ -7,7 +7,7 @@ import SelectOption from '../common/SelectOption.jsx';
 
 const UserForm = ({ user, email, onSave, onChange, saving, errors }) => (
   <form onSubmit={onSave}>
-    <h1> Manage User </h1>
+    <h4>Sign Up </h4>
     <TextInput
       name="name"
       label="Name"
@@ -30,6 +30,7 @@ const UserForm = ({ user, email, onSave, onChange, saving, errors }) => (
     />
     <input
       type="submit"
+      className="waves-effect waves-light btn"
       disabled={saving}
       value={saving ? 'Saving...' : 'Save'}
       onClick={onSave}

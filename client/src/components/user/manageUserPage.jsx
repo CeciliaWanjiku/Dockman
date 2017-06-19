@@ -36,9 +36,30 @@ class ManageUserPage extends React.Component {
     user[field] = event.target.value;
     return this.setState({ user });
   }
+  userFormIsValid() {
+    let formIsValid = true;
+    const errors = {};
+
+    if (this.state.user.name.length < 5) {
+      errors.name = 'name must be at least 5 characters.';
+      formIsValid = false;
+    }
+
+    this.setState({ errors });
+    return formIsValid;
+  }
+  // createUser(event) {
+  //   event.preventDefault();
+  //   this.setState({ saving: true });
+  //   this.props.actions.createUser(this.state.user);
+  // }
 
   updateUser(event) {
     event.preventDefault();
+    if (!this.userFormIsValid()) {
+      toastr.error('Name should be longer than 5 characters!!');
+      return;
+    }
     this.setState({ saving: true });
     if (/\/create$/.test(this.props.location.pathname)) {
       this.props.actions.createUser(this.state.user);
@@ -68,12 +89,12 @@ class ManageUserPage extends React.Component {
           errors={this.state.error}
           saving={this.state.saving}
         />
-        <button
+        {/* <button
           onClick={this.deleteUser}
           className="btn btn-default"
         >
            Delete User
-       </button>
+       </button>*/}
       </div>
     );
   }

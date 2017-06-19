@@ -40,8 +40,8 @@ export const createDocument = doc => (dispatch) => {
 };
 export const updateDocument = doc => (dispatch) => {
   putEndpoint(`/api/documents/${doc.id}`)
+    .set('access-token', localStorage.getItem('jwt'))
     .send(doc)
-  .set('access-token', localStorage.getItem('jwt'))
     .end((err, res) => dispatch(updateDocumentsSuccess({ document: res.body })));
 };
 export const userDocuments = () => (dispatch) => {
@@ -58,6 +58,7 @@ export const searchDocument = (searchValue) => {
   searchValue = encodeURIComponent(searchValue);
   return (dispatch) => {
     getEndpoint(`/api/search/documents?q=${searchValue}`)
+    .set('access-token', localStorage.getItem('jwt'))
     .end((err, res) => dispatch(searchDocumentsSuccess(res.body)));
   };
 };

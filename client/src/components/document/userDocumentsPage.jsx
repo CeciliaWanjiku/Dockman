@@ -15,7 +15,7 @@ class UserDocumentsPage extends React.Component {
   render() {
     return (
       <div>
-        <h2> User Documents </h2>
+        <h4> User Documents </h4>
         <DocumentList documents={this.props.documents} />
       </div>
 

@@ -66,6 +66,9 @@ module.exports = {
         .catch(err => console.log(err));
     }
   },
+  logout(req, res) {
+    
+  },
   delete(req, res) {
     user.findById(req.params.userId)
       .then((resp) => {

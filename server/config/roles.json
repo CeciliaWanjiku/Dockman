@@ -1,10 +1,17 @@
 {
   "/users(/*)?": {
     "get": ["admin"],
-    "post": ["admin"]
+    "post": ["admin"],
+    "put": ["admin"],
+    "delete": ["admin"]
   },
   "/documents(/*)?": {
-    "get": ["user"],
-    "post": ["user"]
+    "get": ["user", "admin"],
+    "post": ["user", "admin"],
+    "put": ["user", "admin"],
+    "delete": ["user", "admin"]
+  },
+  "/search/documents(/*)?": {
+    "get": ["user", "admin"]
   }
 }

@@ -2,11 +2,21 @@ import React from 'react';
 import jwtDecode from 'jwt-decode';
 import { Link, IndexLink } from 'react-router';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import LoadingDots from './LoadingDots.jsx';
-
-
+import * as sessionActions from '../../actions/sessionActions.js';
 
 class Header extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.logoutUser = this.logoutUser.bind(this);
+  }
+
+  logoutUser() {
+    this.props.actions.logoutUser();
+  }
+
   render() {
     const token = this.props.session.token || localStorage.getItem('jwt');
     const user = token && jwtDecode(token);
@@ -21,12 +31,16 @@ class Header extends React.Component {
           {' | '}
           <Link to="/user" activeClassName="active">User </Link>
           {' | '}
+          <Link to="document/userdocuments" activeClassName="active">User Documents </Link>
+          {' | '}
+          <Link to="/user/create" activeClassName="active">Sign Up </Link>
+          {' | '}
           {user
             ? <Link to={`/user/${user.id}`} activeClassName="active">{user.data.name} </Link>
             : <Link to="/userLogin" activeClassName="active">Login </Link>
           }
           {user
-            ? <Link to="#" activeClassName="active" onClick={() => localStorage.removeItem('jwt')}>Logout</Link>
+            ? <Link to="#" activeClassName="active" onClick={this.logoutUser}>Logout</Link>
             : null
           }
           <LoadingDots interval={100} dots={20} />
@@ -41,4 +55,8 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Header);
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(sessionActions, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

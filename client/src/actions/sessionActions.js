@@ -31,15 +31,9 @@ export const loginUser = credentials => (dispatch) => {
 //   };
 // }
 ;
-export const LogOutUser = credentials => (dispatch) => {
-  postEndpoint('api/users/logout')
-  .send(credentials)
-  .end((err, res) => {
-    if (!err) {
-      localStorage.removeItem('jwt', res.body.token);
-      return dispatch(logOut({ token: res.body.token }));
-    }
-  });
+export const logoutUser = () => (dispatch) => {
+  localStorage.removeItem('jwt');
+  return dispatch(logOut({}));
 };
 // export const logOutUser = ()=>  {
 //   authenticate.logOut();
