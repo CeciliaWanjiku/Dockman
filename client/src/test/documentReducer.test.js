@@ -12,16 +12,16 @@ describe('Document Reducer', () => {
 
     const newDocument = { name: 'C' };
 
-    const action = actions.createDocumentSuccess(newDocument);
+    const action = actions.createDocumentsSuccess(newDocument);
 
     // act
     const newState = document(initialState, action);
 
     // assert
     expect(newState.length).toEqual(3);
-    expect(newState[0].title).toEqual('A');
-    expect(newState[1].title).toEqual('B');
-    expect(newState[2].title).toEqual('C');
+    expect(newState[0].name).toEqual('A');
+    expect(newState[1].name).toEqual('B');
+    expect(newState[2].name).toEqual('C');
   });
 
   it('should update document when passed UPDATE_DOCUMENT_SUCCESS', () => {
@@ -32,13 +32,13 @@ describe('Document Reducer', () => {
       { id: 'C', name: 'C' }
     ];
 
-    const document = { id: 'B', name: 'New Title' };
-    const action = actions.updateDocumentSuccess(document);
+    const doc = { id: 'B', name: 'New Title' };
+    const action = actions.updateDocumentsSuccess(doc);
 
     // act
     const newState = document(initialState, action);
-    const updatedDocument= newState.find(a => a.id == document.id);
-    const untouchedDocument = newState.find(a => a.id == 'A');
+    const updatedDocument = newState.find(a => a.id === doc.id);
+    const untouchedDocument = newState.find(a => a.id === 'A');
 
     // assert
     expect(updatedDocument.name).toEqual('New Title');

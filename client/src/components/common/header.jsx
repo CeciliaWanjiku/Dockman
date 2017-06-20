@@ -23,22 +23,23 @@ class Header extends React.Component {
     return (
       <nav className="nav-wrapper">
         <div id="nav-mobile" className="right hide-on-med-and-down">
-          <IndexLink to="/" activeClassName="active">Home </IndexLink>
-          {' | '}
-          <Link to="/about" activeClassName="active">About </Link>
-          {' | '}
-          <Link to="/document" activeClassName="active">Document </Link>
-          {' | '}
-          <Link to="/user" activeClassName="active">User </Link>
-
-          {' | '}
-          {user
-            ? <Link to="document/userdocuments" activeClassName="active">My Documents </Link>
+          <IndexLink to="/" activeClassName="active">{'Home  | '}</IndexLink>
+          {user && user.data.role === 'admin'
+            ? <Link to="/user" activeClassName="active">{'User | '}</Link>
             : ''
           }
-          {' | '}
-          <Link to="/user/create" activeClassName="active">Sign Up </Link>
-          {' | '}
+          {user && user.data.role === 'admin'
+            ? <Link to="/document" activeClassName="active">{' All Document  | '}</Link>
+            : ''
+          }
+          {user
+            ? <Link to="document/userdocuments" activeClassName="active">{'My Documents  | '}</Link>
+            : ''
+          }
+          {user
+            ? ''
+            : <Link to="/user/create" activeClassName="active">{'Sign Up  | '}</Link>
+          }
           {user
             ? <Link to={`/user/${user.id}`} activeClassName="active">{user.data.name} </Link>
             : <Link to="/userLogin" activeClassName="active">Login </Link>

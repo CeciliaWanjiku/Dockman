@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
+import jwtDecode from 'jwt-decode';
 import { bindActionCreators } from 'redux';
 import * as userActions from '../../actions/userActions';
 import UserForm from './userForm.jsx';
@@ -84,6 +85,8 @@ class ManageUserPage extends React.Component {
 
 
   render() {
+    const token = localStorage.getItem('jwt');
+    const user = token && jwtDecode(token);
     return (
       <div>
         <UserForm
@@ -93,12 +96,15 @@ class ManageUserPage extends React.Component {
           errors={this.state.error}
           saving={this.state.saving}
         />
-        {/* <button
-          onClick={this.deleteUser}
-          className="btn btn-default"
-        >
+        {user && user.data.role === 'admin'
+       ? <button
+         onClick={this.deleteUser}
+         className="btn btn-default"
+       >
            Delete User
-       </button>*/}
+       </button>
+       : ''
+       }
       </div>
     );
   }

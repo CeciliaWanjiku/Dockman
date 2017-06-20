@@ -32,6 +32,7 @@ export const createUser = user => (dispatch) => {
 
 export const updateUser = user => (dispatch) => {
   putEndpoint(`/api/users/${user.id}`)
+    .set('access-token', localStorage.getItem('jwt'))
     .send(user)
     .end((err, res) => dispatch(updateUsersSuccess({ user: res.body })));
 };

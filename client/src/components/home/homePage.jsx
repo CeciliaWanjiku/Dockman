@@ -16,7 +16,6 @@ class HomePage extends React.Component {
   }
   render() {
     const loggedIn = localStorage.getItem('jwt');
-    console.log('Logged In', loggedIn);
     return (
       <div>
         <h2> Welcome to Dockman </h2>

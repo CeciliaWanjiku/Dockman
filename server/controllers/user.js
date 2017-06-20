@@ -135,8 +135,8 @@ module.exports = {
         .update({
           name: req.body.name || user.name,
           email: req.body.email || user.email,
+          role_type: req.body.role_type,
           password: req.body.password || user.password
-
         })
         .then(() => res.status(200).send(user))
         .catch(error => res.status(400).send(error));
