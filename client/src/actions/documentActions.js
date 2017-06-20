@@ -46,11 +46,13 @@ export const updateDocument = doc => (dispatch) => {
 };
 export const userDocuments = () => (dispatch) => {
   getEndpoint(`/users/${localStorage.getItem('user_id')}/documents`)
+   .set('access-token', localStorage.getItem('jwt'))
     .end((err, res) => dispatch(userDocumentsSuccess(res.body)));
 };
 
 export const deleteDocument = doc => (dispatch) => {
   deleteEndpoint(`/api/documents/${doc.id}`)
+   .set('access-token', localStorage.getItem('jwt'))
     .send(doc)
     .end((err, res) => dispatch(deleteDocumentsSuccess({ document: res.body })));
 };
