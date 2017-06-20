@@ -48,11 +48,7 @@ class ManageUserPage extends React.Component {
     this.setState({ errors });
     return formIsValid;
   }
-  // createUser(event) {
-  //   event.preventDefault();
-  //   this.setState({ saving: true });
-  //   this.props.actions.createUser(this.state.user);
-  // }
+
 
   updateUser(event) {
     event.preventDefault();

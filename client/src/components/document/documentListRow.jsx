@@ -17,6 +17,7 @@ const DocumentListRow = ({ document, view }) => (
     <td>{document.userId}</td>
   </tr>
   );
+  
 DocumentListRow.propTypes = {
   document: PropTypes.object.isRequired,
   view: PropTypes.bool,

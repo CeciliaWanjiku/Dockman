@@ -36,6 +36,7 @@ export class ManageDocumentPage extends React.Component {
     document[field] = event.target.value;
     return this.setState({ document });
   }
+
   documentFormIsValid() {
     let formIsValid = true;
     const errors = {};

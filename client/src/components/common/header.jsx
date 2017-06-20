@@ -49,6 +49,7 @@ class Header extends React.Component {
     );
   }
     }
+
 function mapStateToProps(state) {
   return {
     session: state.session

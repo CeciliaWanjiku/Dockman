@@ -26,6 +26,7 @@ export const loadDocuments = (limit = 10, offset = 0) => (dispatch) => {
       dispatch(loadDocumentsSuccess(res.body));
     });
 };
+
 export const loadPublicDocuments = () => (dispatch) => {
   getEndpoint('/api/documents/public')
     .end((err, res) => dispatch(loadPublicDocumentsSuccess(res.body)));
@@ -38,12 +39,14 @@ export const createDocument = doc => (dispatch) => {
     .send(doc)
     .end((err, res) => dispatch(createDocumentsSuccess({ document: res.body })));
 };
+
 export const updateDocument = doc => (dispatch) => {
   putEndpoint(`/api/documents/${doc.id}`)
     .set('access-token', localStorage.getItem('jwt'))
     .send(doc)
     .end((err, res) => dispatch(updateDocumentsSuccess({ document: res.body })));
 };
+
 export const userDocuments = () => (dispatch) => {
   getEndpoint(`/users/${localStorage.getItem('user_id')}/documents`)
     .end((err, res) => dispatch(userDocumentsSuccess(res.body)));
@@ -54,6 +57,7 @@ export const deleteDocument = doc => (dispatch) => {
     .send(doc)
     .end((err, res) => dispatch(deleteDocumentsSuccess({ document: res.body })));
 };
+
 export const searchDocument = (searchValue) => {
   searchValue = encodeURIComponent(searchValue);
   return (dispatch) => {

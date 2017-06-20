@@ -28,11 +28,13 @@ export const createUser = user => (dispatch) => {
     .send(user)
     .end((err, res) => dispatch(createUsersSuccess({ user: res.body })));
 };
+
 export const updateUser = user => (dispatch) => {
   putEndpoint(`/api/users/${user.id}`)
     .send(user)
     .end((err, res) => dispatch(updateUsersSuccess({ user: res.body })));
 };
+
 export const deleteUser = user => (dispatch) => {
   deleteEndpoint(`/api/user/${user.id}`)
     .send(user)
