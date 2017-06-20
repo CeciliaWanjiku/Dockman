@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 import * as documentActions from '../../actions/documentActions.js';
@@ -12,10 +13,16 @@ class UserDocumentsPage extends React.Component {
   componentWillMount() {
     this.props.actions.userDocuments(this.props.documents);
   }
+  redirectToAddDocumentPage() {
+    browserHistory.push('/document/create');
+  }
   render() {
     return (
       <div>
-        <h4> User Documents </h4>
+        <h4> My Documents </h4>
+        <button
+          onClick={this.redirectToAddDocumentPage}
+        >Add Document</button>
         <DocumentList documents={this.props.documents} />
       </div>
 

@@ -30,8 +30,12 @@ class Header extends React.Component {
           <Link to="/document" activeClassName="active">Document </Link>
           {' | '}
           <Link to="/user" activeClassName="active">User </Link>
+
           {' | '}
-          <Link to="document/userdocuments" activeClassName="active">User Documents </Link>
+          {user
+            ? <Link to="document/userdocuments" activeClassName="active">My Documents </Link>
+            : ''
+          }
           {' | '}
           <Link to="/user/create" activeClassName="active">Sign Up </Link>
           {' | '}

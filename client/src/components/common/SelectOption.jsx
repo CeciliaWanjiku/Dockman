@@ -11,6 +11,7 @@ const SelectOption = ({ name, label, onChange, defaultOption, value, error, opti
     >
       <option value="public">Public</option>
       <option value="private">Private</option>
+      <option value="role-based">Role Based</option>
     </select>
     {error && <div className="alert-danger">{error}</div>}
   </div>

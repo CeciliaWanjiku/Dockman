@@ -23,17 +23,17 @@ class LogInPage extends React.Component {
    let formIsValid = true;
    const errors = {};
 
-   if (this.state.credentials.length < 5) {
+   if (this.state.credentials.length < 2) {
       errors.name = 'Please enter a valid username and passoword';
       formIsValid = false;
     }
  }
   onSave(event) {
     event.preventDefault();
-    if (!this.userFormIsValid()) {
-      toastr.error('Please enter a valid username and passoword');
-      return;
-    }
+    // if (!this.userFormIsValid()) {
+    //   toastr.error('Please enter a valid username and passoword');
+    //   return;
+    // }
     this.props.actions.loginUser(this.state.credentials);
   }
 

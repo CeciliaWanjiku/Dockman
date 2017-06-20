@@ -64,7 +64,6 @@ export const searchDocument = (searchValue) => {
   searchValue = encodeURIComponent(searchValue);
   return (dispatch) => {
     getEndpoint(`/api/search/documents?q=${searchValue}`)
-    .set('access-token', localStorage.getItem('jwt'))
     .end((err, res) => dispatch(searchDocumentsSuccess(res.body)));
   };
 };

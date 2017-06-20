@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import _ from 'lodash';
 import * as documenActions from '../../actions/documentActions';
 
+
 const ViewDocumentPage = ({ document }) => (
   <div className="col s12">
     <div style={{ display: 'block' }}>

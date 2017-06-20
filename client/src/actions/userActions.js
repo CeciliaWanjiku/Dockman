@@ -15,7 +15,7 @@ export const loadUsers = () => dispatch => getEndpoint('/api/users/')
     }
   });
 export const createUsersSuccess = user => ({
-  type: types.CREATE_USERS_SUCCESS, user });
+  type: types.CREATE_USER_SUCCESS, user });
 export const updateUsersSuccess = user => ({
   type: types.UPDATE_USER_SUCCESS, user });
 export const deleteUsersSuccess = user =>

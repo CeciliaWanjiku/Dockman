@@ -9,6 +9,7 @@ module.exports = (app) => {
   app.post('/api/users', userController.create);
   app.post('/api/users/login', userController.login);
   app.post('/api/users/logout', userController.logout);
+  app.get('/api/search/documents', documentController.searchDocument);
   app.use('/api', authenticate.token);
   restbac(app, roles, '/api');
   app.get('/api/users/:userId', userController.findOneUser);
@@ -19,10 +20,8 @@ module.exports = (app) => {
   // documents routes
   app.post('/api/documents', documentController.create);
   app.get('/users/:userId/documents', documentController.userDocuments);
-  
   app.get('/api/documents/', documentController.FindDocument);
   app.get('/api/documents/:documentId', documentController.FindOneDocument);
-  app.get('/api/search/documents', documentController.searchDocument);
   app.delete('/api/documents/:documentId', documentController.delete);
   app.put('/api/documents/:documentId', documentController.UpdateDocument);
   // Error handler

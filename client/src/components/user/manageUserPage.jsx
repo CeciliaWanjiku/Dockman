@@ -49,8 +49,8 @@ class ManageUserPage extends React.Component {
     return formIsValid;
   }
   validateEmail(email) {
-    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
+    const re = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+    re.test(email);
   }
 
 
@@ -60,7 +60,7 @@ class ManageUserPage extends React.Component {
       toastr.error('Name should be longer than 5 characters!!');
       return;
     }
-    if (!this.validateEmail()) {
+    if (this.validateEmail()) {
       toastr.error('Please enter a valid email');
       return;
     }
@@ -75,7 +75,7 @@ class ManageUserPage extends React.Component {
   redirect() {
     this.setState({ saving: false });
     toastr.success('User saved');
-    browserHistory.push('/user');
+    browserHistory.push('/userLogin');
   }
 
   deleteUser(event) {

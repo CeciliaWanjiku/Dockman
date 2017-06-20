@@ -24,6 +24,7 @@ module.exports = {
         name: req.body.name,
         email: req.body.email,
         role: req.body.role || 'user',
+        role_type: req.body.role_type,
         password: bcrypt.hashSync(req.body.password, saltRounds),
         // role: req.body.role
       })
