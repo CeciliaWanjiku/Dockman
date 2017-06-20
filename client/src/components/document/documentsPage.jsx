@@ -65,15 +65,15 @@ class DocumentsPage extends React.Component {
     );
   }
 }
-DocumentsPage.proptypes = {
-  documents: proptypes.object.isRequired,
-actions:PropTypes.object.isRequired
-};
-function mapStateToProps(state, ownProps) {
-  return {
-    documents: state.documents
-  };
-}
+// DocumentsPage.proptypes = {
+//   documents: proptypes.object.isRequired,
+// actions:PropTypes.object.isRequired
+// };
+// // function mapStateToProps(state, ownProps) {
+// //   return {
+// //     documents: state.documents
+// //   };
+// // }
 
 const mapStateToProps = (state, ownProps) => ({ documents: state.documents });
 

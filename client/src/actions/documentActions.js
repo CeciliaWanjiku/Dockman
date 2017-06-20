@@ -1,4 +1,5 @@
 import * as types from './actionTypes';
+import toastr from 'toastr';
 import { getEndpoint, putEndpoint, postEndpoint, deleteEndpoint } from '../../utils/documentsAPI';
 
 export const loadDocumentsSuccess = documents => ({ type: types.LOAD_DOCUMENT_SUCCESS, documents });
@@ -21,7 +22,8 @@ export const loadDocuments = (limit = 10, offset = 0) => (dispatch) => {
    .set('access-token', localStorage.getItem('jwt'))
     .end((err, res) => {
       if (err || !res.ok) {
-        return ('error');
+        toastr.error('Unauthorized');
+        return;
       }
       dispatch(loadDocumentsSuccess(res.body));
     });

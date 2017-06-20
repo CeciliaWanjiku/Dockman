@@ -48,12 +48,20 @@ class ManageUserPage extends React.Component {
     this.setState({ errors });
     return formIsValid;
   }
+  validateEmail(email) {
+    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  }
 
 
   updateUser(event) {
     event.preventDefault();
     if (!this.userFormIsValid()) {
       toastr.error('Name should be longer than 5 characters!!');
+      return;
+    }
+    if (!this.validateEmail()) {
+      toastr.error('Please enter a valid email');
       return;
     }
     this.setState({ saving: true });

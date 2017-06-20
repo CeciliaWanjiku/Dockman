@@ -1,3 +1,4 @@
+import toastr from 'toastr';
 import * as types from './actionTypes';
 import { getEndpoint, postEndpoint, putEndpoint, deleteEndpoint } from '../../utils/documentsAPI';
 
@@ -9,8 +10,8 @@ export const loadUsers = () => dispatch => getEndpoint('/api/users/')
     if (!err) {
       dispatch(loadUsersSuccess(res.body));
     } else {
-      console.log(err);
-      //alert('Unauthorized!');
+      toastr.error('Unauthorized!');
+      // alert('');
     }
   });
 export const createUsersSuccess = user => ({
