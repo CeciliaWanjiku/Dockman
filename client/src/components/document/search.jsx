@@ -13,7 +13,7 @@ class Search extends React.Component {
   searchDocument(searchValue) {
     this.props.actions.searchDocument(searchValue);
   }
-  handleSearchInput(e){
+  handleSearchInput(e) {
     console.log(e.target.value);
     this.setState({ searchValue: e.target.value });
   }
@@ -24,7 +24,9 @@ class Search extends React.Component {
         <input
           onChange={this.handleSearchInput}
         />
+
         <button
+          className="material-icons"
           onClick={(e) => { e.preventDefault(); this.searchDocument(this.state.searchValue); }}
         >Search Document</button>
       </div>
