@@ -20,15 +20,16 @@ class Search extends React.Component {
   render() {
     // const { documents } = this.props;
     return (
-      <div>
+      <div className="search-wrapper card">
         <input
+          id="search"
           onChange={this.handleSearchInput}
         />
+        <i className="material-icons" onClick={(e) => { e.preventDefault(); this.searchDocument(this.state.searchValue); }}>search</i>
 
-        <button
-          className="material-icons"
+        {/*<button
           onClick={(e) => { e.preventDefault(); this.searchDocument(this.state.searchValue); }}
-        >Search Document</button>
+        >Search Document</button>*/}
       </div>
 
     );

@@ -8,8 +8,8 @@ const DocumentList = ({ documents, view }) => (
       <tr>
         <th> Title </th>
         <th> Content </th>
-        <th> Category </th>
-        <th> Owner Id </th>
+        {/*<th> Category </th>
+        <th> Owner Id </th>*/}
       </tr>
     </thead>
     <tbody>
@@ -18,6 +18,7 @@ const DocumentList = ({ documents, view }) => (
       )}
     </tbody>
   </table>
+  
   );
 DocumentList.propTypes = {
   documents: PropTypes.array.isRequired,

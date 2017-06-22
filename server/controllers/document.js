@@ -24,7 +24,7 @@ module.exports = {
     }
     return Document
       .all()
-      .then(resp => res.status(201).send(resp))
+      .then(resp => res.status(200).send(resp))
       .catch(error => res.status(400).send(error));
   },
   FindOneDocument(req, res) {

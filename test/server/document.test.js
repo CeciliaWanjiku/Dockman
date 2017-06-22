@@ -1,21 +1,39 @@
-process.env.NODE_ENV = 'test';
+process.env.NODE_ENV = 'development';
 
 const chai = require('chai');
 
 const expect = chai.expect;
 const supertest = require('supertest');
+const chaiHttp = require('chai-http');
 
-const api = supertest('http://localhost:8090');
+chai.use(chaiHttp);
+
+const api = (require('../../server/app'));
+let token = '';
 
 describe('Documents', () => {
+  // login /
+  beforeEach('login user', (done) => {
+    chai.request(api)
+      .post('/api/users/login')
+      .send({ email: 'muchai@muchai.com', password: 'muchai' })
+      .then((res) => {
+        token = res.body.token;
+        done();
+      });
+  });
+
   describe('/GET document', () => {
     it('it should GET all the documents', (done) => {
-      api.get('/api/documents/', (error, response, body) => {
+      chai.request(api)
+      .get('/api/documents/')
+      .set('access-token', token)
+      .end((err, response) => {
         expect(response.statusCode).to.equal(200);
-        expect(response.statusMessage).to.equal('OK');
-        expect(body).to.equal(true);
+        //expect(response.statusText).to.equal('OK');
+        expect(response.body.length).to.equal(4);
+        done();
       });
-      done();
     });
   });
   describe('/POST document', () => {

@@ -20,9 +20,11 @@ class UserDocumentsPage extends React.Component {
     return (
       <div>
         <h4> My Documents </h4>
-        <button
+        <a className="btn-floating btn-large waves-effect waves-light red">
+          <i className="material-icons" onClick={this.redirectToAddDocumentPage}>add</i></a>
+        {/*<button
           onClick={this.redirectToAddDocumentPage}
-        >Add Document</button>
+        >Add Document</button>*/}
         <DocumentList documents={this.props.documents} />
       </div>
 

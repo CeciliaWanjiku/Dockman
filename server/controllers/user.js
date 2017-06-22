@@ -38,12 +38,11 @@ module.exports = {
   },
   // login a existing user
   login(req, res) {
-    console.log(req.body);
     if (!req.body.email || !req.body.password) {
       res.json({ success: false, msg: 'Please provide email and password.' });
     } else {
-      user.findOne({ where: { email: req.body.email } })
-
+      user
+        .findOne({ where: { email: req.body.email } })
         .then((response) => {
           if (!response) {
             return res.status(404).send({
@@ -51,12 +50,10 @@ module.exports = {
             });
           }
           // console.log('LOGIN', response.dataValues);
-          if (bcrypt.compareSync(req.body.password, response.password)) {
-            const token = jwt.sign({ data: { id: response.id, name: response.name, role: response.role } }, secretKey, {
-              expiresIn: 60 * 60
-            });
-            return res.status(200).json(Object.assign({},
-              { id: response.id, email: req.body.email, name: req.body.name }, { token }));
+          const passwordValid = bcrypt.compareSync(req.body.password, response.password);
+          if (passwordValid) {
+            const token = jwt.sign({ data: { id: response.id, name: response.name, role: response.role } }, secretKey, { expiresIn: 60 * 60 });
+            return res.status(200).json(Object.assign({}, { id: response.id, email: req.body.email, name: req.body.name }, { token }));
             // return token
           }
           // return error: Password is incorrect
