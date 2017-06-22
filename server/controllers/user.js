@@ -76,7 +76,7 @@ module.exports = {
           });
         }
         resp.destroy()
-          .then(() => res.status(200).send({ message: 'user deleted' }))
+          .then(() => res.status(204).send({ message: 'user deleted' }))
           .catch(error => res.status(400).send(error));
       })
       .catch(error => res.status(400).send(error));

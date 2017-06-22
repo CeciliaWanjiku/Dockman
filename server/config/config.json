@@ -9,7 +9,7 @@
   "test": {
     "username": "ceciliawahome",
     "password": null,
-    "database": "dockman_test",
+    "database": "dockman-test",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },

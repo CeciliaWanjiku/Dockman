@@ -26,7 +26,6 @@ module.exports = (app) => {
   app.put('/api/documents/:documentId', documentController.UpdateDocument);
   // Error handler
   app.use((err, req, res, next) => {
-    console.log('HAPA---->', err);
     // rest-bac authorization error propagate an Error object with a 401 status code
     res.status(err.status || 500)
       .json({

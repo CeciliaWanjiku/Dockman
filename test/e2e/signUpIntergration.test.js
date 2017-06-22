@@ -11,7 +11,7 @@ var driver = new webdriver.Builder()
                  .withCapabilities(webdriver.Capabilities.chrome())
                  .build();
 
-describe('login form',function (){
+describe('login form', function () {
     // e2e tests are too slow for default Mocha timeout
   this.timeout(10000);
 

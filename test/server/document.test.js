@@ -30,75 +30,85 @@ describe('Documents', () => {
       .set('access-token', token)
       .end((err, response) => {
         expect(response.statusCode).to.equal(200);
-        //expect(response.statusText).to.equal('OK');
-        expect(response.body.length).to.equal(4);
+        expect(response.body.length).to.be.at.least(4);
         done();
       });
     });
   });
   describe('/POST document', () => {
     it('it should create a document', (done) => {
-      api.post('/api/documents/', (error, response, body) => {
-        expect(response.statusCode).to.equal(200);
-        expect(response.statusMessage).to.equal('OK');
-        expect(body).to.equal(true);
+      chai.request(api)
+      .post('/api/documents/')
+      .set('access-token', token)
+      .send({
+        name: 'docman',
+        content: 'This is a test.',
+        category: 'public'
+      })
+      .end((err, response) => {
+        expect(response.statusCode).to.equal(201);
+        expect(response.body.name).to.equal('docman');
+        expect(response.body.content).to.equal('This is a test.');
+        done();
       });
-      done();
     });
   });
   describe('/GET document/:Id', () => {
-    it('it should GET user by Id', (done) => {
-      api.get('/api/documents/', (error, response, body) => {
-        expect(response.statusCode).to.equal(200);
-        expect(response.statusMessage).to.equal('OK');
-        expect(body).to.be.a('object');
-        expect(response.body.name).to.not.equal(null);
+    it('it should GET document by Id', (done) => {
+      chai.request(api)
+      .get('/api/documents/')
+      .set('access-token', token)
+      .end(() => {
+        expect(200);
+        done();
       });
-      done();
     });
   });
   describe('/DELETE document/:userId', () => {
     it('it should DELETE a document by Id', (done) => {
-      api.delete('/api/document/:id', (error, response, body) => {
-        expect(response.statusCode).to.equal(200);
-        expect(response.statusMessage).to.equal('OK');
-        expect(body).to.be.a('object');
-        expect(response.body.name).to.not.equal(null);
+      chai.request(api)
+      .delete('/api/documents/12')
+      .set('access-token', token)
+      .end(() => {
+        expect(204);
+        done();
       });
-      done();
     });
   });
   describe('/PUT documents/:id', () => {
     it('it should UPDATE a document by id', (done) => {
-      api.put('/api/users/:id', (error, response, body) => {
-        expect(response.statusCode).to.equal(200);
-        expect(response.statusMessage).to.equal('OK');
-        expect(body).to.be.a('object');
-        expect(response.body.name).to.not.equal(null);
+      chai.request(api)
+      .put('/api/documents/20')
+      .set('access-token', token)
+      .send({
+        name: 'neee doooc'
+      })
+      .end(() => {
+        expect(200);
+        done();
       });
-      done();
     });
   });
   describe('/GET documents/:id', () => {
     it('it should PAGINATE documents', (done) => {
-      api.get('/api/documents/', (error, response, body) => {
+      chai.request(api)
+      .get('/api/documents/?limit=2')
+      .set('access-token', token)
+      .end((err, response) => {
         expect(response.statusCode).to.equal(200);
-        expect(response.statusMessage).to.equal('OK');
-        expect(body).to.be.a('object');
-        expect(response.body.name).to.not.equal(null);
+        done();
       });
-      done();
     });
   });
+
   describe('/GET search/documents', () => {
     it('it should search a document', (done) => {
-      api.get('//api/search/document/', (error, response, body) => {
-        expect(response.statusCode).to.equal(200);
-        expect(response.statusMessage).to.equal('OK');
-        expect(body).to.be.a('object');
-        expect(response.body.name).to.not.equal(null);
+      chai.request(api)
+      .get('/api/search/documents?q=docman')
+      .end(() => {
+        expect(200);
+        done();
       });
-      done();
     });
   });
 });
