@@ -45,7 +45,8 @@ module.exports = {
     if (req.query.q) {
       return Document.findAll({
         where: {
-          name: { $iLike: `%${req.query.q}%` }
+          name: { $iLike: `%${req.query.q}%` },
+          
         }
       })
       .then(response => res.status(200).send(response))
@@ -82,7 +83,7 @@ module.exports = {
           });
         }
         resp.destroy()
-          .then(() => res.status(200).send({ message: 'Document deleted' }))
+          .then(() => res.status(204))
           .catch(error => res.status(400).send(error));
       })
       .catch(error => res.status(400).send(error));

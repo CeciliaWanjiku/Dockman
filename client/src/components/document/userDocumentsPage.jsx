@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 import * as documentActions from '../../actions/documentActions.js';
 import DocumentList from '../document/documentsList.jsx';
+import Search from './search.jsx';
 
 class UserDocumentsPage extends React.Component {
   constructor(props) {
@@ -22,9 +23,10 @@ class UserDocumentsPage extends React.Component {
         <h4> My Documents </h4>
         <a className="btn-floating btn-large waves-effect waves-light red">
           <i className="material-icons" onClick={this.redirectToAddDocumentPage}>add</i></a>
-        {/*<button
+        {/* <button
           onClick={this.redirectToAddDocumentPage}
         >Add Document</button>*/}
+        <Search />
         <DocumentList documents={this.props.documents} />
       </div>
 

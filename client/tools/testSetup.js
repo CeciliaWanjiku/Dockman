@@ -5,6 +5,7 @@ process.env.NODE_ENV = 'test';
 // before our tests run.
 require('babel-register')();
 
+const localStorage = require('localStorage');
 // Disable webpack-specific features for tests since
 // Mocha doesn't know what to do with them.
 require.extensions['.css'] = function () { return null; };
@@ -18,7 +19,9 @@ let jsdom = require('jsdom').jsdom;
 let exposedProperties = ['window', 'navigator', 'document'];
 
 global.document = jsdom('');
-global.window = document.defaultView;
+const window = document.defaultView;
+window.localStorage = localStorage;
+global.window = window;
 Object.keys(document.defaultView).forEach((property) => {
   if (typeof global[property] === 'undefined') {
     exposedProperties.push(property);
@@ -29,5 +32,7 @@ Object.keys(document.defaultView).forEach((property) => {
 global.navigator = {
   userAgent: 'node.js'
 };
+
+
 
 documentRef = document;  // eslint-disable-line no-undef

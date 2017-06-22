@@ -44,7 +44,7 @@ describe('Async Actions', () => {
       { type: types.LOAD_DOCUMENTS_SUCCESS, body: { DOCUMENTS: [{ id: '60', name: 'Document 60' }] } }
     ];
 
-    const store = mockStore({ documents: [] }, expectedActions, done);
+    const store = mockStore({ documents: [] }, expectedActions, done());
     store.dispatch(documentActions.loadDocuments()).then(() => {
       const actions = store.getActions();
       expect(actions[0].type).toEqual(types.BEGIN_AJAX_CALL);

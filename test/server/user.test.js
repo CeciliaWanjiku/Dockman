@@ -75,6 +75,15 @@ describe('Users', () => {
           done();
         });
     });
+    it('it should fail to GET user by userId', (done) => {
+      chai.request(api)
+      .get('/api/users/0')
+      .set('access-token', token)
+        .end(() => {
+          expect(404);
+          done();
+        });
+    });
   });
   describe('/DELETE users/:userId', () => {
     it('it should DELETE user by userId', (done) => {
@@ -97,6 +106,27 @@ describe('Users', () => {
       })
       .end(() => {
         expect(200);
+        done();
+      });
+    });
+    it('it should fail to GET user by userId', (done) => {
+      chai.request(api)
+      .get('/api/users/0')
+      .set('access-token', token)
+        .end(() => {
+          expect(404);
+          done();
+        });
+    });
+    it('it should UPDATE a user by userId', (done) => {
+      chai.request(api)
+      .put('/api/users/4')
+      .set('access-token', token)
+      .send({
+        name: ''
+      })
+      .end(() => {
+        expect(400);
         done();
       });
     });

@@ -35,6 +35,28 @@ describe('Documents', () => {
       });
     });
   });
+  describe('/GET public documents', () => {
+    it('it should GET all publicdocuments', (done) => {
+      chai.request(api)
+      .get('/api/documents/public')
+      .end((err, response) => {
+        expect(response.statusCode).to.equal(200);
+        expect(response.body.length).to.be.at.least(4);
+        done();
+      });
+    });
+  });
+  describe('/GET user documents', () => {
+    it('it should GET user documents', (done) => {
+      chai.request(api)
+      .get('/users/2/documents')
+      .end((err, response) => {
+        expect(response.statusCode).to.equal(200);
+        expect(response.body.length).to.be.at.least(4);
+        done();
+      });
+    });
+  });
   describe('/POST document', () => {
     it('it should create a document', (done) => {
       chai.request(api)
@@ -56,10 +78,28 @@ describe('Documents', () => {
   describe('/GET document/:Id', () => {
     it('it should GET document by Id', (done) => {
       chai.request(api)
-      .get('/api/documents/')
+      .get('/api/documents/2')
       .set('access-token', token)
       .end(() => {
         expect(200);
+        done();
+      });
+    });
+    it('it should GET document by Id', (done) => {
+      chai.request(api)
+      .get('/api/documents/0')
+      .set('access-token', token)
+      .end(() => {
+        expect(404);
+        done();
+      });
+    });
+    it('it should GET document by Id', (done) => {
+      chai.request(api)
+      .get('/api/documents/g')
+      .set('access-token', token)
+      .end(() => {
+        expect(400);
         done();
       });
     });
@@ -74,6 +114,24 @@ describe('Documents', () => {
         done();
       });
     });
+    it('it should GET document by Id', (done) => {
+      chai.request(api)
+      .get('/api/documents/0')
+      .set('access-token', token)
+      .end(() => {
+        expect(404);
+        done();
+      });
+    });
+    it('it should GET document by Id', (done) => {
+      chai.request(api)
+      .delete('/api/documents/0')
+      .set('access-token', token)
+      .end(() => {
+        expect(400);
+        done();
+      });
+    });
   });
   describe('/PUT documents/:id', () => {
     it('it should UPDATE a document by id', (done) => {
@@ -85,6 +143,15 @@ describe('Documents', () => {
       })
       .end(() => {
         expect(200);
+        done();
+      });
+    });
+    it('it should GET document by Id', (done) => {
+      chai.request(api)
+      .put('/api/documents/12')
+      .set('access-token', token)
+      .end(() => {
+        expect(404);
         done();
       });
     });
