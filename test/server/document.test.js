@@ -41,7 +41,7 @@ describe('Documents', () => {
       .get('/api/documents/public')
       .end((err, response) => {
         expect(response.statusCode).to.equal(200);
-        expect(response.body.length).to.be.at.least(4);
+        expect(response.body.length).to.be.at.least(1);
         done();
       });
     });
@@ -52,7 +52,7 @@ describe('Documents', () => {
       .get('/users/2/documents')
       .end((err, response) => {
         expect(response.statusCode).to.equal(200);
-        expect(response.body.length).to.be.at.least(4);
+        expect(response.body.length).to.be.at.least(1);
         done();
       });
     });

@@ -18,8 +18,7 @@ class HomePage extends React.Component {
     const loggedIn = localStorage.getItem('jwt');
     return (
       <div>
-        <h2> Welcome to Dockman </h2>
-        <p>Public Documents</p>
+        <h4> Welcome to Dockman </h4>
         <Search />
         <DocumentList documents={this.props.documents} view />
       </div>

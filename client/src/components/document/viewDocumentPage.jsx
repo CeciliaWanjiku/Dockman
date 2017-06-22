@@ -7,21 +7,18 @@ import * as documenActions from '../../actions/documentActions';
 
 
 const ViewDocumentPage = ({ document }) => (
-  <div className="col s12">
-    <div style={{ display: 'block' }}>
-      <div style={{ display: 'inline-block' }}>Name:</div>
-      <div style={{ display: 'inline-block' }}>{document.name}</div>
-    </div>
-    <div style={{ display: 'block' }}>
-      <div style={{ display: 'inline-block' }}>Content:</div>
-      <div style={{ display: 'inline-block' }}>{document.content}</div>
-    </div>
-    <div style={{ display: 'block' }}>
-      <div style={{ display: 'inline-block' }}>Category:</div>
-      <div style={{ display: 'inline-block' }}>{document.category}</div>
+  <div className="row">
+    <div className="col s12 m12">
+      <div className="card blue-grey darken-1">
+        <div className="card-content white-text">
+          <span className="card-title">{document.name}</span>
+          <p>{document.content}</p>
+        </div>
+      </div>
     </div>
   </div>
   );
+
 
 ViewDocumentPage.propTypes = {
   document: PropTypes.shape({

@@ -42,9 +42,8 @@ class DocumentsPage extends React.Component {
     return (
       <div>
         <h1> Documents </h1>
-        <button
-          onClick={this.redirectToAddDocumentPage}
-        >Add Document</button>
+        <a className="btn-floating btn-large waves-effect waves-light red">
+          <i className="material-icons" onClick={this.redirectToAddDocumentPage}>add</i></a>
         <DocumentList documents={documents} />
         <input
           value={this.state.searchValue}

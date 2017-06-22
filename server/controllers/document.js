@@ -11,7 +11,8 @@ module.exports = {
       name: req.body.name,
       content: req.body.content,
       category: req.body.category,
-      userId: decoded.data.id
+      userId: decoded.data.id,
+      role_type: req.body.role_type
     })
     .then(document => res.status(201).send(document))
     .catch(error => res.status(400).send(error));
@@ -46,7 +47,7 @@ module.exports = {
       return Document.findAll({
         where: {
           name: { $iLike: `%${req.query.q}%` },
-          
+
         }
       })
       .then(response => res.status(200).send(response))
@@ -66,7 +67,8 @@ module.exports = {
         .update({
           name: req.body.name || document.name,
           content: req.body.content || document.content,
-          category: req.body.category || document.category
+          category: req.body.category || document.category,
+          role_type: req.body.role_type || document.role_type
 
         })
         .then(() => res.status(200).send(document))
@@ -88,7 +90,7 @@ module.exports = {
       })
       .catch(error => res.status(400).send(error));
   },
-  FindPublicDocuments(req, res) {
+  FindPublicDocuments(req, res) { 
     return Document.findAll({
       where: {
         category: { $iLike: 'public' }
@@ -105,10 +107,31 @@ module.exports = {
       })
       .catch(error => res.status(400).send(error));
   },
-  userDocuments(req, res) {
+  FindRoleBasedDocuments(req, res) {
     return Document.findAll({
       where: {
-        userId: req.params.userId
+        category: { $iLike: 'role-based' }
+      }
+    })
+      .then((resp) => {
+        if (!resp) {
+          return res.status(404).send({
+            message: 'Documents Not Found',
+
+          });
+        }
+        return res.status(200).send(resp);
+      })
+      .catch(error => res.status(400).send(error));
+  },
+  userDocuments(req, res) {
+    console.log('User Role>>>>>>', req.query.role_type);
+    return Document.findAll({
+      where: {
+        $or: {
+          userId: req.params.userId,
+          role_type: req.query.role_type
+        }
       }
     })
       .then((resp) => {

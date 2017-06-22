@@ -10,6 +10,7 @@ module.exports = (app) => {
   app.post('/api/users/login', userController.login);
   app.post('/api/users/logout', userController.logout);
   app.get('/api/search/documents', documentController.searchDocument);
+  app.get('/api/search/users/', userController.searchUser);
   app.use('/api', authenticate.token);
   restbac(app, roles, '/api');
   app.get('/api/users/:userId', userController.findOneUser);

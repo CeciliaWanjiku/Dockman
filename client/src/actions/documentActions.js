@@ -49,10 +49,12 @@ export const updateDocument = doc => (dispatch) => {
     .end((err, res) => dispatch(updateDocumentsSuccess({ document: res.body })));
 };
 
-export const userDocuments = () => (dispatch) => {
-  getEndpoint(`/users/${localStorage.getItem('user_id')}/documents`)
-    .end((err, res) => dispatch(userDocumentsSuccess(res.body)));
-};
+export const userDocuments = (userRole) => {
+  return (dispatch) => {
+    getEndpoint(`/users/${localStorage.getItem('user_id')}/documents?role_type=` + userRole)
+      .end((err, res) => dispatch(userDocumentsSuccess(res.body)));
+  };
+}
 
 export const deleteDocument = doc => (dispatch) => {
   deleteEndpoint(`/api/documents/${doc.id}`)

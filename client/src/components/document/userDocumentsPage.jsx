@@ -1,4 +1,5 @@
 import React from 'react';
+import jwtDecode from 'jwt-decode';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
@@ -12,20 +13,20 @@ class UserDocumentsPage extends React.Component {
     super(props);
   }
   componentWillMount() {
-    this.props.actions.userDocuments(this.props.documents);
+    const token = this.props.session.token || localStorage.getItem('jwt');
+    const user = token && jwtDecode(token);
+    this.props.actions.userDocuments(user.data.role_type);
   }
   redirectToAddDocumentPage() {
     browserHistory.push('/document/create');
   }
   render() {
+    console.table(this.props.documents);
     return (
       <div>
         <h4> My Documents </h4>
         <a className="btn-floating btn-large waves-effect waves-light red">
           <i className="material-icons" onClick={this.redirectToAddDocumentPage}>add</i></a>
-        {/* <button
-          onClick={this.redirectToAddDocumentPage}
-        >Add Document</button>*/}
         <Search />
         <DocumentList documents={this.props.documents} />
       </div>
@@ -33,7 +34,7 @@ class UserDocumentsPage extends React.Component {
     );
   }
 }
-const mapStateToProps = (state, ownProps) => ({ documents: state.documents });
+const mapStateToProps = (state, ownProps) => ({ documents: state.documents, session: state.session });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(documentActions, dispatch)

@@ -69,7 +69,7 @@ export class ManageDocumentPage extends React.Component {
   redirect() {
     this.setState({ saving: false });
     toastr.success('Document saved');
-    browserHistory.push('/document');
+    browserHistory.push('document/userdocuments');
   }
 
   deleteDocument(event) {

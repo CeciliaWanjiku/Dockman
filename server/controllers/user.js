@@ -52,7 +52,7 @@ module.exports = {
           // console.log('LOGIN', response.dataValues);
           const passwordValid = bcrypt.compareSync(req.body.password, response.password);
           if (passwordValid) {
-            const token = jwt.sign({ data: { id: response.id, name: response.name, role: response.role } }, secretKey, { expiresIn: 60 * 60 });
+            const token = jwt.sign({ data: { id: response.id, name: response.name, role: response.role, role_type: response.role_type } }, secretKey, { expiresIn: 60 * 60 });
             return res.status(200).json(Object.assign({}, { id: response.id, email: req.body.email, name: req.body.name }, { token }));
             // return token
           }
