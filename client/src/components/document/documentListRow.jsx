@@ -13,10 +13,11 @@ const DocumentListRow = ({ document, view }) => (
       }
     </td>
     <td>{document.content}</td>
-    <td>{document.category}</td>
-    <td>{document.userId}</td>
+    {/*<td>{document.category}</td>*/}
+    {/*<td>{document.userId}</td>*/}
   </tr>
   );
+
 DocumentListRow.propTypes = {
   document: PropTypes.object.isRequired,
   view: PropTypes.bool,

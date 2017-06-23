@@ -1,7 +1,7 @@
 import React from 'react';
 import expect from 'expect';
 import { mount, shallow } from 'enzyme';
-import { ManageDocumentPage } from '../components/document/manageDocumentPage.jsx';
+import { ManageDocumentPage } from '../../client/src/components/document/manageDocumentPage.jsx';
 
 describe('Manage Document Page', () => {
   it('sets error message when trying to save empty title', () => {

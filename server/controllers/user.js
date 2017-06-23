@@ -24,6 +24,7 @@ module.exports = {
         name: req.body.name,
         email: req.body.email,
         role: req.body.role || 'user',
+        role_type: req.body.role_type,
         password: bcrypt.hashSync(req.body.password, saltRounds),
         // role: req.body.role
       })
@@ -37,12 +38,11 @@ module.exports = {
   },
   // login a existing user
   login(req, res) {
-    console.log(req.body);
     if (!req.body.email || !req.body.password) {
       res.json({ success: false, msg: 'Please provide email and password.' });
     } else {
-      user.findOne({ where: { email: req.body.email } })
-
+      user
+        .findOne({ where: { email: req.body.email } })
         .then((response) => {
           if (!response) {
             return res.status(404).send({
@@ -50,12 +50,10 @@ module.exports = {
             });
           }
           // console.log('LOGIN', response.dataValues);
-          if (bcrypt.compareSync(req.body.password, response.password)) {
-            const token = jwt.sign({ data: { id: response.id, name: response.name, role: response.role } }, secretKey, {
-              expiresIn: 60 * 60
-            });
-            return res.status(200).json(Object.assign({},
-              { id: response.id, email: req.body.email, name: req.body.name }, { token }));
+          const passwordValid = bcrypt.compareSync(req.body.password, response.password);
+          if (passwordValid) {
+            const token = jwt.sign({ data: { id: response.id, name: response.name, role: response.role, role_type: response.role_type } }, secretKey, { expiresIn: 60 * 60 });
+            return res.status(200).json(Object.assign({}, { id: response.id, email: req.body.email, name: req.body.name }, { token }));
             // return token
           }
           // return error: Password is incorrect
@@ -78,7 +76,7 @@ module.exports = {
           });
         }
         resp.destroy()
-          .then(() => res.status(200).send({ message: 'user deleted' }))
+          .then(() => res.status(204).send({ message: 'user deleted' }))
           .catch(error => res.status(400).send(error));
       })
       .catch(error => res.status(400).send(error));
@@ -134,8 +132,8 @@ module.exports = {
         .update({
           name: req.body.name || user.name,
           email: req.body.email || user.email,
+          role_type: req.body.role_type,
           password: req.body.password || user.password
-
         })
         .then(() => res.status(200).send(user))
         .catch(error => res.status(400).send(error));

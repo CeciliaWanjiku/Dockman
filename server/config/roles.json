@@ -13,5 +13,9 @@
   },
   "/search/documents(/*)?": {
     "get": ["user", "admin"]
+  },
+  "/search/users(/*)?": {
+    "get": ["admin"]
   }
+ 
 }

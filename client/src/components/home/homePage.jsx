@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 import * as documentActions from '../../actions/documentActions.js';
 import DocumentList from '../document/documentsList.jsx';
-
+import Search from '../document/search.jsx';
 class HomePage extends React.Component {
   constructor(props) {
     super(props);
@@ -15,10 +15,11 @@ class HomePage extends React.Component {
     this.props.actions.loadPublicDocuments(this.props.documents);
   }
   render() {
+    const loggedIn = localStorage.getItem('jwt');
     return (
       <div>
-        <h2> Welcome to Dockman </h2>
-        <p>Public Documents</p>
+        <h4> Welcome to Dockman </h4>
+        <Search />
         <DocumentList documents={this.props.documents} view />
       </div>
 

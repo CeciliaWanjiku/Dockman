@@ -17,24 +17,9 @@ export const loginUser = credentials => (dispatch) => {
       }
       console.log('Login error: ', err);
     });
-}
+};
 
-// export function loginUser(credentials) {
-//   return function (dispatch) {
-//     return sessionApi.login(credentials).then((response) => {
-//       sessionStorage.setItem('jwt', response.jwt);
-//       dispatch(loginSuccess());
-//     }).catch((error) => {
-//       debugger;
-//       throw (error);
-//     });
-//   };
-// }
-;
 export const logoutUser = () => (dispatch) => {
   localStorage.removeItem('jwt');
   return dispatch(logOut({}));
 };
-// export const logOutUser = ()=>  {
-//   authenticate.logOut();
-//   return { type: types.LOG_OUT };

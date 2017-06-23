@@ -28,7 +28,7 @@ const Authenticate = {
         req.decoded = decoded;
         req.user = req.user ? req.user : {};
         req.user.roles = [decoded.data.role];
-        console.log('-----DECODED---', decoded);
+        // console.log('-----DECODED---', decoded);
         // Execute route
         next();
       });

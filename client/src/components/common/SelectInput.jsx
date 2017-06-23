@@ -9,8 +9,7 @@ const SelectInput = ({ name, label, onChange, defaultOption, value, error, optio
         onChange={onChange}
       >
         <option value=" ">{defaultOption}</option>
-        {options.map(option => <option key={option.value} value={option.value}>{option.text}</option>)
-        }
+        {options.map(option => <option key={option.value} value={option.value}>{option.text}</option>)}
       </select>
       {error && <div className="alert-danger">{error}</div>}
     </div>

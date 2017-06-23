@@ -1,3 +1,4 @@
+import toastr from 'toastr';
 import * as types from './actionTypes';
 import { getEndpoint, postEndpoint, putEndpoint, deleteEndpoint } from '../../utils/documentsAPI';
 
@@ -9,12 +10,12 @@ export const loadUsers = () => dispatch => getEndpoint('/api/users/')
     if (!err) {
       dispatch(loadUsersSuccess(res.body));
     } else {
-      console.log(err);
-      //alert('Unauthorized!');
+      toastr.error('Unauthorized!');
+      // alert('');
     }
   });
 export const createUsersSuccess = user => ({
-  type: types.CREATE_USERS_SUCCESS, user });
+  type: types.CREATE_USER_SUCCESS, user });
 export const updateUsersSuccess = user => ({
   type: types.UPDATE_USER_SUCCESS, user });
 export const deleteUsersSuccess = user =>
@@ -29,12 +30,14 @@ export const createUser = user => (dispatch) => {
     .send(user)
     .end((err, res) => dispatch(createUsersSuccess({ user: res.body })));
 };
+
 export const updateUser = user => (dispatch) => {
   putEndpoint(`/api/users/${user.id}`)
-  .set('access-token', localStorage.getItem('jwt'))
+    .set('access-token', localStorage.getItem('jwt'))
     .send(user)
     .end((err, res) => dispatch(updateUsersSuccess({ user: res.body })));
 };
+
 export const deleteUser = user => (dispatch) => {
   deleteEndpoint(`/api/user/${user.id}`)
   .set('access-token', localStorage.getItem('jwt'))
@@ -45,7 +48,11 @@ export const deleteUser = user => (dispatch) => {
 export const searchUser = (searchValue) => {
   searchValue = encodeURIComponent(searchValue);
   return (dispatch) => {
+<<<<<<< HEAD
     getEndpoint(`/api/search/user?q=${searchValue}`)
+=======
+    getEndpoint(`/api/search/users?q=${searchValue}`)
+>>>>>>> production
     .set('access-token', localStorage.getItem('jwt'))
     .end((err, res) => dispatch(searchUsersSuccess(res.body)));
   };

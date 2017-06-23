@@ -1,4 +1,5 @@
 import * as types from './actionTypes';
+import toastr from 'toastr';
 import { getEndpoint, putEndpoint, postEndpoint, deleteEndpoint } from '../../utils/documentsAPI';
 
 export const loadDocumentsSuccess = documents => ({ type: types.LOAD_DOCUMENT_SUCCESS, documents });
@@ -21,11 +22,13 @@ export const loadDocuments = (limit = 10, offset = 0) => (dispatch) => {
    .set('access-token', localStorage.getItem('jwt'))
     .end((err, res) => {
       if (err || !res.ok) {
-        return ('error');
+        toastr.error('Unauthorized');
+        return;
       }
       dispatch(loadDocumentsSuccess(res.body));
     });
 };
+
 export const loadPublicDocuments = () => (dispatch) => {
   getEndpoint('/api/documents/public')
     .end((err, res) => dispatch(loadPublicDocumentsSuccess(res.body)));
@@ -38,6 +41,7 @@ export const createDocument = doc => (dispatch) => {
     .send(doc)
     .end((err, res) => dispatch(createDocumentsSuccess({ document: res.body })));
 };
+
 export const updateDocument = doc => (dispatch) => {
   putEndpoint(`/api/documents/${doc.id}`)
     .set('access-token', localStorage.getItem('jwt'))
@@ -54,13 +58,13 @@ export const deleteDocument = doc => (dispatch) => {
   deleteEndpoint(`/api/documents/${doc.id}`)
    .set('access-token', localStorage.getItem('jwt'))
     .send(doc)
-    .end((err, res) => dispatch(deleteDocumentsSuccess({ document: res.body })));
+    .end((err, res) => { console.log(err); dispatch(deleteDocumentsSuccess({ document: res.body })); });
 };
+
 export const searchDocument = (searchValue) => {
   searchValue = encodeURIComponent(searchValue);
   return (dispatch) => {
     getEndpoint(`/api/search/documents?q=${searchValue}`)
-    .set('access-token', localStorage.getItem('jwt'))
     .end((err, res) => dispatch(searchDocumentsSuccess(res.body)));
   };
 };

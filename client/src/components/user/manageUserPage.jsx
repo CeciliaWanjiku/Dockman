@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
+import jwtDecode from 'jwt-decode';
 import { bindActionCreators } from 'redux';
 import * as userActions from '../../actions/userActions';
 import UserForm from './userForm.jsx';
@@ -48,16 +49,20 @@ class ManageUserPage extends React.Component {
     this.setState({ errors });
     return formIsValid;
   }
-  // createUser(event) {
-  //   event.preventDefault();
-  //   this.setState({ saving: true });
-  //   this.props.actions.createUser(this.state.user);
-  // }
+  validateEmail(email) {
+    const re = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+    re.test(email);
+  }
+
 
   updateUser(event) {
     event.preventDefault();
     if (!this.userFormIsValid()) {
       toastr.error('Name should be longer than 5 characters!!');
+      return;
+    }
+    if (this.validateEmail()) {
+      toastr.error('Please enter a valid email');
       return;
     }
     this.setState({ saving: true });
@@ -71,7 +76,7 @@ class ManageUserPage extends React.Component {
   redirect() {
     this.setState({ saving: false });
     toastr.success('User saved');
-    browserHistory.push('/user');
+    browserHistory.push('/userLogin');
   }
 
   deleteUser(event) {
@@ -80,6 +85,8 @@ class ManageUserPage extends React.Component {
 
 
   render() {
+    const token = localStorage.getItem('jwt');
+    const user = token && jwtDecode(token);
     return (
       <div>
         <UserForm
@@ -89,12 +96,15 @@ class ManageUserPage extends React.Component {
           errors={this.state.error}
           saving={this.state.saving}
         />
-        {/* <button
-          onClick={this.deleteUser}
-          className="btn btn-default"
-        >
+        {user && user.data.role === 'admin'
+       ? <button
+         onClick={this.deleteUser}
+         className="btn btn-default"
+       >
            Delete User
-       </button>*/}
+       </button>
+       : ''
+       }
       </div>
     );
   }

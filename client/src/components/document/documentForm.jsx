@@ -3,6 +3,7 @@ import TextInput from '../common/TextInput.jsx';
 import SelectInput from '../common/SelectInput.jsx';
 import TextArea from '../common/TextArea.jsx';
 import SelectOption from '../common/SelectOption.jsx';
+import SelectRoleType from '../common/selectRoleType.js';
 
 
 const DocumentForm = ({ document, allAuthors, onSave, onChange, saving, errors }) => (
@@ -25,6 +26,7 @@ const DocumentForm = ({ document, allAuthors, onSave, onChange, saving, errors }
       value={document.content}
       onChange={onChange}
     />
+
     <SelectOption
       className="input-field col s12"
       name="category"
@@ -32,7 +34,17 @@ const DocumentForm = ({ document, allAuthors, onSave, onChange, saving, errors }
       value={document.category}
       onChange={onChange}
     />
+    { document.category === 'role-based'
+    ? <SelectRoleType
+      className="input-field col s12"
+      name="role_type"
+      label="role_type"
+      value={document.role_type}
+      onChange={onChange}
+    />
+    : ''
 
+    }
     <input
       className="waves-effect waves-light btn"
       type="submit"

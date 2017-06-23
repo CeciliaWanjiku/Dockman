@@ -1,23 +1,22 @@
 import React, { PropTypes } from 'react';
 const styleVisible = { display: 'block' };
-const SelectOption = ({ name, label, onChange, defaultOption, value, error, options }) => (
+const SelectRoleType = ({ name, label, onChange, defaultOption, value, error, options }) => (
   <div className="col s12">
     <label htmlFor={name} style={styleVisible}>{label}</label>
     <select
       name={name}
-      value={value || 'public'}
+      value={value || 'viewer'}
       onChange={onChange}
       style={styleVisible}
     >
-      <option value="public">Public</option>
-      <option value="private">Private</option>
-      <option value="role-based">Role Based</option>
+      <option value="viewer">Viewer</option>
+      <option value="editor">Editor</option>
     </select>
     {error && <div className="alert-danger">{error}</div>}
   </div>
 
     );
-SelectOption.PropTypes = {
+SelectRoleType.PropTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
@@ -26,5 +25,5 @@ SelectOption.PropTypes = {
   error: PropTypes.string,
   options: PropTypes.arrayOf(PropTypes.object)
 };
-export default SelectOption;
+export default SelectRoleType;
 

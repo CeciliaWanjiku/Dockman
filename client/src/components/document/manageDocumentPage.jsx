@@ -36,6 +36,7 @@ export class ManageDocumentPage extends React.Component {
     document[field] = event.target.value;
     return this.setState({ document });
   }
+
   documentFormIsValid() {
     let formIsValid = true;
     const errors = {};
@@ -58,7 +59,7 @@ export class ManageDocumentPage extends React.Component {
     this.setState({ saving: true });
 
     if (/\/create$/.test(this.props.location.pathname)) {
-      this.state.document['category'] = this.state.document['category'] || 'public';
+      this.state.document.category = this.state.document.category || 'public';
       this.props.actions.createDocument(this.state.document);
     } else {
       this.props.actions.updateDocument(this.state.document);
@@ -68,7 +69,7 @@ export class ManageDocumentPage extends React.Component {
   redirect() {
     this.setState({ saving: false });
     toastr.success('Document saved');
-    browserHistory.push('/document');
+    browserHistory.push('document/userdocuments');
   }
 
   deleteDocument(event) {

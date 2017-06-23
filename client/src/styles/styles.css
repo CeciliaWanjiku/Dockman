@@ -11,3 +11,26 @@ a.active {
 nav {
     padding-top: 20px;
 }
+
+.search-wrapper.card {
+    width: 25%;
+    float: right;
+    margin: 0;
+    transition: margin .25s ease;
+}
+input#search {
+    display: block;
+    font-size: 16px;
+    font-weight: 300;
+    width: 75%;
+    height: 45px;
+    margin: 0;
+    padding: 0 45px 0 15px;
+    border: 0;
+}
+.search-wrapper i.material-icons {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
