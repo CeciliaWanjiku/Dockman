@@ -14,7 +14,7 @@ export default function document(state = [], action) {
     case types.CREATE_DOCUMENT_SUCCESS:
       return [
         ...state,
-        Object.assign({}, action.document)
+        Object.assign({}, action.document.document)
       ];
     case types.UPDATE_DOCUMENT_SUCCESS:
       return [

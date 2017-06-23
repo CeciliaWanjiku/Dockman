@@ -59,7 +59,7 @@ export class ManageDocumentPage extends React.Component {
     this.setState({ saving: true });
 
     if (/\/create$/.test(this.props.location.pathname)) {
-      this.state.document['category'] = this.state.document['category'] || 'public';
+      this.state.document.category = this.state.document.category || 'public';
       this.props.actions.createDocument(this.state.document);
     } else {
       this.props.actions.updateDocument(this.state.document);
