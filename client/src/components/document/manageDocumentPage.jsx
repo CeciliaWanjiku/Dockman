@@ -74,6 +74,8 @@ export class ManageDocumentPage extends React.Component {
 
   deleteDocument(event) {
     this.props.actions.deleteDocument(this.state.document);
+    console.log('deleted')
+    browserHistory.push('/document');
   }
 
 

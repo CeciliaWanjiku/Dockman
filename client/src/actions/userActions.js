@@ -48,11 +48,7 @@ export const deleteUser = user => (dispatch) => {
 export const searchUser = (searchValue) => {
   searchValue = encodeURIComponent(searchValue);
   return (dispatch) => {
-<<<<<<< HEAD
     getEndpoint(`/api/search/user?q=${searchValue}`)
-=======
-    getEndpoint(`/api/search/users?q=${searchValue}`)
->>>>>>> production
     .set('access-token', localStorage.getItem('jwt'))
     .end((err, res) => dispatch(searchUsersSuccess(res.body)));
   };

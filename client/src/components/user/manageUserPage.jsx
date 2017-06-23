@@ -22,7 +22,7 @@ class ManageUserPage extends React.Component {
     this.deleteUser = this.deleteUser.bind(this);
   }
   componentWillReceiveProps(nextProps) {
-    if (/\/create$/.test(nextProps.location.pathname)) {
+    if (/\/create$/. st(nextProps.location.pathname)) {
       return;
     }
     if (this.props.user.id !== nextProps.user.id) {
@@ -49,9 +49,12 @@ class ManageUserPage extends React.Component {
     this.setState({ errors });
     return formIsValid;
   }
+
   validateEmail(email) {
+    console.log('email: ', email);
     const re = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-    re.test(email);
+    return re.test(email);
+  
   }
 
 
@@ -61,7 +64,8 @@ class ManageUserPage extends React.Component {
       toastr.error('Name should be longer than 5 characters!!');
       return;
     }
-    if (this.validateEmail()) {
+    if (!this.validateEmail(this.state.user.email)) {
+      console.log('that failed.')
       toastr.error('Please enter a valid email');
       return;
     }

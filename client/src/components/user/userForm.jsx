@@ -31,6 +31,7 @@ class UserForm extends React.Component {
         <TextInput
           name="email"
           label="Email"
+          type="email"
           value={this.props.user ? this.props.user.email : ''}
           onChange={onChange}
         />
