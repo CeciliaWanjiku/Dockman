@@ -26,6 +26,7 @@ export const searchUsersSuccess = users =>
 
 export const createUser = user => (dispatch) => {
   postEndpoint('/api/users')
+  .set('access-token', localStorage.getItem('jwt'))
     .send(user)
     .end((err, res) => dispatch(createUsersSuccess({ user: res.body })));
 };
@@ -39,6 +40,7 @@ export const updateUser = user => (dispatch) => {
 
 export const deleteUser = user => (dispatch) => {
   deleteEndpoint(`/api/user/${user.id}`)
+  .set('access-token', localStorage.getItem('jwt'))
     .send(user)
     .end((err, res) => dispatch(deleteUsersSuccess({ user: res.body })));
 };
@@ -46,7 +48,11 @@ export const deleteUser = user => (dispatch) => {
 export const searchUser = (searchValue) => {
   searchValue = encodeURIComponent(searchValue);
   return (dispatch) => {
+<<<<<<< HEAD
+    getEndpoint(`/api/search/user?q=${searchValue}`)
+=======
     getEndpoint(`/api/search/users?q=${searchValue}`)
+>>>>>>> production
     .set('access-token', localStorage.getItem('jwt'))
     .end((err, res) => dispatch(searchUsersSuccess(res.body)));
   };

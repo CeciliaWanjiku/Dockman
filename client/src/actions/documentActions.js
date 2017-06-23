@@ -48,17 +48,15 @@ export const updateDocument = doc => (dispatch) => {
     .send(doc)
     .end((err, res) => dispatch(updateDocumentsSuccess({ document: res.body })));
 };
-
-export const userDocuments = (userRole) => {
-  return (dispatch) => {
-    getEndpoint(`/users/${localStorage.getItem('user_id')}/documents?role_type=` + userRole)
-      .end((err, res) => dispatch(userDocumentsSuccess(res.body)));
-  };
-}
+export const userDocuments = () => (dispatch) => {
+  getEndpoint(`/users/${localStorage.getItem('user_id')}/documents`)
+   .set('access-token', localStorage.getItem('jwt'))
+    .end((err, res) => dispatch(userDocumentsSuccess(res.body)));
+};
 
 export const deleteDocument = doc => (dispatch) => {
   deleteEndpoint(`/api/documents/${doc.id}`)
-    .set('access-token', localStorage.getItem('jwt'))
+   .set('access-token', localStorage.getItem('jwt'))
     .send(doc)
     .end((err, res) => { console.log(err); dispatch(deleteDocumentsSuccess({ document: res.body })); });
 };
