@@ -22,8 +22,8 @@ export default function user(state = [], action) {
       browserHistory.push('/users');
       return newState;
     }
-    case types.SEARCH_DOCUMENT_SUCCESS:
-      return action.documents;
+    case types.SEARCH_USER_SUCCESS:
+      return action.users;
     default:
       return state;
   }

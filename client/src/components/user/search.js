@@ -7,6 +7,7 @@ import * as userActions from '../../actions/userActions';
 class Search extends React.Component {
   constructor(props, context) {
     super(props);
+    this.state = { searchValue: '' };
     this.searchUser = this.searchUser.bind(this);
     this.handleSearchInput = this.handleSearchInput.bind(this);
   }
@@ -14,7 +15,7 @@ class Search extends React.Component {
     this.props.actions.searchUser(searchValue);
   }
   handleSearchInput(e) {
-    console.log(e.target.value);
+    console.log('this is e', e.target.value);
     this.setState({ searchValue: e.target.value });
   }
   render() {
