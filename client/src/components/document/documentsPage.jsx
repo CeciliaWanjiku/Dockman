@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import Pagination from 'react-js-pagination';
 import * as documentActions from '../../actions/documentActions.js';
 import DocumentList from './documentsList.jsx';
-
+import Search from './search.jsx';
 
 class DocumentsPage extends React.Component {
   constructor(props, context) {
@@ -42,16 +42,10 @@ class DocumentsPage extends React.Component {
     return (
       <div>
         <h1> Documents </h1>
+        <Search />
         <a className="btn-floating btn-large waves-effect waves-light red">
           <i className="material-icons" onClick={this.redirectToAddDocumentPage}>add</i></a>
         <DocumentList documents={documents} />
-        <input
-          value={this.state.searchValue}
-          onChange={this.handleSearchInput}
-        />
-        <button
-          onClick={(e) => { e.preventDefault(); this.searchDocument(this.state.searchValue); }}
-        >Search Document</button>
         <Pagination
           activePage={this.state.activePage}
           itemsCountPerPage={this.state.limit}
