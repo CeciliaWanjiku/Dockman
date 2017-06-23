@@ -1,8 +1,4 @@
-Dockman
-Coverage Status Build Status
-
-Document Management System
-
+ ## Dockman ##
 Description
 
 The web application
