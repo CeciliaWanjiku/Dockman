@@ -1,0 +1,199 @@
+# Dockman
+Dockman is a simple web app that handles documents. It allows consumets to manage your documents
+API V1  https://github.com/CeciliaWanjiku/Dockman/tree/develop
+# Documentation guidelines
+Dockman being a RESTful API
+Unauthenticated endpoints are ```api/login```, ```api/signup``` and ```api/publicdocuments```.
+# User
+Resources related to users in the API
+### Create A New User [POST /api/users]
+This end-point creates a new user.
+A user provide user details and the fields are validated to prevent invalid data.
+The following credentials are mandatory:
+    + Name
+    + Email Address
+    + Password
++ Request (application/json)
+    {
+        "Name": "Test",
+        "email": "test@example.com",
+        "password": "password123",
+    }
++ Response 200 (application/json)
+  + Body
+    {
+       "id": 1,
+        "name": "muchai",
+        "email": "muchai@muchai.com",
+        "role": "user",
+        "role_type": "editor",
+        "password": "$2a$10$DDto4ZdGGwWwrabm1SNX0OG4k65vMPVq5yYQWyVVHRxJL68HWZmOi",
+        "createdAt": "2017-06-22T17:01:22.832Z",
+        "updatedAt": "2017-06-22T17:12:44.745Z"
+    }
+### Login A User [POST /api/users/login]
+This endpoint serves to login existing users. It expects ```username``` and ``` password ```.
++ Request (application/json)
+    {
+        "email": "admin@admin.com",
+        "password": "admin"
+    }
++ Response 200 (application/json)
+    {
+        
+    "id": 2,
+    "email": "admin@admin.com",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoyLCJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiYWRtaW4iLCJyb2xlX3R5cGUiOm51bGx9LCJpYXQiOjE0OTg0NTgzMTUsImV4cCI6MTQ5ODQ2MTkxNX0.Inpq_LvvlB9m9h1Ds1_1Nc5KoLYb2khOQoCLSkuStWM"
+        }
+    }
+### User Logout [GET /api/logout]
+This endpoint logs out a user.The session ends/expires after this.
++ Response 204 (application/json)
+    {
+    }
+
+### Users [GET /api/users]
+This endpoint fetches all users and displays user details (Admin Only)
++ Response 200 (application/json)
+    [
+        {
+        "id": 13,
+        "name": "kamaa",
+        "email": "kamaa@gmail.com",
+        "role": "user",
+        "role_type": "editor",
+        "password": "$2a$10$1zOimfP9XouBHatMGZXyhuEgdDg9Jjn19NozpgnHOvY1xvuZqrQS6",
+        "createdAt": "2017-06-23T08:15:49.974Z",
+        "updatedAt": "2017-06-23T08:18:04.769Z",
+        "documents": [
+            {
+                "id": 30,
+                "name": "first of kamaa",
+                "content": "new docc",
+                "category": "public",
+                "role_type": null,
+                "createdAt": "2017-06-23T08:16:14.626Z",
+                "updatedAt": "2017-06-23T08:16:14.626Z",
+                "userId": 13
+            },
+            {
+                "id": 31,
+                "name": "document 2",
+                "content": "this is to test role based documents",
+                "category": "role-based",
+                "role_type": "editor",
+                "createdAt": "2017-06-23T08:17:13.504Z",
+                "updatedAt": "2017-06-23T08:17:13.504Z",
+                "userId": 13
+            }
+    ]
+### Users [GET /api/users/:id]
+This end point gets a specific user by id
++ Response 200 (application/json)
+    {
+    "id": 2,
+    "name": "admin",
+    "email": "admin@admin.com",
+    "role": "admin",
+    "role_type": null,
+    "password": "$2a$10$OWhanjxQCKeyJzH5mixw0eD5p9Js//7rGHSu7IKIXw.5mg5jVlISq",
+    "createdAt": "2017-06-22T17:10:35.353Z",
+    "updatedAt": "2017-06-22T17:10:35.353Z",
+    "documents": [
+        {
+            "id": 52,
+            "name": "this is a doc created by admin",
+            "content": "i can edit this doc vvvvv",
+            "category": "private",
+            "role_type": null,
+            "createdAt": "2017-06-23T09:50:28.250Z",
+            "updatedAt": "2017-06-23T16:37:53.800Z",
+            "userId": 2
+        }
+    ]
+}
+### Users [GET /api/search/users?q=muchai]
+This endpoint searches a user by username (admin only)
++ Response 200 (application/json)
+    [
+      {
+        "id": 1,
+        "name": "muchai",
+        "email": "muchai@muchai.com",
+        "role": "user",
+        "role_type": "editor",
+        "password": "$2a$10$DDto4ZdGGwWwrabm1SNX0OG4k65vMPVq5yYQWyVVHRxJL68HWZmOi",
+        "createdAt": "2017-06-22T17:01:22.832Z",
+        "updatedAt": "2017-06-22T17:12:44.745Z"
+    },
+    ]
+### Users [PUT /api/users/:id]
+This endpoint updates a user's details
++ Response 200 (application/json)
+     {
+        "id": 1,
+        "name": "muchai",
+        "email": "muchai@muchai.com",
+        "role": "user",
+        "role_type": "editor",
+        "password": "$2a$10$DDto4ZdGGwWwrabm1SNX0OG4k65vMPVq5yYQWyVVHRxJL68HWZmOi",
+        "createdAt": "2017-06-22T17:01:22.832Z",
+        "updatedAt": "2017-06-22T17:12:44.745Z"
+    },
+### Users [DELETE /api/users/:docId]
+This endpoint deletes a user
++ Response 204 (application/json)
+# Documents
+Resources related to documents in the API
+### Documents [POST /api/documents/]
+This endpoint allows user to create a document.Note: document title should be unique and not less than 5 characters
++ Response 200 (application/json)
+    {
+                "id": 30,
+                "name": "first of kamaa",
+                "content": "new docc",
+                "category": "public",
+                "role_type": null,
+                "createdAt": "2017-06-23T08:16:14.626Z",
+                "updatedAt": "2017-06-23T08:16:14.626Z",
+                "userId": 13
+            },
+### Documents [GET /api/documents]
+This endpoint finds matching instances of document.Note:public documents only
++ Response 200 (application/json)
+    [
+       {
+                "id": 30,
+                "name": "first of kamaa",
+                "content": "new docc",
+                "category": "public",
+                "role_type": null,
+                "createdAt": "2017-06-23T08:16:14.626Z",
+                "updatedAt": "2017-06-23T08:16:14.626Z",
+                "userId": 13
+            },
+            {
+                "id": 31,
+                "name": "document 2",
+                "content": "this is to test role based documents",
+                "category": "role-based",
+                "role_type": "editor",
+                "createdAt": "2017-06-23T08:17:13.504Z",
+                "updatedAt": "2017-06-23T08:17:13.504Z",
+                "userId": 13
+            }
+      }
+    ]
+### Documents [GET /api/documents/{docId}]
+- This endpoint finds specific document
++ Response 200 (application/json)
+    {
+        "id": 31,
+        "name": "document 2",
+        "content": "this is to test role based documents",
+        "category": "role-based",
+        "role_type": "editor",
+        "createdAt": "2017-06-23T08:17:13.504Z",
+        "updatedAt": "2017-06-23T08:17:13.504Z",
+        "userId": 13
+    }
