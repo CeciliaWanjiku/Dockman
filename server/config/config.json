@@ -27,6 +27,9 @@
     "username":"nptcfidangszqc",
     "password":"788258800147cfeb74fdcdcc1ba2ce35cda238bb4e724f7d91c19f4915d3a91f",
     "database":"ddnbetaqu24j3l",
-    "host":"ec2-23-23-86-179.compute-1.amazonaws.com"
+    "host":"ec2-23-23-86-179.compute-1.amazonaws.com",
+    "dialect": "postgres",
+    "logging": false
+
   }
 }
