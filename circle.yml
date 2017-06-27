@@ -3,7 +3,9 @@ machine:
     version: 6.9.0
   chrome:
     version: 58.0.3029.0
-    
+  environment:
+    COVERALLS_REPO_TOKEN: dftEIKuyCjK3MufmpcJXyPp38Jknxa9Gi
+    COVERALLS_PARALLEL: true
 database:
   override:
     - createdb dockman-test
@@ -14,4 +16,6 @@ database:
 test:
   override:
     - npm test
-after_success: 'npm run coverage'
+notify:
+  webhooks:
+    - url: https://coveralls.io/webhook?repo_token=dftEIKuyCjK3MufmpcJXyPp38Jknxa9Gi
