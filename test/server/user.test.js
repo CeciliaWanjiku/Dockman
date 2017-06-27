@@ -1,4 +1,4 @@
-process.env.NODE_ENV = 'development';
+
 
 const chai = require('chai');
 
@@ -9,18 +9,29 @@ const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 
 const api = (require('../../server/app'));
+
 let token = '';
 
 describe('Users', () => {
+  chai.request(api)
+      .post('/api/users/')
+      .send({ email: 'testadmin@admin.com', password: 'admin', name: 'admin', role: 'admin' })
+      .then((res) => {
+        console.log('test user created!');
+        console.log(res.body);
+      });
   // login /
   beforeEach('login admin', (done) => {
     chai.request(api)
       .post('/api/users/login')
-      .send({ email: 'admin@admin.com', password: 'admin' })
+      .send({ email: 'testadmin@admin.com', password: 'admin' })
       .then((res) => {
         token = res.body.token;
         done();
       });
+      // .catch(e => {
+      //   console.log('Erroring out: ', e)
+      // })
   });
   describe('Users', () => {
     describe('/POST user', () => {

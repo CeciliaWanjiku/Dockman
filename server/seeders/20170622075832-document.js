@@ -8,7 +8,15 @@ module.exports = {
       category: 'public',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
-    }], {});
+    },
+    {
+      name: 'test doc 2',
+      content: 'some content here',
+      category: 'public',
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    }
+    ], {});
   },
 
   down(queryInterface, Sequelize) {

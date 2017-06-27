@@ -13,5 +13,5 @@ database:
     - echo "GRANT CREATE, CONNECT ON DATABASE test TO api;" | psql -U postgres
 test:
   override:
-    - npm run coverage
+    - npm test
 after_success: 'npm run coverage'
