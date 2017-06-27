@@ -40,6 +40,7 @@
     "material-ui-search-bar": "^0.2.1",
     "materialize-css": "^0.98.2",
     "morgan": "^1.8.2",
+    "nodemon": "^1.11.0",
     "open": "0.0.5",
     "passport": "^0.3.2",
     "passport-jwt": "^1.2.1",
