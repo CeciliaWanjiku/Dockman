@@ -31,3 +31,6 @@ You can run tests by ensuring you have the project set up then running:
 $ npm run coverage
 
 This web application is made using NodeJS, Postgress, Sequelize and ReactJS with Redux.
+
+####Hosted App####
+https://dockman-app.herokuapp.com/
