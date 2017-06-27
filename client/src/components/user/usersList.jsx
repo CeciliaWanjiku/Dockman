@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import UserListRow from './UserListRow.jsx';
+import UserListRow from './userListRow.jsx';
 
 
 const UsersList = ({ users }) => (
