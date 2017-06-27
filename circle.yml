@@ -1,6 +1,8 @@
 machine:
   node:
     version: 6.9.0
+  chrome:
+    version: 58.0.3029.0
 test:
   override:
     - npm run coverage
