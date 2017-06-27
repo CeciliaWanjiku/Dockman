@@ -46,7 +46,7 @@ export const updateDocument = doc => (dispatch) => {
   putEndpoint(`/api/documents/${doc.id}`)
     .set('access-token', localStorage.getItem('jwt'))
     .send(doc)
-    .end((err, res) => dispatch(updateDocumentsSuccess({ document: res.body })));
+    .end((err, res) => dispatch(updateDocumentsSuccess(res.body)));
 };
 export const userDocuments = () => (dispatch) => {
   getEndpoint(`/users/${localStorage.getItem('user_id')}/documents`)
