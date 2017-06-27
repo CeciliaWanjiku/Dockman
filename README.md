@@ -1,8 +1,4 @@
-Dockman
-Coverage Status Build Status
-
-Document Management System
-
+ ## Dockman ##
 Description
 
 The web application
@@ -14,7 +10,7 @@ Allows users to create accounts and manage simple documents by allowing users to
 -Delete Users & documents
 -Pagination
 
-Installation
+### Installation ###
 
 Clone this repository
 $ git clone https://github.com/CeciliaWanjiku/Dockman/tree/develop && cd dockman
@@ -26,10 +22,9 @@ Run the development server
 $ npm run start:dev
 The server will run at http://localhost:8090
 
-Testing
+### Testing ###
 You can run tests by ensuring you have the project set up then running:
 
 $ npm run coverage
-Made Using
 
 This web application is made using NodeJS, Postgress, Sequelize and ReactJS with Redux.
