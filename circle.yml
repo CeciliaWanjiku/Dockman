@@ -16,6 +16,7 @@ database:
 test:
   override:
     - npm test
+    - npm run coverage
 notify:
   webhooks:
     - url: https://coveralls.io/webhook?repo_token=dftEIKuyCjK3MufmpcJXyPp38Jknxa9Gi
