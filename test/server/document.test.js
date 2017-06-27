@@ -11,11 +11,18 @@ const api = (require('../../server/app'));
 let token = '';
 
 describe('Documents', () => {
+  chai.request(api)
+      .post('/api/users/')
+      .send({ email: 'testdoc@admin.com', password: 'admin', name: 'admin', role: 'admin' })
+      .then((res) => {
+        console.log('test user created!');
+        console.log(res.body);
+      });
   // login /
   beforeEach('login user', (done) => {
     chai.request(api)
       .post('/api/users/login')
-      .send({ email: 'testadmin@admin.com', password: 'admin' })
+      .send({ email: 'testdoc@admin.com', password: 'admin' })
       .then((res) => {
         token = res.body.token;
         done();
