@@ -14,13 +14,15 @@ Allows users to create accounts and manage simple documents by allowing users to
 ### Installation ###
 
 Clone this repository
-$ git clone https://github.com/CeciliaWanjiku/Dockman/tree/develop && cd dockman
+$ git clone https://github.com/CeciliaWanjiku/Dockman.git && cd dockman
 Install the project's dependencies
-$ npm install
+``` npm install ```
+```cd into Dockman ```
+``` git checkout develop ```
 Ensure you have a SECRET_KEY set in your environment by exporting one.
 
 Run the development server
-$ npm run start:dev
+``` npm run start-dev ```
 The server will run at http://localhost:8090
 
 ### Testing ###

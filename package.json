@@ -19,6 +19,7 @@
   "dependencies": {
     "babel-polyfill": "6.8.0",
     "bcrypt": "^0.8.5",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.17.2",
     "chai": "^4.0.2",
     "chai-http": "^3.0.0",
@@ -43,8 +44,8 @@
     "pg": "^6.2.3",
     "pg-hstore": "^2.3.2",
     "prop-types": "^15.5.10",
-    "react": "15.0.2",
-    "react-dom": "15.0.2",
+    "react": "15.4.0",
+    "react-dom": "15.4.0",
     "react-js-pagination": "^2.1.0",
     "react-redux": "4.4.5",
     "react-router": "2.4.0",
