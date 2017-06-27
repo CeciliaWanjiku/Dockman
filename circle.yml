@@ -6,11 +6,11 @@ machine:
     
 database:
   override:
-    - createdb test
-    - echo "CREATE ROLE api WITH UNENCRYPTED PASSWORD 'password';" | psql -U postgres
-    - echo "ALTER ROLE api WITH LOGIN;" | psql -U postgres
-    - echo "GRANT SELECT, UPDATE, INSERT ON ALL TABLES IN SCHEMA test.public TO api;" | psql -U postgres
-    - echo "GRANT CREATE, CONNECT ON DATABASE test TO api;" | psql -U postgres
+    - createdb dockman-test
+    - echo "CREATE ROLE ceciliawahome;" | psql -U postgres
+    - echo "ALTER ROLE ceciliawahome WITH LOGIN;" | psql -U postgres
+    - echo "GRANT SELECT, UPDATE, INSERT ON ALL TABLES IN SCHEMA dockman-test.public TO ceciliawahome;" | psql -U postgres
+    - echo "GRANT CREATE, CONNECT ON DATABASE dockman-test TO ceciliawahome;" | psql -U postgres
 test:
   override:
     - npm test
