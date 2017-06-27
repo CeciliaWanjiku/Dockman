@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "prestart": "babel-node client/tools/startMessage.js",
-    "start": "npm-run-all --parallel open:src start-dev",
+    "start": "nodemon ./index",
     "open:src": "babel-node index.js",
     "start-dev": "export NODE_ENV=development && nodemon ./index",
     "etoe": "mocha test/   e2e",
