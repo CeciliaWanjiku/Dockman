@@ -3,6 +3,15 @@ machine:
     version: 6.9.0
   chrome:
     version: 58.0.3029.0
+    
+database:
+  override:
+    - createdb test
+    - echo "CREATE ROLE api WITH UNENCRYPTED PASSWORD 'password';" | psql -U postgres
+    - echo "ALTER ROLE api WITH LOGIN;" | psql -U postgres
+    - echo "GRANT SELECT, UPDATE, INSERT ON ALL TABLES IN SCHEMA test.public TO api;" | psql -U postgres
+    - echo "GRANT CREATE, CONNECT ON DATABASE test TO api;" | psql -U postgres
 test:
   override:
     - npm run coverage
+after_success: 'npm run coverage'

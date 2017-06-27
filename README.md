@@ -1,3 +1,4 @@
+[![Coverage Status](https://coveralls.io/repos/github/CeciliaWanjiku/Dockman/badge.svg?branch=develop)](https://coveralls.io/github/CeciliaWanjiku/Dockman?branch=develop) 
  ## Dockman ##
 Description
 

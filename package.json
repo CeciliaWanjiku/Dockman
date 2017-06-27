@@ -11,7 +11,7 @@
     "etoe": "mocha test/   e2e",
     "lint": "./node_modules/.bin/eslint -c .eslintrc ./server",
     "test": "mocha --require client/tools/testSetup.js --require mocha-local-storage \"test/**/*.test.js\"",
-    "coverage": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -r mocha-local-storage --compilers js:babel-register client/tools/testSetup.js \"test/**/*.test.js\"",
+    "coverage": "cat ./coverage/lcov.info | ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -r mocha-local-storage --compilers js:babel-register client/tools/testSetup.js \"test/**/*.test.js\"",
     "lint:watch": "npm run lint -- --watch"
   },
   "author": "Cecilia Wahome",
