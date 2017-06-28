@@ -39,6 +39,8 @@ class DocumentsPage extends React.Component {
   }
   render() {
     const { documents } = this.props;
+    const totalCount = documents.count;
+    delete documents.count;
     return (
       <div>
         <h1> Documents </h1>
@@ -49,7 +51,7 @@ class DocumentsPage extends React.Component {
         <Pagination
           activePage={this.state.activePage}
           itemsCountPerPage={this.state.limit}
-          totalItemsCount={50}
+          totalItemsCount={totalCount}
           pageRangeDisplayed={5}
           onChange={this.handlePageChange}
         />

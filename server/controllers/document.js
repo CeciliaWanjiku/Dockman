@@ -20,7 +20,14 @@ module.exports = {
   FindDocument(req, res) {
     if (req.query.limit || req.query.offset) {
       return Document.findAll({ offset: req.query.offset, limit: req.query.limit })
-      .then(response => res.status(200).send(response))
+      .then((response) => {
+        let count;
+        Document.count().then((totalCount) => {
+          count = totalCount;
+          console.log('>>>>>>>>>>.');
+          return res.status(200).send({ data: response, count });
+        });
+      })
       .catch(error => res.status(400).send(error));
     }
     return Document
@@ -90,7 +97,7 @@ module.exports = {
       })
       .catch(error => res.status(400).send(error));
   },
-  FindPublicDocuments(req, res) { 
+  FindPublicDocuments(req, res) {
     return Document.findAll({
       where: {
         category: { $iLike: 'public' }

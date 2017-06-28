@@ -16,13 +16,13 @@ describe('login form', function () {
   this.timeout(10000);
 
   before((done) => {
-    driver.navigate().to('http://localhost:8090/userLogin')
+    driver.navigate().to('http://localhost:8080/userLogin')
         .then(() => done());
   });
 
   it('login a user', (done) => {
-    driver.findElement(By.xpath('//*[@id="app"]/div/div/form/div[1]/div/input')).sendKeys('muchai@muchai.com');
-    driver.findElement(By.xpath('//*[@id="app"]/div/div/form/div[2]/div/input')).sendKeys('muchai');
+    driver.findElement(By.xpath('//*[@id="app"]/div/div/form/div[1]/div/input')).sendKeys('admin@admin.com');
+    driver.findElement(By.xpath('//*[@id="app"]/div/div/form/div[2]/div/input')).sendKeys('admin');
     driver.findElement(By.css('.btn-primary')).click()
         .then(() => done());
   });

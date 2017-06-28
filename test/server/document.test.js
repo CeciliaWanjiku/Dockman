@@ -2,12 +2,14 @@
 const chai = require('chai');
 
 const expect = chai.expect;
+const should = chai.should();
 const supertest = require('supertest');
 const chaiHttp = require('chai-http');
 
 chai.use(chaiHttp);
 
 const api = (require('../../server/app'));
+
 let token = '';
 
 describe('Documents', () => {
@@ -22,12 +24,12 @@ describe('Documents', () => {
   beforeEach('login user', (done) => {
     chai.request(api)
       .post('/api/users/login')
-      .send({ email: 'testdoc@admin.com', password: 'admin' })
+      .send({ email: 'testadmin@admin.com', password: 'admin' })
       .then((res) => {
         token = res.body.token;
         done();
-      })
-      //.catch(err => console.log(err));
+      });
+      // .catch(err => console.log(err));
   });
 
   describe('/GET document', () => {
@@ -103,7 +105,7 @@ describe('Documents', () => {
     });
     it('it should GET document by Id', (done) => {
       chai.request(api)
-      .get('/api/documents/g')
+      .get('/api/documents/gvvv')
       .set('access-token', token)
       .end(() => {
         expect(400);
@@ -130,6 +132,15 @@ describe('Documents', () => {
         done();
       });
     });
+    it('should return a 400 response', (done) => {
+      chai.request(api)
+        .put('/api/documents/jmnbcvx')
+        .set('access-token', token)
+        .end((err, res) => {
+          res.should.have.status(400);
+          done();
+        });
+    });
     it('it should GET document by Id', (done) => {
       chai.request(api)
       .delete('/api/documents/0')
@@ -153,7 +164,7 @@ describe('Documents', () => {
         done();
       });
     });
-    it('it should GET document by Id', (done) => {
+    it('it should update document by Id', (done) => {
       chai.request(api)
       .put('/api/documents/12')
       .set('access-token', token)
@@ -162,7 +173,23 @@ describe('Documents', () => {
         done();
       });
     });
+    it('should return a 400 response', (done) => {
+      chai.request(api)
+        .put('/api/documents/jmnbcvx')
+        .set('access-token', token)
+        .send({
+          name: 'newwww',
+          content: 'newwwwww',
+          role: 'private',
+          UserId: 2,
+        })
+        .end((err, res) => {
+          res.should.have.status(400);
+          done();
+        });
+    });
   });
+
   describe('/GET documents/:id', () => {
     it('it should PAGINATE documents', (done) => {
       chai.request(api)
@@ -183,6 +210,15 @@ describe('Documents', () => {
         expect(200);
         done();
       });
+    });
+    it('should return a 400 response', (done) => {
+      chai.request(api)
+        .put('/api/search/documents/jmnbcvx')
+        .set('access-token', token)
+        .end((err, res) => {
+          res.should.have.status(401);
+          done();
+        });
     });
   });
 });

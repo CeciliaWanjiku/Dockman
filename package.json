@@ -13,7 +13,7 @@
     "etoe": "mocha test/   e2e",
     "lint": "./node_modules/.bin/eslint -c .eslintrc ./server",
     "pretest": "export NODE_ENV=test && sequelize db:migrate:undo:all && sequelize db:migrate && sequelize db:seed:all",
-    "test": " ./node_modules/.bin/istanbul cover _mocha --require client/tools/testSetup.js \"test/server/**/*.test.js\" ",
+    "test": " ./node_modules/.bin/istanbul cover _mocha --require client/tools/testSetup.js \"test/**/*.test.js\" ",
     "coverage": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
     "lint:watch": "npm run lint -- --watch"
   },
@@ -107,7 +107,7 @@
     "npm-run-all": "1.8.0",
     "react-addons-test-utils": "15.0.2",
     "redux-immutable-state-invariant": "1.2.3",
-    "redux-mock-store": "1.0.2",
+    "redux-mock-store": "^1.2.3",
     "rimraf": "2.5.2",
     "selenium-webdriver": "^3.4.0",
     "style-loader": "0.13.1",

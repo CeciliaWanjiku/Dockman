@@ -17,6 +17,7 @@ class ManageUserPage extends React.Component {
       errors: {},
       saving: false
     };
+    console.log('Inside consructor...')
     this.updateUserState = this.updateUserState.bind(this);
     this.updateUser = this.updateUser.bind(this);
     this.deleteUser = this.deleteUser.bind(this);

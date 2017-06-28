@@ -18,6 +18,7 @@ class UsersPage extends React.Component {
     this.searchUser = this.searchUser.bind(this);
   }
   componentDidMount() {
+    console.log('>>>>>>>>>>>>>>');
     this.setState({ totalUsers: this.props.users.length });
     this.props.actions.loadUsers(this.state.limit, 0);
   }

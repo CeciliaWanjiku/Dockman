@@ -44,6 +44,7 @@ class LogInPage extends React.Component {
           <TextInput
             name="email"
             label="email"
+            className="email"
             value={this.state.credentials.email}
             onChange={this.onChange}
           />
@@ -52,6 +53,7 @@ class LogInPage extends React.Component {
             name="password"
             label="password"
             type="password"
+            className="password"
             value={this.state.credentials.password}
             onChange={this.onChange}
           />
