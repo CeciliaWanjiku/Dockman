@@ -16,8 +16,8 @@ module.exports = (app) => {
   app.get('/api/users/:userId', userController.findOneUser);
   app.delete('/api/users/:userId', userController.delete);
   app.put('/api/users/:userId', userController.UpdateUser);
-  app.get('/api/users/', userController.paginatedUsers);
   app.get('/api/search/users/', userController.searchUser);
+  app.get('/api/users/', userController.paginatedUsers);
   // documents routes
   app.post('/api/documents', documentController.create);
   app.get('/users/:userId/documents', documentController.userDocuments);

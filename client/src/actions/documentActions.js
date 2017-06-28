@@ -48,8 +48,11 @@ export const updateDocument = doc => (dispatch) => {
     .send(doc)
     .end((err, res) => dispatch(updateDocumentsSuccess(res.body)));
 };
-export const userDocuments = () => (dispatch) => {
-  getEndpoint(`/users/${localStorage.getItem('user_id')}/documents`)
+export const userDocuments = userRole => (dispatch) => {
+  console.log(localStorage.getItem('user_id'), 'stooo');
+  // getEndpoint(`/users/${localStorage.getItem('user_id')}/documents`)
+  getEndpoint(`/users/${localStorage.getItem('user_id')}/documents?role_type=${userRole}`)
+
    .set('access-token', localStorage.getItem('jwt'))
     .end((err, res) => dispatch(userDocumentsSuccess(res.body)));
 };

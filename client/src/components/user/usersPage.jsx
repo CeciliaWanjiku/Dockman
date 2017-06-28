@@ -39,6 +39,8 @@ class UsersPage extends React.Component {
   }
   render() {
     const { users } = this.props;
+    console.log('userrrd', users);
+
     return (
       <div>
         <Search />

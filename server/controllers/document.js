@@ -125,6 +125,7 @@ module.exports = {
       .catch(error => res.status(400).send(error));
   },
   userDocuments(req, res) {
+    console.log(req.query.role_type, 'reqrole');
     return Document.findAll({
       where: {
         $or: {
