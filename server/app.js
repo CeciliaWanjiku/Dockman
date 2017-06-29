@@ -26,7 +26,7 @@ if (env === 'development') {
 
   app.use(require('webpack-hot-middleware')(compiler));
 } else {
-  app.use(express.static('../client/dist'));
+  app.use(express.static(path.join(__dirname, '../client/dist')));
 }
 
 
@@ -50,7 +50,7 @@ require('../server/routes')(app);
 
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/src/index.html'));
+  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
 
 module.exports = app;
