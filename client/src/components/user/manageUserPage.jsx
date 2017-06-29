@@ -22,7 +22,7 @@ class ManageUserPage extends React.Component {
     this.deleteUser = this.deleteUser.bind(this);
   }
   componentWillReceiveProps(nextProps) {
-    if (/\/create$/.st(nextProps.location.pathname)) {
+    if (/\/create$/.test(nextProps.location.pathname)) {
       return;
     }
     if (this.props.user.id !== nextProps.user.id) {
