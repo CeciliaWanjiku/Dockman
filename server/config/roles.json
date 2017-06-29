@@ -16,9 +16,5 @@
   },
   "/search/users(/*)?": {
     "get": ["admin"]
-  },
-  "/api/search/users/": {
-    "get": ["admin"]
   }
- 
 }

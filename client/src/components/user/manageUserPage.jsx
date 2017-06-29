@@ -17,13 +17,12 @@ class ManageUserPage extends React.Component {
       errors: {},
       saving: false
     };
-    console.log('Inside consructor...')
     this.updateUserState = this.updateUserState.bind(this);
     this.updateUser = this.updateUser.bind(this);
     this.deleteUser = this.deleteUser.bind(this);
   }
   componentWillReceiveProps(nextProps) {
-    if (/\/create$/. st(nextProps.location.pathname)) {
+    if (/\/create$/.st(nextProps.location.pathname)) {
       return;
     }
     if (this.props.user.id !== nextProps.user.id) {
@@ -55,7 +54,6 @@ class ManageUserPage extends React.Component {
     console.log('email: ', email);
     const re = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
     return re.test(email);
-  
   }
 
 
@@ -66,7 +64,7 @@ class ManageUserPage extends React.Component {
       return;
     }
     if (!this.validateEmail(this.state.user.email)) {
-      console.log('that failed.')
+      console.log('that failed.');
       toastr.error('Please enter a valid email');
       return;
     }
@@ -79,6 +77,10 @@ class ManageUserPage extends React.Component {
     this.redirect();
   }
   redirect() {
+    if (!this.errors) {
+      this.setState({ saving: false });
+      return toastr.success(this.errors, 'Invalid credentials');
+    }
     this.setState({ saving: false });
     toastr.success('User saved');
     browserHistory.push('/userLogin');

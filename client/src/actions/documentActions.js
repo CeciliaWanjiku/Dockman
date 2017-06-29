@@ -20,7 +20,7 @@ export const userDocumentsSuccess = documents =>
 export const loadDocuments = (limit = 10, offset = 0) => (dispatch) => {
   getEndpoint(`/api/documents/?limit=${limit}&offset=${offset}`)
    .set('access-token', localStorage.getItem('jwt'))
-    .end((err, res) =>{  
+    .end((err, res) => {
       if (err || !res.ok) {
         toastr.error('Unauthorized');
         return;
@@ -69,6 +69,12 @@ export const searchDocument = (searchValue) => {
   searchValue = encodeURIComponent(searchValue);
   return (dispatch) => {
     getEndpoint(`/api/search/documents?q=${searchValue}`)
-    .end((err, res) => dispatch(searchDocumentsSuccess(res.body)));
+    .end((err, res) => {
+      if (res.body.length < 1) {
+        toastr.error('Not Found');
+        return dispatch(searchDocumentsSuccess(res.body));
+      }
+      return dispatch(searchDocumentsSuccess(res.body));
+    });
   };
 };

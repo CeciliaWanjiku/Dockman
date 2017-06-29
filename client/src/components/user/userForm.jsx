@@ -17,7 +17,6 @@ class UserForm extends React.Component {
     const saving = this.props.saving;
     const token = this.props.session.token || localStorage.getItem('jwt');
     const user = token && jwtDecode(token);
-    console.log('User>>>>', user);
 
     return (
       <form onSubmit={onSave}>

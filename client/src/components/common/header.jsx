@@ -48,7 +48,6 @@ class Header extends React.Component {
             ? <Link to="#" activeClassName="active" onClick={this.logoutUser}>Logout</Link>
             : null
           }
-          <LoadingDots interval={100} dots={20} />
         </div>
       </nav>
     );

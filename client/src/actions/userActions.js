@@ -4,19 +4,6 @@ import { getEndpoint, postEndpoint, putEndpoint, deleteEndpoint } from '../../ut
 
 export const loadUsersSuccess = users => ({ type: types.LOAD_USER_SUCCESS, users });
 
-// export const loadDocuments = (limit = 10, offset = 0) => (dispatch) => {
-//   getEndpoint(`/api/documents/?limit=${limit}&offset=${offset}`)
-//    .set('access-token', localStorage.getItem('jwt'))
-//     .end((err, res) => {
-//       if (err || !res.ok) {
-//         toastr.error('Unauthorized');
-//         return;
-//       }
-//       res.body.data.count = res.body.count;
-//       dispatch(loadDocumentsSuccess(res.body.data));
-//     });
-// };
-
 export const loadUsers = (limit = 10, offset = 0) => (dispatch) => {
   getEndpoint(`/api/users/?limit=${limit}&offset=${offset}`)
   .set('access-token', localStorage.getItem('jwt'))
@@ -45,7 +32,13 @@ export const createUser = user => (dispatch) => {
   postEndpoint('/api/users')
   .set('access-token', localStorage.getItem('jwt'))
     .send(user)
-    .end((err, res) => dispatch(createUsersSuccess({ user: res.body })));
+    .end((err, res) => {
+      if (!err) {
+        return dispatch(createUsersSuccess({ user: res.body }));
+      }
+      console.log('............', err);
+      toastr.error('error', err);
+    });
 };
 
 export const updateUser = user => (dispatch) => {
@@ -62,12 +55,26 @@ export const deleteUser = user => (dispatch) => {
     .end((err, res) => dispatch(deleteUsersSuccess({ user: res.body })));
 };
 
+// export const searchUser = (searchValue) => {
+//   searchValue = encodeURIComponent(searchValue);
+//   return (dispatch) => {
+//     getEndpoint(`/api/search/users?q=${searchValue}`)
+//     .set('access-token', localStorage.getItem('jwt'))
+//     .end((err, res) => dispatch(searchUsersSuccess(res.body)));
+//   };
+// };
 export const searchUser = (searchValue) => {
   searchValue = encodeURIComponent(searchValue);
   return (dispatch) => {
-    getEndpoint(`/api/search/user?q=${searchValue}`)
+    getEndpoint(`/api/search/users?q=${searchValue}`)
     .set('access-token', localStorage.getItem('jwt'))
-    .end((err, res) => dispatch(searchUsersSuccess(res.body)));
+    .end((err, res) => {
+      if (res.body.length < 1) {
+        toastr.error('User not found');
+        return dispatch(searchUsersSuccess(res.body));
+      }
+      return dispatch(searchUsersSuccess(res.body));
+    });
   };
 };
 
