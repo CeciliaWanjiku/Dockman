@@ -30,9 +30,9 @@ const middleware = [thunk];
 const mockStore = configureMockStore(middleware);
 
 describe('Async Actions', () => {
-  afterEach(() => {
-    nock.cleanAll();
-  });
+  // afterEach(() => {
+  //   nock.cleanAll();
+  // });
 
   it('should create BEGIN_AJAX_CALL and LOAD_USERS_SUCCESS when loading users', (done) => {
     nock('http://localhost:8090/')
@@ -49,6 +49,67 @@ describe('Async Actions', () => {
       const actions = store.getActions();
       expect(actions[0].type).toEqual(types.BEGIN_AJAX_CALL);
       expect(actions[1].type).toEqual(types.LOAD_USERS_SUCCESS);
+      done();
+    });
+  });
+  it('should create a user', (done) => {
+    const user = {
+      name: 'foo',
+      email: 'bar',
+      password: 'public'
+    };
+    nock('http://localhost:8090/')
+     .post('/api/users')
+    .reply(201, { body: { user: [{ id: 2, name: 'foo', email: 'bar' }] } });
+    const expectedActions = [
+      { type: types.BEGIN_AJAX_CALL },
+      { type: types.CREATE_USER_SUCCESS, body: { USERS: [{ id: 2, name: 'foo', email: 'bar' }] } }
+    ];
+
+    const store = mockStore({ documents: [] }, expectedActions, done());
+    store.dispatch(userActions.createUser(user)).then(() => {
+      const actions = store.getActions();
+      expect(actions[0].type).toEqual(types.BEGIN_AJAX_CALL);
+      expect(actions[1].type).toEqual(types.CREATE_USER_SUCCESS);
+      done();
+    });
+  });
+  it('should update a user', (done) => {
+    const user = {
+      name: 'foo',
+      email: 'bar',
+      password: 'public'
+    };
+    nock('http://localhost:8090/')
+     .put('/api/users')
+    .reply(201, { body: { user: [{ id: 2, name: 'foo', email: 'bar' }] } });
+    const expectedActions = [
+      { type: types.BEGIN_AJAX_CALL },
+      { type: types.UPDATE_USER_SUCCESS, body: { USERS: [{ id: 2, name: 'foo', email: 'bar' }] } }
+    ];
+
+    const store = mockStore({ users: [] }, expectedActions, done());
+    store.dispatch(userActions.updateUser(user)).then(() => {
+      const actions = store.getActions();
+      expect(actions[0].type).toEqual(types.BEGIN_AJAX_CALL);
+      expect(actions[1].type).toEqual(types.UPDATE_USER_SUCCESS);
+      done();
+    });
+  });
+  it('should delete user', (done) => {
+    nock('http://localhost:8090/')
+     .delete('/api/user/2')
+    .reply(204, { body: { user: [{ id: 2, name: 'foo', email: 'bar' }] } });
+    const expectedActions = [
+      { type: types.BEGIN_AJAX_CALL },
+      { type: types.DELETE_USER_SUCCESS, body: { USERS: [{ id: 2, name: 'foo', email: 'bar' }] } }
+    ];
+
+    const store = mockStore({ users: [] }, expectedActions, done());
+    store.dispatch(userActions.deleteUser(1)).then(() => {
+      const actions = store.getActions();
+      expect(actions[0].type).toEqual(types.BEGIN_AJAX_CALL);
+      expect(actions[1].type).toEqual(types.DELETE_USER_SUCCESS);
       done();
     });
   });
