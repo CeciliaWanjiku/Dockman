@@ -62,7 +62,7 @@ export const deleteDocument = doc => (dispatch) => {
   deleteEndpoint(`/api/documents/${doc.id}`)
    .set('access-token', localStorage.getItem('jwt'))
     .send(doc)
-    .end((err, res) => { console.log(err); dispatch(deleteDocumentsSuccess({ document: res.body })); });
+    .end((err, res) => { console.log(err); dispatch(deleteDocumentsSuccess(res.body)); });
 };
 
 export const searchDocument = (searchValue) => {

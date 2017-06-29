@@ -113,5 +113,23 @@ describe('Async Actions', () => {
       done();
     });
   });
+  it('should create BEGIN_AJAX_CALL and SEARCH_USER_SUCCESS when loading documents', (done) => {
+    nock('http://localhost:8090/')
+     .get('/api/search/users?q=d')
+    .reply(200, { body: { user: [{ id: 2, name: 'foo', email: 'bart' }] } });
+
+    const expectedActions = [
+      { type: types.BEGIN_AJAX_CALL },
+      { type: types.SEARCH_USER_SUCCESS, body: { USERS: [{ id: 2, name: 'foo', email: 'bart' }] } }
+    ];
+
+    const store = mockStore({ documents: [] }, expectedActions, done());
+    store.dispatch(userActions.searchUser()).then(() => {
+      const actions = store.getActions();
+      expect(actions[0].type).toEqual(types.BEGIN_AJAX_CALL);
+      expect(actions[1].type).toEqual(types.SEARCH_USER_SUCCESS);
+      done();
+    });
+  });
 });
 

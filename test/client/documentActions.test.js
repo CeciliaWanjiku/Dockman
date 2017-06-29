@@ -52,6 +52,24 @@ describe('Async Actions', () => {
       done();
     });
   });
+  it('should create BEGIN_AJAX_CALL and LOAD_PUBLIC_DOCUMENTS_SUCCESS when loading documents', (done) => {
+    nock('http://localhost:8080/')
+     .get('/users/2/documents')
+    .reply(200, { body: { document: [{ id: 2, name: 'Document 2', content: 'there is no content' }] } });
+
+    const expectedActions = [
+      { type: types.BEGIN_AJAX_CALL },
+      { type: types.LOAD_PUBLIC_DOCUMENTS_SUCCESS, body: { DOCUMENTS: [{ id: '60', name: 'Document 60' }] } }
+    ];
+
+    const store = mockStore({ documents: [] }, expectedActions, done());
+    store.dispatch(documentActions.loadPublicDocuments()).then(() => {
+      const actions = store.getActions();
+      expect(actions[0].type).toEqual(types.BEGIN_AJAX_CALL);
+      expect(actions[1].type).toEqual(types.LOAD_PUBLIC_DOCUMENTS_SUCCESS);
+      done();
+    });
+  });
   it('should create BEGIN_AJAX_CALL and SEARCH_DOCUMENT_SUCCESS when loading documents', (done) => {
     nock('http://localhost:8090/')
      .get('/api/search/documents?q=doc')
