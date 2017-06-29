@@ -40,6 +40,8 @@ class UsersPage extends React.Component {
   }
   render() {
     const { users } = this.props;
+    const totalCount = users.count;
+    delete users.count;
     console.log('userrrd', users);
 
     return (
@@ -52,7 +54,7 @@ class UsersPage extends React.Component {
         <Pagination
           activePage={this.state.activePage}
           itemsCountPerPage={this.state.limit}
-          totalItemsCount={50}
+          totalItemsCount={totalCount}
           pageRangeDisplayed={5}
           onChange={this.handlePageChange}
         />

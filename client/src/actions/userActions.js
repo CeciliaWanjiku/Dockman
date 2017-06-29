@@ -4,16 +4,33 @@ import { getEndpoint, postEndpoint, putEndpoint, deleteEndpoint } from '../../ut
 
 export const loadUsersSuccess = users => ({ type: types.LOAD_USER_SUCCESS, users });
 
-export const loadUsers = () => dispatch => getEndpoint('/api/users/')
+// export const loadDocuments = (limit = 10, offset = 0) => (dispatch) => {
+//   getEndpoint(`/api/documents/?limit=${limit}&offset=${offset}`)
+//    .set('access-token', localStorage.getItem('jwt'))
+//     .end((err, res) => {
+//       if (err || !res.ok) {
+//         toastr.error('Unauthorized');
+//         return;
+//       }
+//       res.body.data.count = res.body.count;
+//       dispatch(loadDocumentsSuccess(res.body.data));
+//     });
+// };
+
+export const loadUsers = (limit = 10, offset = 0) => (dispatch) => {
+  getEndpoint(`/api/users/?limit=${limit}&offset=${offset}`)
   .set('access-token', localStorage.getItem('jwt'))
   .end((err, res) => {
     if (!err) {
-      dispatch(loadUsersSuccess(res.body));
+      res.body.data.count = res.body.data;
+      dispatch(loadUsersSuccess(res.body.data));
     } else {
       toastr.error('Unauthorized!');
       // alert('');
     }
   });
+};
+
 export const createUsersSuccess = user => ({
   type: types.CREATE_USER_SUCCESS, user });
 export const updateUsersSuccess = user => ({

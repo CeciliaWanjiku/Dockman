@@ -20,7 +20,7 @@ export const userDocumentsSuccess = documents =>
 export const loadDocuments = (limit = 10, offset = 0) => (dispatch) => {
   getEndpoint(`/api/documents/?limit=${limit}&offset=${offset}`)
    .set('access-token', localStorage.getItem('jwt'))
-    .end((err, res) => {  
+    .end((err, res) =>{  
       if (err || !res.ok) {
         toastr.error('Unauthorized');
         return;

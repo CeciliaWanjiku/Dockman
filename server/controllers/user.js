@@ -65,7 +65,7 @@ module.exports = {
     }
   },
   logout(req, res) {
-    
+
   },
   delete(req, res) {
     user.findById(req.params.userId)
@@ -81,10 +81,18 @@ module.exports = {
       })
       .catch(error => res.status(400).send(error));
   },
+
   paginatedUsers(req, res) {
     if (req.query.limit || req.query.offset) {
       return user.findAll({ offset: req.query.offset, limit: req.query.limit })
-      .then(response => res.status(200).send(response))
+      .then((response) => {
+        let count;
+        user.count().then((totalCount) => {
+          count = totalCount;
+          return res.status(200).send({ data: response, count });
+        });
+      })
+
       .catch(error => res.status(400).send(error));
     }
     return user.all({
