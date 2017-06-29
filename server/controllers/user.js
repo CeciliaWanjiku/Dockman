@@ -81,7 +81,24 @@ module.exports = {
       })
       .catch(error => res.status(400).send(error));
   },
-
+  FindDocument(req, res) {
+    if (req.query.limit || req.query.offset) {
+      return Document.findAll({ offset: req.query.offset, limit: req.query.limit })
+      .then((response) => {
+        let count;
+        Document.count().then((totalCount) => {
+          count = totalCount;
+          console.log('>>>>>>>>>>.');
+          return res.status(200).send({ data: response, count });
+        });
+      })
+      .catch(error => res.status(400).send(error));
+    }
+    return Document
+      .all()
+      .then(resp => res.status(200).send(resp))
+      .catch(error => res.status(400).send(error));
+  },
   paginatedUsers(req, res) {
     if (req.query.limit || req.query.offset) {
       return user.findAll({ offset: req.query.offset, limit: req.query.limit })

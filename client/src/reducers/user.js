@@ -4,13 +4,16 @@ import * as types from '../actions/actionTypes';
 export default function user(state = [], action) {
   switch (action.type) {
     case types.LOAD_USER_SUCCESS:
+      console.log('REDUCER RESULT:', action);
+      action.users.count = action.count;
       return action.users;
-    case types.CREATE_USERS_SUCCESS:
+    case types.CREATE_USER_SUCCESS:
       return [
         ...state,
         Object.assign({}, action.user)
       ];
     case types.UPDATE_USER_SUCCESS:
+      console.log('STATE BEFORE UPDATE:', state);
       return [
         ...state.filter(newUser => newUser.id !== action.user.id),
         Object.assign({}, action.user)

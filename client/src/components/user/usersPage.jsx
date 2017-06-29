@@ -41,9 +41,7 @@ class UsersPage extends React.Component {
   render() {
     const { users } = this.props;
     const totalCount = users.count;
-    delete users.count;
-    console.log('userrrd', users);
-
+    console.log('COUNT:', totalCount);
     return (
       <div>
         <Search />

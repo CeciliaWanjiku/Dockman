@@ -22,7 +22,7 @@ export const loadDocuments = (limit = 10, offset = 0) => (dispatch) => {
    .set('access-token', localStorage.getItem('jwt'))
     .end((err, res) => {
       if (err || !res.ok) {
-        toastr.error('Unauthorized');
+        // toastr.error('Unauthorized');
         return;
       }
       res.body.data.count = res.body.count;

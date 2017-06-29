@@ -22,6 +22,19 @@ class ManageUserPage extends React.Component {
     this.deleteUser = this.deleteUser.bind(this);
   }
   componentWillReceiveProps(nextProps) {
+    const userWrapper = nextProps.user;
+    console.log('WRAPPER:', userWrapper);
+    if (!userWrapper.user && !userWrapper.success) {
+      this.setState((prevState) => ({
+          ...prevState,
+          saving: false,
+        }));
+    } else {
+      this.setState({ saving: false });
+      console.log('USER:', this.state.user);
+      toastr.success('User saved');
+      browserHistory.push('/userLogin');
+    }
     if (/\/create$/.test(nextProps.location.pathname)) {
       return;
     }
@@ -51,7 +64,6 @@ class ManageUserPage extends React.Component {
   }
 
   validateEmail(email) {
-    console.log('email: ', email);
     const re = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
     return re.test(email);
   }
@@ -64,7 +76,6 @@ class ManageUserPage extends React.Component {
       return;
     }
     if (!this.validateEmail(this.state.user.email)) {
-      console.log('that failed.');
       toastr.error('Please enter a valid email');
       return;
     }
@@ -73,18 +84,15 @@ class ManageUserPage extends React.Component {
       this.props.actions.createUser(this.state.user);
     } else {
       this.props.actions.updateUser(this.state.user);
+      browserHistory.push('/user');
     }
-    this.redirect();
+    // this.redirect();
   }
   redirect() {
-    if (!this.errors) {
-      this.setState({ saving: false });
-      toastr.success('User saved');
-      browserHistory.push('/userLogin');
-    } else {
-      this.setState({ saving: false });
-      toastr.success(this.errors, 'Invalid credentials');
-    }
+    this.setState({ saving: false });
+    console.log('USER:', this.state.user);
+    toastr.success('User saved');
+    browserHistory.push('/userLogin');
   }
 
   deleteUser(event) {
@@ -131,9 +139,14 @@ const getUserById = (users, userId) => {
   return user;
 };
 const mapStateToProps = (state, ownProps) => {
+  if (state.users.length <= 1) {
+    return {
+      user: state.users[0]
+    };
+  }
   const user = getUserById(state.users, ownProps.params.id);
   return {
-    user,
+    user
   };
 };
 

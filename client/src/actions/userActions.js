@@ -2,7 +2,11 @@ import toastr from 'toastr';
 import * as types from './actionTypes';
 import { getEndpoint, postEndpoint, putEndpoint, deleteEndpoint } from '../../utils/documentsAPI';
 
-export const loadUsersSuccess = users => ({ type: types.LOAD_USER_SUCCESS, users });
+export const loadUsersSuccess = users => ({
+  type: types.LOAD_USER_SUCCESS,
+  count: users.count,
+  users: users.data
+});
 
 export const loadUsers = (limit = 10, offset = 0) => (dispatch) => {
   getEndpoint(`/api/users/?limit=${limit}&offset=${offset}`)
@@ -10,9 +14,9 @@ export const loadUsers = (limit = 10, offset = 0) => (dispatch) => {
   .end((err, res) => {
     if (!err) {
       res.body.data.count = res.body.data;
-      dispatch(loadUsersSuccess(res.body.data));
+      dispatch(loadUsersSuccess(res.body));
     } else {
-      toastr.error('Unauthorized!');
+      // toastr.error('Unauthorized!');
       // alert('');
     }
   });
@@ -33,11 +37,10 @@ export const createUser = user => (dispatch) => {
   .set('access-token', localStorage.getItem('jwt'))
     .send(user)
     .end((err, res) => {
-      if (!err) {
-        return dispatch(createUsersSuccess({ user: res.body }));
+      if (!res.body.success) {
+        toastr.error(res.body.msg);
       }
-      console.log('............', err);
-      toastr.error('error', err);
+      return dispatch(createUsersSuccess({ user: res.body }));
     });
 };
 
