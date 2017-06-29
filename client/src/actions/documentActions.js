@@ -59,10 +59,11 @@ export const userDocuments = userRole => (dispatch) => {
 };
 
 export const deleteDocument = doc => (dispatch) => {
-  deleteEndpoint(`/api/documents/${doc.id}`)
-   .set('access-token', localStorage.getItem('jwt'))
-    .send(doc)
-    .end((err, res) => { console.log(err); dispatch(deleteDocumentsSuccess(res.body)); });
+  console.log('Getting here...');
+  return deleteEndpoint(`/api/documents/${doc.id}`)
+    .set('access-token', localStorage.getItem('jwt'))
+    .then((res) => { console.log('In here...'); dispatch(deleteDocumentsSuccess(res.body)); })
+    .catch(console.log);
 };
 
 export const searchDocument = (searchValue) => {

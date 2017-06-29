@@ -2,7 +2,6 @@ import expect from 'expect';
 
 import React from 'react';
 import { mount, shallow } from 'enzyme';
-import TestUtils from 'react-addons-test-utils';
 import DocumentForm from '../../client/src/components/document/documentForm.jsx';
 
 const setup = (saving) => {

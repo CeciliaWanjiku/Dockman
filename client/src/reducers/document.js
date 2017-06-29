@@ -22,11 +22,12 @@ export default function document(state = [], action) {
         Object.assign({}, action.document)
       ];
     case types.DELETE_DOCUMENT_SUCCESS: {
-      const newState = Object.assign([], state);
       const indexOfDocumentToDelete = state.findIndex(doc => doc.id === action.document.id);
-      newState.splice(indexOfDocumentToDelete, 1);
-      // browserHistory.push('/document');
-      return newState;
+      console.log('Deleting document...');
+      return [
+        ...state.slice(0, indexOfDocumentToDelete),
+        ...state.slice(indexOfDocumentToDelete + 1)
+      ];
     }
     case types.SEARCH_DOCUMENT_SUCCESS:
       return action.documents;

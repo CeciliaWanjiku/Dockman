@@ -21,7 +21,8 @@ class UserDocumentsPage extends React.Component {
     browserHistory.push('/document/create');
   }
   render() {
-    console.table(this.props.documents);
+    console.log('Rendering with: ', this.props);
+    // console.table(this.props.documents);
     return (
       <div>
         <h4> My Documents </h4>

@@ -22,10 +22,4 @@ export const postEndpoint = (endpoint) => {
     .post(url)
   );
 };
-export const deleteEndpoint = (endpoint) => {
-  const url = endpoint;
-  return (
-    request
-    .delete(url)
-  );
-};
+export const deleteEndpoint = request.delete;

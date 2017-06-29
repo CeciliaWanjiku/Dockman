@@ -26,7 +26,7 @@ if (env === 'development') {
 
   app.use(require('webpack-hot-middleware')(compiler));
 } else {
-  app.use(express.static('./client/dist'));
+  app.use(express.static('../client/dist'));
 }
 
 
