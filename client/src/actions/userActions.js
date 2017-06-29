@@ -49,7 +49,7 @@ export const updateUser = user => (dispatch) => {
 };
 
 export const deleteUser = user => (dispatch) => {
-  deleteEndpoint(`/api/user/${user.id}`)
+  deleteEndpoint(`/api/users/${user.id}`)
   .set('access-token', localStorage.getItem('jwt'))
     .send(user)
     .end((err, res) => dispatch(deleteUsersSuccess({ user: res.body })));

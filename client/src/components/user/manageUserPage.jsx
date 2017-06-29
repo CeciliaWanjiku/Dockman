@@ -79,15 +79,18 @@ class ManageUserPage extends React.Component {
   redirect() {
     if (!this.errors) {
       this.setState({ saving: false });
-      return toastr.success(this.errors, 'Invalid credentials');
+      toastr.success('User saved');
+      browserHistory.push('/userLogin');
+    } else {
+      this.setState({ saving: false });
+      toastr.success(this.errors, 'Invalid credentials');
     }
-    this.setState({ saving: false });
-    toastr.success('User saved');
-    browserHistory.push('/userLogin');
   }
 
   deleteUser(event) {
     this.props.actions.deleteUser(this.state.user);
+    toastr.success('User deleted Deleted');
+    browserHistory.push('/user');
   }
 
 
