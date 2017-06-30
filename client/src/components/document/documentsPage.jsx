@@ -45,8 +45,8 @@ class DocumentsPage extends React.Component {
       <div>
         <h1> Documents </h1>
         <Search />
-        <a className="btn-floating btn-large waves-effect waves-light red">
-          <i className="material-icons" onClick={this.redirectToAddDocumentPage}>add</i></a>
+        {/*<a className="btn-floating btn-large waves-effect waves-light red">
+          <i className="material-icons" onClick={this.redirectToAddDocumentPage}>add</i></a>*/}
         <DocumentList documents={documents} />
         <Pagination
           activePage={this.state.activePage}
@@ -60,15 +60,7 @@ class DocumentsPage extends React.Component {
     );
   }
 }
-// DocumentsPage.proptypes = {
-//   documents: proptypes.object.isRequired,
-// actions:PropTypes.object.isRequired
-// };
-// // function mapStateToProps(state, ownProps) {
-// //   return {
-// //     documents: state.documents
-// //   };
-// // }
+
 
 const mapStateToProps = (state, ownProps) => ({ documents: state.documents });
 

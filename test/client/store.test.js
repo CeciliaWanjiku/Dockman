@@ -20,12 +20,5 @@ describe('Store', () => {
     const action = documentActions.createDocumentsSuccess(document);
     store.dispatch(action);
     expect(store.getState()).toEqual(document);
-    
-
-    // assert
-    // console.log('>>>>>store>>>>>', store.getState());
-    // const actual = store.getState().documents[0];
-
-    // expect(actual).toEqual(document);
   });
 });

@@ -18,7 +18,7 @@ describe('users Reducer', () => {
     const newState = user(initialState, action);
 
     // assert
-    expect(newState.length).toEqual(2);
+    expect(newState.length).toEqual(3);
     expect(newState[0].name).toEqual('A');
     expect(newState[1].name).toEqual('B');
     // expect(newState[2].name).toEqual('C');

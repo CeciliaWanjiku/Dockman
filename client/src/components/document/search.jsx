@@ -27,23 +27,11 @@ class Search extends React.Component {
         />
         <i className="material-icons" onClick={(e) => { e.preventDefault(); this.searchDocument(this.state.searchValue); }}>search</i>
 
-        {/*<button
-          onClick={(e) => { e.preventDefault(); this.searchDocument(this.state.searchValue); }}
-        >Search Document</button>*/}
       </div>
 
     );
   }
 }
-// DocumentsPage.proptypes = {
-//   documents: proptypes.object.isRequired,
-// actions:PropTypes.object.isRequired
-// };
-// // function mapStateToProps(state, ownProps) {
-// //   return {
-// //     documents: state.documents
-// //   };
-// // }
 
 const mapStateToProps = (state, ownProps) => ({ documents: state.documents });
 

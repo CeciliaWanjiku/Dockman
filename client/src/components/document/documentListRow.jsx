@@ -13,8 +13,6 @@ const DocumentListRow = ({ document, view }) => (
       }
     </td>
     <td>{document.content}</td>
-    {/*<td>{document.category}</td>*/}
-    {/*<td>{document.userId}</td>*/}
   </tr>
   );
 
