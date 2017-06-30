@@ -19,6 +19,8 @@ Install the project's dependencies
 ``` npm install ```
 ```cd into Dockman ```
 ``` git checkout develop ```
+
+
 Ensure you have a SECRET_KEY set in your environment by exporting one.
 
 Run the development server
