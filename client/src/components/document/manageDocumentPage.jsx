@@ -32,7 +32,7 @@ export class ManageDocumentPage extends React.Component {
 
   updateDocumentState(event) {
     const field = event.target.name;
-    const document = this.state.document;
+    const document = Object.assign({}, this.state.document);
     document[field] = event.target.value;
     return this.setState({ document });
   }
@@ -60,6 +60,7 @@ export class ManageDocumentPage extends React.Component {
 
     if (/\/create$/.test(this.props.location.pathname)) {
       this.state.document.category = this.state.document.category || 'public';
+      console.log('Creating with: ', this.state.document);
       this.props.actions.createDocument(this.state.document);
     } else {
       this.props.actions.updateDocument(this.state.document);

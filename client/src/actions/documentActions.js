@@ -50,7 +50,6 @@ export const updateDocument = doc => (dispatch) => {
     .end((err, res) => dispatch(updateDocumentsSuccess(res.body)));
 };
 export const userDocuments = userRole => (dispatch) => {
-  console.log(localStorage.getItem('user_id'), 'stooo');
   // getEndpoint(`/users/${localStorage.getItem('user_id')}/documents`)
   getEndpoint(`/users/${localStorage.getItem('user_id')}/documents?role_type=${userRole}`)
 
