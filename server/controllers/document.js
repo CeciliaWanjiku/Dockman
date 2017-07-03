@@ -7,13 +7,18 @@ const User = db.User;
 module.exports = {
   create(req, res) {
     const decoded = jwt.verify(req.headers['access-token'], process.env.SECRET_KEY);
-    Document.create({
+    const data = {
       name: req.body.name,
       content: req.body.content,
       category: req.body.category,
-      userId: decoded.data.id,
-      role_type: req.body.role_type
-    })
+      userId: decoded.data.id
+    };
+
+    if (req.body.category === 'role-based') {
+      data.role_type = decoded.data.role_type;
+    }
+
+    Document.create(data)
     .then(document => res.status(201).send(document))
     .catch(error => res.status(400).send(error));
   },

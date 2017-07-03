@@ -23,13 +23,13 @@ class DocumentForm extends React.Component {
   }
   render() {
     // const saving = this.props.saving;
-    const token = this.props.session.token || localStorage.getItem('jwt');
-    const user = token && jwtDecode(token);
-    const role_type = user.data.role_type;
+    // const token = this.props.session.token || localStorage.getItem('jwt');
+    // const user = token && jwtDecode(token);
+    // const role_type = user.data.role_type;
     const document = this.props.document;
 
-    console.log('dafljadfl', role_type);
-    console.log('props: ', this.props);
+    // console.log('dafljadfl', role_type);
+    // console.log('props: ', this.props);
     return (
       <form
         className="col s12"
@@ -57,17 +57,6 @@ class DocumentForm extends React.Component {
           value={document.category}
           onChange={this.props.onChange}
         />
-        { document.category === 'role-based'
-    ? <input
-      className="input-field col s12"
-      name="role_type"
-      label="role_type"
-      defaultValue={role_type}
-      onChange={this.props.onChange}
-    />
-    : ''
-
-    }
         <input
           className="waves-effect waves-light btn"
           type="submit"
@@ -90,7 +79,8 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(sessionActions, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(DocumentForm);
+// export default connect(mapStateToProps, mapDispatchToProps)(DocumentForm);
+export default DocumentForm;
 
 // const DocumentForm = ({ document, allAuthors, onSave, onChange, saving, errors }) => (
 
