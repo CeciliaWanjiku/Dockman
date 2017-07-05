@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 const DocumentListRow = ({ document, view }) => (
   <tr>
     <td>
+      {console.log(view)}
       {
         view ? (
           <Link to={`/document/view/${document.id}`}> {document.name} </Link>

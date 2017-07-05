@@ -33,10 +33,12 @@ export const searchUsersSuccess = users =>
 
 
 export const createUser = user => (dispatch) => {
+  console.log('hapa');
   postEndpoint('/api/users')
   .set('access-token', localStorage.getItem('jwt'))
     .send(user)
     .end((err, res) => {
+      console.log('res', res);
       if (!res.body.success) {
         toastr.error(res.body.msg);
       }

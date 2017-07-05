@@ -10,7 +10,24 @@ import * as sessionActions from '../../actions/sessionActions.js';
 class UserForm extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      user: {
+        name: this.props.user.name || '',
+        email: this.props.user.email || '',
+        password: this.props.user.password || '',
+        role_type: this.props.user.role_type || '',
+      }
+    };
   }
+
+  componentWillReceiveProps(nextProps, nextState) {
+    this.setState({ user: nextProps.user })
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    if (nextProps.user.name === this.props.user.name) return true;
+  }
+
   render() {
     const onChange = this.props.onChange;
     const onSave = this.props.onSave;
@@ -25,13 +42,13 @@ class UserForm extends React.Component {
           name="name"
           label="Name"
           onChange={onChange}
-          value={this.props.user ? this.props.user.name : ''}
+          value={this.state.user ? this.state.user.name : ''}
         />
         <TextInput
           name="email"
           label="Email"
           type="email"
-          value={this.props.user ? this.props.user.email : ''}
+          value={this.state.user ? this.state.user.email : ''}
           onChange={onChange}
         />
         {user && user.data.role === 'admin'
@@ -47,7 +64,7 @@ class UserForm extends React.Component {
            ? <SelectRole
              name="role_type"
              label="role_type"
-             value={this.props.user ? this.props.user.role_type : ''}
+             value={this.state.user ? this.state.user.role_type : ''}
              onChange={onChange}
            />
            : ''

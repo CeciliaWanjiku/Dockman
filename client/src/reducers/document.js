@@ -8,6 +8,7 @@ export default function document(state = [], action) {
     case types.LOAD_PUBLIC_DOCUMENTS_SUCCESS:
       return action.documents;
     case types.USER_DOCUMENTS_SUCCESS:
+      action.documents.count = action.count;
       return action.documents;
 
 

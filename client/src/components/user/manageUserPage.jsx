@@ -21,17 +21,15 @@ class ManageUserPage extends React.Component {
     this.updateUser = this.updateUser.bind(this);
     this.deleteUser = this.deleteUser.bind(this);
   }
+
   componentWillReceiveProps(nextProps) {
-    const userWrapper = nextProps.user;
-    console.log('WRAPPER:', userWrapper);
-    if (!userWrapper.user && !userWrapper.success) {
-      this.setState(prevState => ({
-        ...prevState,
-        saving: false,
-      }));
+    console.log('NEXT PROPS USER>>>', nextProps, 'THIS PROPS>>>', this.props);
+    const userWrapper = nextProps.user || this.props.user;
+    console.log('USERWRAPPER', userWrapper);
+    if (!userWrapper.user || (userWrapper.user && !userWrapper.user.success)) {
+      this.setState({ saving: false });
     } else {
       this.setState({ saving: false });
-      console.log('USER:', this.state.user);
       toastr.success('User saved');
       browserHistory.push('/userLogin');
     }
@@ -43,13 +41,14 @@ class ManageUserPage extends React.Component {
     }
   }
 
-
   updateUserState(event) {
     const field = event.target.name;
-    const user = this.state.user;
+    const user = Object.assign({}, this.state.user);
+    // const user = this.state.user;
     user[field] = event.target.value;
     return this.setState({ user });
   }
+
   userFormIsValid() {
     let formIsValid = true;
     const errors = {};

@@ -8,6 +8,7 @@ export default function user(state = [], action) {
       action.users.count = action.count;
       return action.users;
     case types.CREATE_USER_SUCCESS:
+    console.log('action user', action);
       return [
         ...state,
         Object.assign({}, action.user)

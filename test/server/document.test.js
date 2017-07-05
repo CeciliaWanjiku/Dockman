@@ -13,13 +13,13 @@ const api = (require('../../server/app'));
 let token = '';
 
 describe('Documents', () => {
-  chai.request(api)
-      .post('/api/users/')
-      .send({ email: 'testdoc@admin.com', password: 'admin', name: 'admin', role: 'admin' })
-      .then((res) => {
-        console.log('test user created!');
-        console.log(res.body);
-      });
+  // chai.request(api)
+  //     .post('/api/users/')
+  //     .send({ email: 'testdoc@admin.com', password: 'admin', name: 'admin', role: 'admin' })
+  //     .then((res) => {
+  //       console.log('test user created!');
+  //       console.log(res.body);
+  //     });
   // login /
   beforeEach('login user', (done) => {
     chai.request(api)
@@ -61,6 +61,7 @@ describe('Documents', () => {
       chai.request(api)
       .get('/api/documents/public')
       .end((err, response) => {
+        console.log('err', err);
         expect(response.statusCode).to.equal(200);
         expect(response.body.length).to.be.at.least(1);
         done();

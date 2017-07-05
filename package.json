@@ -13,7 +13,7 @@
     "etoe": "mocha test/   e2e",
     "lint": "./node_modules/.bin/eslint -c .eslintrc ./server",
     "pretest": "export NODE_ENV=test && sequelize db:migrate:undo:all && sequelize db:migrate && sequelize db:seed:all",
-    "test": " ./node_modules/.bin/istanbul cover _mocha --require client/tools/testSetup.js \"test/**/*.test.js\" ",
+    "test": " ./node_modules/.bin/istanbul cover _mocha --require client/tools/testSetup.js --timeout 20000 \"test/**/*.test.js\" ",
     "coverage": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
     "lint:watch": "npm run lint -- --watch"
   },

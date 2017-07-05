@@ -59,8 +59,14 @@ module.exports = {
       return Document.findAll({
         where: {
           name: { $iLike: `%${req.query.q}%` },
+          $or: {
+            userId: req.params.userId,
+            role_type: req.query.role_type,
+            category: { $iLike: 'public' }
+          }
 
         }
+
       })
       .then(response => res.status(200).send(response))
       .catch(error => res.status(400).send(error));
@@ -103,11 +109,14 @@ module.exports = {
       .catch(error => res.status(400).send(error));
   },
   FindPublicDocuments(req, res) {
-    return Document.findAll({
-      where: {
-        category: { $iLike: 'public' }
-      }
-    })
+    if (req.query.limit || req.query.offset) {
+      return Document.findAll({
+        offset: req.query.offset,
+        limit: req.query.limit,
+        where: {
+          category: { $iLike: 'public' }
+        }
+      })
       .then((resp) => {
         if (!resp) {
           return res.status(404).send({
@@ -115,48 +124,45 @@ module.exports = {
 
           });
         }
-        return res.status(200).send(resp);
+        let count;
+        Document.count({ where: {
+          category: { $iLike: 'public' }
+        } }).then((totalCount) => {
+          count = totalCount;
+          return res.status(200).send({ data: resp, count });
+        });
       })
       .catch(error => res.status(400).send(error));
+    }
   },
-  // FindRoleBasedDocuments(req, res) {
-  //   return Document.findAll({
-  //     where: {
-  //       category: { $iLike: 'role-based' }
-  //     }
-  //   })
-  //     .then((resp) => {
-  //       if (!resp) {
-  //         return res.status(404).send({
-  //           message: 'Documents Not Found',
-
-  //         });
-  //       }
-  //       return res.status(200).send(resp);
-  //     })
-  //     .catch(error => res.status(400).send(error));
-  // },
-  
   userDocuments(req, res) {
-    console.log(req.query.role_type, 'reqrole');
-    return Document.findAll({
-      where: {
-        $or: {
-          userId: req.params.userId,
-          role_type: req.query.role_type
+    if (req.query.limit || req.query.offset) {
+      return Document.findAll({
+        offset: req.query.offset,
+        limit: req.query.limit,
+        where: {
+          $or: {
+            userId: req.params.userId,
+            role_type: req.query.role_type
+          }
         }
-      }
-    })
+      })
       .then((resp) => {
-        if (!resp) {
-          return res.status(404).send({
-            message: 'Documents Not Found',
-
-          });
-        }
-        return res.status(200).send(resp);
+        let count;
+        Document.count({
+          where: {
+            $or: {
+              userId: req.params.userId,
+              role_type: req.query.role_type
+            }
+          }
+        }).then((totalCount) => {
+          count = totalCount;
+          return res.status(200).send({ data: resp, count });
+        });
       })
       .catch(error => res.status(400).send(error));
+    }
   }
 
 };

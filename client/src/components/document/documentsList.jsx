@@ -4,6 +4,7 @@ import DocumentListRow from './documentListRow.jsx';
 
 const DocumentList = ({ documents, view }) => (
   <table>
+    {console.log('ffdggdfgdfgdfg', view)}
     <thead>
       <tr>
         <th> Title </th>

@@ -4,7 +4,9 @@ import { getEndpoint, putEndpoint, postEndpoint, deleteEndpoint } from '../../ut
 
 export const loadDocumentsSuccess = documents => ({ type: types.LOAD_DOCUMENT_SUCCESS, documents });
 export const loadPublicDocumentsSuccess = documents =>
-({ type: types.LOAD_PUBLIC_DOCUMENTS_SUCCESS, documents });
+({ type: types.LOAD_PUBLIC_DOCUMENTS_SUCCESS,
+  count: documents.count,
+  documents });
 export const createDocumentsSuccess = document => ({
   type: types.CREATE_DOCUMENT_SUCCESS, document });
 export const updateDocumentsSuccess = document => ({
@@ -14,8 +16,9 @@ export const deleteDocumentsSuccess = document =>
 export const searchDocumentsSuccess = documents =>
 ({ type: types.SEARCH_DOCUMENT_SUCCESS, documents });
 export const userDocumentsSuccess = documents =>
-({ type: types.USER_DOCUMENTS_SUCCESS, documents });
-
+({ type: types.USER_DOCUMENTS_SUCCESS,
+  count: documents.count,
+  documents });
 
 export const loadDocuments = (limit = 10, offset = 0) => (dispatch) => {
   getEndpoint(`/api/documents/?limit=${limit}&offset=${offset}`)
@@ -30,9 +33,17 @@ export const loadDocuments = (limit = 10, offset = 0) => (dispatch) => {
     });
 };
 
-export const loadPublicDocuments = () => (dispatch) => {
-  getEndpoint('/api/documents/public')
-    .end((err, res) => dispatch(loadPublicDocumentsSuccess(res.body)));
+export const loadPublicDocuments = (limit, offset) => (dispatch) => {
+  getEndpoint(`/api/documents/public/?limit=${limit}&offset=${offset}`)
+    .end((err, res) => {
+      if (err || !res) {
+        return err;
+      }
+      console.log('there is', res.body.data);
+      console.log('count heere', res.body.count);
+      res.body.data.count = res.body.count;
+      dispatch(loadPublicDocumentsSuccess(res.body.data));
+    });
 };
 
 export const createDocument = doc => (dispatch) => {
@@ -49,12 +60,20 @@ export const updateDocument = doc => (dispatch) => {
     .send(doc)
     .end((err, res) => dispatch(updateDocumentsSuccess(res.body)));
 };
-export const userDocuments = userRole => (dispatch) => {
+export const userDocuments = (limit, offset, userRole) => (dispatch) => {
+  console.log('results', limit, offset, userRole);
+
   // getEndpoint(`/users/${localStorage.getItem('user_id')}/documents`)
-  getEndpoint(`/users/${localStorage.getItem('user_id')}/documents?role_type=${userRole}`)
+  getEndpoint(`/users/${localStorage.getItem('user_id')}/documents?role_type=${userRole}&limit=${limit}&offset=${offset}`)
 
    .set('access-token', localStorage.getItem('jwt'))
-    .end((err, res) => dispatch(userDocumentsSuccess(res.body)));
+    .end((err, res) => {
+      if (err || !res.ok) {
+        return err;
+      }
+      res.body.data.count = res.body.count;
+      dispatch(userDocumentsSuccess(res.body.data));
+    });
 };
 
 export const deleteDocument = doc => (dispatch) => {
