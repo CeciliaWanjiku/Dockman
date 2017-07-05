@@ -11,6 +11,9 @@ a.active {
 nav {
     padding-top: 20px;
 }
+.nav-wrapper {
+    background-color:tomato;
+}
 
 .search-wrapper.card {
     width: 25%;

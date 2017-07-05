@@ -33,7 +33,7 @@ class Header extends React.Component {
             : ''
           }
           {user
-            ? <Link to="document/userdocuments" activeClassName="active">{'My Documents  | '}</Link>
+            ? <Link to="/document/userdocuments" activeClassName="active">{'My Documents  | '}</Link>
             : ''
           }
           {user

@@ -57,6 +57,7 @@ class UserForm extends React.Component {
           className="waves-effect waves-light btn"
           disabled={saving}
           value={saving ? 'Saving...' : 'Save'}
+          style={{ marginTop: '10px' }}
           onClick={onSave}
         />
       </form>

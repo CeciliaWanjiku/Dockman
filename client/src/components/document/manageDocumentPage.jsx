@@ -76,7 +76,7 @@ export class ManageDocumentPage extends React.Component {
   deleteDocument(event) {
     this.props.actions.deleteDocument(this.state.document)
       .then(() => {
-        console.log('deleted')
+        console.log('deleted');
         toastr.success('Document Deleted');
         browserHistory.push('/document/userdocuments');
       });
@@ -97,6 +97,7 @@ export class ManageDocumentPage extends React.Component {
         <button
           onClick={this.deleteDocument}
           className="btn btn-default"
+          style={{ backgroundColor: 'red', marginTop: '-50px', marginLeft: '700px' }}
         >
            Delete Document
        </button>

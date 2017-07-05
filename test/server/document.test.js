@@ -44,6 +44,18 @@ describe('Documents', () => {
       });
     });
   });
+  describe('/GET document', () => {
+    it('it should GET role-based documents', (done) => {
+      chai.request(api)
+      .get('/api/documents/')
+      .set('access-token', token)
+      .end((err, response) => {
+        expect(response.statusCode).to.equal(200);
+        expect(response.body.length).to.be.at.least(1);
+        done();
+      });
+    });
+  });
   describe('/GET public documents', () => {
     it('it should GET all publicdocuments', (done) => {
       chai.request(api)
@@ -54,6 +66,22 @@ describe('Documents', () => {
         done();
       });
     });
+    it('it should GET raise error when getting public documents', (done) => {
+      chai.request(api)
+      .get('/api/documents/publics')
+      .end((err, response) => {
+        expect(response.statusCode).to.equal(401);
+        done();
+      });
+    });
+    it('it should GET raise error when getting public documents', (done) => {
+      chai.request(api)
+      .get('/api/documents/publics')
+      .end((err, response) => {
+        expect(response.statusCode).to.equal(401);
+        done();
+      });
+    });
   });
   describe('/GET user documents', () => {
     it('it should GET user documents', (done) => {
@@ -61,6 +89,24 @@ describe('Documents', () => {
       .get('/users/3/documents')
       .end((err, response) => {
         expect(response.statusCode).to.equal(200);
+        // expect(response.body.length).to.be.at.least(1);
+        done();
+      });
+    });
+    it('it should raise error when getting user documents', (done) => {
+      chai.request(api)
+      .get('/users/a/documents')
+      .end((err, response) => {
+        expect(response.statusCode).to.equal(400);
+        // expect(response.body.length).to.be.at.least(1);
+        done();
+      });
+    });
+    it('it should raise error when getting user documents', (done) => {
+      chai.request(api)
+      .get('/users/q/documents')
+      .end((err, response) => {
+        expect(response.statusCode).to.equal(400);
         // expect(response.body.length).to.be.at.least(1);
         done();
       });
@@ -164,6 +210,18 @@ describe('Documents', () => {
         done();
       });
     });
+    it('it should raise an error while updating a document by id', (done) => {
+      chai.request(api)
+      .put('/api/documents/20')
+      .set('access-token', token)
+      .send({
+        title: 'neee doooc'
+      })
+      .end(() => {
+        expect(400);
+        done();
+      });
+    });
     it('it should update document by Id', (done) => {
       chai.request(api)
       .put('/api/documents/12')
@@ -200,6 +258,24 @@ describe('Documents', () => {
         done();
       });
     });
+    it('it should return error if invalid pagination parameters are passed', (done) => {
+      chai.request(api)
+      .get('/api/documents/?limit=adasd')
+      .set('access-token', token)
+      .end((err, response) => {
+        expect(response.statusCode).to.equal(400);
+        done();
+      });
+    });
+    // it('it should return error if invalid pagination parameters are passed', (done) => {
+    //   chai.request(api)
+    //   .get('/api/document')
+    //   .set('access-token', token)
+    //   .end((err, response) => {
+    //     expect(response.statusCode).to.equal(400);
+    //     done();
+    //   });
+    // });
   });
 
   describe('/GET search/documents', () => {

@@ -110,7 +110,7 @@ describe('Users', () => {
   describe('/PUT users/:userId', () => {
     it('it should UPDATE a user by userId', (done) => {
       chai.request(api)
-      .put('/api/users/4')
+      .put('/api/users/2')
       .set('access-token', token)
       .send({
         name: 'newww user'
@@ -131,7 +131,7 @@ describe('Users', () => {
     });
     it('it should UPDATE a user by userId', (done) => {
       chai.request(api)
-      .put('/api/users/4')
+      .put('/api/users/2')
       .set('access-token', token)
       .send({
         name: ''
@@ -145,7 +145,7 @@ describe('Users', () => {
   describe('/GET users/:userId', () => {
     it('it should PAGINATE users', (done) => {
       chai.request(api)
-      .get('/api/users/?limit=3&offset=2')
+      .get('/api/users/?limit=2&offset=0')
       .set('access-token', token)
       .end((err, response) => {
         expect(response.statusCode).to.equal(200);
@@ -156,7 +156,7 @@ describe('Users', () => {
   describe('/GET search/users', () => {
     it('it should search a user', (done) => {
       chai.request(api)
-      .get('/api/search/users/?q=wamuciii')
+      .get('/api/search/users/?q=admin')
       .set('access-token', token)
       .end(() => {
         expect(200);

@@ -43,7 +43,7 @@ class DocumentsPage extends React.Component {
     delete documents.count;
     return (
       <div>
-        <h1> Documents </h1>
+        <h4> Documents </h4>
         <Search />
         {/*<a className="btn-floating btn-large waves-effect waves-light red">
           <i className="material-icons" onClick={this.redirectToAddDocumentPage}>add</i></a>*/}

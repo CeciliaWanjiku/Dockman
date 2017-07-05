@@ -25,10 +25,10 @@ class ManageUserPage extends React.Component {
     const userWrapper = nextProps.user;
     console.log('WRAPPER:', userWrapper);
     if (!userWrapper.user && !userWrapper.success) {
-      this.setState((prevState) => ({
-          ...prevState,
-          saving: false,
-        }));
+      this.setState(prevState => ({
+        ...prevState,
+        saving: false,
+      }));
     } else {
       this.setState({ saving: false });
       console.log('USER:', this.state.user);
@@ -118,6 +118,7 @@ class ManageUserPage extends React.Component {
        ? <button
          onClick={this.deleteUser}
          className="btn btn-default"
+         style={{ backgroundColor: 'red', marginTop: '-50px', marginLeft: '700px' }}
        >
            Delete User
        </button>

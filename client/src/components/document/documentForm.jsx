@@ -10,7 +10,6 @@ import SelectRoleType from '../common/selectRoleType.js';
 import * as sessionActions from '../../actions/sessionActions.js';
 
 
-
 class DocumentForm extends React.Component {
   constructor(props) {
     super(props);
@@ -62,6 +61,7 @@ class DocumentForm extends React.Component {
           type="submit"
           disabled={this.props.saving}
           value={this.props.saving ? 'Saving...' : 'Save'}
+          style={{ marginTop: '10px' }}
           onClick={this.props.onSave}
         />
       </form>

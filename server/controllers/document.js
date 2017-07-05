@@ -119,23 +119,24 @@ module.exports = {
       })
       .catch(error => res.status(400).send(error));
   },
-  FindRoleBasedDocuments(req, res) {
-    return Document.findAll({
-      where: {
-        category: { $iLike: 'role-based' }
-      }
-    })
-      .then((resp) => {
-        if (!resp) {
-          return res.status(404).send({
-            message: 'Documents Not Found',
+  // FindRoleBasedDocuments(req, res) {
+  //   return Document.findAll({
+  //     where: {
+  //       category: { $iLike: 'role-based' }
+  //     }
+  //   })
+  //     .then((resp) => {
+  //       if (!resp) {
+  //         return res.status(404).send({
+  //           message: 'Documents Not Found',
 
-          });
-        }
-        return res.status(200).send(resp);
-      })
-      .catch(error => res.status(400).send(error));
-  },
+  //         });
+  //       }
+  //       return res.status(200).send(resp);
+  //     })
+  //     .catch(error => res.status(400).send(error));
+  // },
+  
   userDocuments(req, res) {
     console.log(req.query.role_type, 'reqrole');
     return Document.findAll({
