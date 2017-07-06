@@ -68,8 +68,7 @@ describe('Users', () => {
         name: 'newww user',
         email: 'invalidemail',
       })
-      .end((response) => {
-        console.log('here we are', response.body);
+      .end(() => {
         expect(401);
         done();
       });
@@ -94,11 +93,20 @@ describe('Users', () => {
           done();
         });
     });
+    it('it should fail to GET user by userId', (done) => {
+      chai.request(api)
+      .get('/api/users/bbbb')
+      .set('access-token', token)
+        .end(() => {
+          expect(400);
+          done();
+        });
+    });
   });
   describe('/DELETE users/:userId', () => {
     it('it should DELETE user by userId', (done) => {
       chai.request(api)
-      .delete('/api/users/5')
+      .delete('/api/users/2')
       .set('access-token', token)
           .end(() => {
             expect(204);

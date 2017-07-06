@@ -29,7 +29,6 @@ module.exports = {
         let count;
         Document.count().then((totalCount) => {
           count = totalCount;
-          console.log('>>>>>>>>>>.');
           return res.status(200).send({ data: response, count });
         });
       })

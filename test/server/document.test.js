@@ -130,6 +130,20 @@ describe('Documents', () => {
         done();
       });
     });
+    it('it should not create a document', (done) => {
+      chai.request(api)
+      .post('/api/documents/')
+      .set('access-token', token)
+      .send({
+        title: 'docman',
+        content: 'This is a test.',
+        category: 'public'
+      })
+      .end((err, response) => {
+        expect(response.statusCode).to.equal(201);
+        done();
+      });
+    });
   });
   describe('/GET document/:Id', () => {
     it('it should GET document by Id', (done) => {
@@ -141,7 +155,7 @@ describe('Documents', () => {
         done();
       });
     });
-    it('it should GET document by Id', (done) => {
+    it('it should fail to GET document by Id and return a 404', (done) => {
       chai.request(api)
       .get('/api/documents/0')
       .set('access-token', token)
@@ -150,7 +164,7 @@ describe('Documents', () => {
         done();
       });
     });
-    it('it should GET document by Id', (done) => {
+    it('it should fail to GET document by Id', (done) => {
       chai.request(api)
       .get('/api/documents/gvvv')
       .set('access-token', token)

@@ -4,7 +4,6 @@ const jwt = require('jsonwebtoken');
 
 const secretKey = process.env.SECRET_KEY;
 
-
 // const secretKey = 'sec';
 const saltRounds = 10;
 
@@ -49,14 +48,12 @@ module.exports = {
               message: 'User Not Found',
             });
           }
-          // console.log('LOGIN', response.dataValues);
           const passwordValid = bcrypt.compareSync(req.body.password, response.password);
           if (passwordValid) {
             const token = jwt.sign({ data: { id: response.id, name: response.name, role: response.role, role_type: response.role_type } }, secretKey, { expiresIn: 60 * 60 });
             return res.status(200).json(Object.assign({}, { id: response.id, email: req.body.email, name: req.body.name }, { token }));
             // return token
           }
-          // return error: Password is incorrect
           return res.status(401).json({
             message: 'Invalid password'
           });
