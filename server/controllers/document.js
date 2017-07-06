@@ -59,11 +59,11 @@ module.exports = {
       return Document.findAll({
         where: {
           name: { $iLike: `%${req.query.q}%` },
-          $or: {
-            userId: req.params.userId,
-            role_type: req.query.role_type,
-            category: { $iLike: 'public' }
-          }
+          // $or: {
+          //   userId: req.params.userId,
+          //   role_type: req.query.role_type,
+          //   category: { $iLike: 'public' }
+          // }
 
         }
 
@@ -129,6 +129,7 @@ module.exports = {
           category: { $iLike: 'public' }
         } }).then((totalCount) => {
           count = totalCount;
+         
           return res.status(200).send({ data: resp, count });
         });
       })

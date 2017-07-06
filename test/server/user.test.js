@@ -17,8 +17,7 @@ describe('Users', () => {
       .post('/api/users/')
       .send({ email: 'testadmin@admin.com', password: 'admin', name: 'admin', role: 'admin' })
       .then((res) => {
-        console.log('test user created!');
-        console.log(res.body);
+        // console.log(res.body);
       });
   // login /
   beforeEach('login admin', (done) => {
@@ -30,18 +29,17 @@ describe('Users', () => {
         done();
       });
       // .catch(e => {
-      //   console.log('Erroring out: ', e)
+
       // })
   });
   describe('Users', () => {
     describe('/POST user', () => {
-      it('it should GET all the users', (done) => {
+      it('it should raise a 404 error when trying to log in a user', (done) => {
         chai.request(api)
       .post('/api/users/login')
       .send({ email: '', password: '' })
-     .end((response) => {
+     .end(() => {
        expect(404);
-       console.log('hii resp hapa', response);
        done();
      });
       });
@@ -70,7 +68,8 @@ describe('Users', () => {
         name: 'newww user',
         email: 'invalidemail',
       })
-      .end(() => {
+      .end((response) => {
+        console.log('here we are', response.body);
         expect(401);
         done();
       });
@@ -145,7 +144,7 @@ describe('Users', () => {
   describe('/GET users/:userId', () => {
     it('it should PAGINATE users', (done) => {
       chai.request(api)
-      .get('/api/users/?limit=2&offset=0')
+      .get('/api/users/?limit=2')
       .set('access-token', token)
       .end((err, response) => {
         expect(response.statusCode).to.equal(200);

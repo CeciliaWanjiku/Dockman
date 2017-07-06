@@ -13,13 +13,12 @@ const api = (require('../../server/app'));
 let token = '';
 
 describe('Documents', () => {
-  // chai.request(api)
-  //     .post('/api/users/')
-  //     .send({ email: 'testdoc@admin.com', password: 'admin', name: 'admin', role: 'admin' })
-  //     .then((res) => {
-  //       console.log('test user created!');
-  //       console.log(res.body);
-  //     });
+  chai.request(api)
+      .post('/api/users/')
+      .send({ email: 'testdoc@admin.com', password: 'admin', name: 'admin', role: 'admin' })
+      .then((res) => {
+        // console.log(res.body);
+      });
   // login /
   beforeEach('login user', (done) => {
     chai.request(api)
@@ -59,11 +58,9 @@ describe('Documents', () => {
   describe('/GET public documents', () => {
     it('it should GET all publicdocuments', (done) => {
       chai.request(api)
-      .get('/api/documents/public')
+      .get('/api/documents/public/?limit=2')
       .end((err, response) => {
-        console.log('err', err);
         expect(response.statusCode).to.equal(200);
-        expect(response.body.length).to.be.at.least(1);
         done();
       });
     });
@@ -87,7 +84,8 @@ describe('Documents', () => {
   describe('/GET user documents', () => {
     it('it should GET user documents', (done) => {
       chai.request(api)
-      .get('/users/3/documents')
+      .get('/users/3/documents/?limit=2')
+      .set('access-token', token)
       .end((err, response) => {
         expect(response.statusCode).to.equal(200);
         // expect(response.body.length).to.be.at.least(1);
@@ -96,7 +94,8 @@ describe('Documents', () => {
     });
     it('it should raise error when getting user documents', (done) => {
       chai.request(api)
-      .get('/users/a/documents')
+      .get('/users/a/documents/?limit=2')
+      .set('access-token', token)
       .end((err, response) => {
         expect(response.statusCode).to.equal(400);
         // expect(response.body.length).to.be.at.least(1);
@@ -105,7 +104,8 @@ describe('Documents', () => {
     });
     it('it should raise error when getting user documents', (done) => {
       chai.request(api)
-      .get('/users/q/documents')
+      .get('/users/q/documents/?limit=2')
+      .set('access-token', token)
       .end((err, response) => {
         expect(response.statusCode).to.equal(400);
         // expect(response.body.length).to.be.at.least(1);
