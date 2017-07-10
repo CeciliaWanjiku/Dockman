@@ -20,6 +20,7 @@ class Header extends React.Component {
   render() {
     const token = this.props.session.token || localStorage.getItem('jwt');
     const user = token && jwtDecode(token);
+    console.log('propss', this.props);
     return (
       <nav className="nav-wrapper">
         <div id="nav-mobile" className="right hide-on-med-and-down">

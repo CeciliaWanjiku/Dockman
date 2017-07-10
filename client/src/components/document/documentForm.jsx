@@ -14,27 +14,16 @@ class DocumentForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // document: {
-      //   role_type
-      // }
-
     };
   }
   render() {
-    // const saving = this.props.saving;
-    // const token = this.props.session.token || localStorage.getItem('jwt');
-    // const user = token && jwtDecode(token);
-    // const role_type = user.data.role_type;
     const document = this.props.document;
-
-    // console.log('dafljadfl', role_type);
-    // console.log('props: ', this.props);
     return (
       <form
         className="col s12"
         onSubmit={this.props.onSave}
       >
-        <h1>Manage Document</h1>
+        <h4>Manage Document</h4>
         <TextInput
           name="name"
           label="Title"
@@ -79,18 +68,5 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(sessionActions, dispatch)
 });
 
-// export default connect(mapStateToProps, mapDispatchToProps)(DocumentForm);
 export default DocumentForm;
 
-// const DocumentForm = ({ document, allAuthors, onSave, onChange, saving, errors }) => (
-
-//   );
-// DocumentForm.propTypes = {
-//   document: React.PropTypes.object.isRequired,
-//   allAuthors: React.PropTypes.array,
-//   onSave: React.PropTypes.func.isRequired,
-//   onChange: React.PropTypes.isRequired,
-//   saving: React.PropTypes.bool
-//   // errors: React.PropTypes.object
-// };
-// export default DocumentForm;

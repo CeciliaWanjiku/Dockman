@@ -1,7 +1,6 @@
 import * as types from './actionTypes';
 import toastr from 'toastr';
 import { postEndpoint } from '../../utils/documentsAPI';
-import authenticate from '../authenticate/authenticate';
 
 
 export const loginSuccess = res => ({ type: types.LOG_IN_SUCCESS, token: res.token });

@@ -4,8 +4,8 @@ import { bindActionCreators } from 'redux';
 import * as documentActions from '../../actions/documentActions.js';
 
 
-class Search extends React.Component {
-  constructor(props, context) {
+export class Search extends React.Component {
+  constructor(props) {
     super(props);
     this.searchDocument = this.searchDocument.bind(this);
     this.handleSearchInput = this.handleSearchInput.bind(this);
