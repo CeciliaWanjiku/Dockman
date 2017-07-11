@@ -61,9 +61,8 @@ export const updateDocument = doc => (dispatch) => {
     .end((err, res) => dispatch(updateDocumentsSuccess(res.body)));
 };
 export const userDocuments = (limit, offset, userRole) => (dispatch) => {
-  console.log('results', limit, offset, userRole);
 
-  // getEndpoint(`/users/${localStorage.getItem('user_id')}/documents`)
+
   getEndpoint(`/users/${localStorage.getItem('user_id')}/documents?role_type=${userRole}&limit=${limit}&offset=${offset}`)
 
    .set('access-token', localStorage.getItem('jwt'))
@@ -80,7 +79,7 @@ export const deleteDocument = doc => (dispatch) => {
   console.log('Getting here...');
   return deleteEndpoint(`/api/documents/${doc.id}`)
     .set('access-token', localStorage.getItem('jwt'))
-    .then((res) => { console.log('In here...'); dispatch(deleteDocumentsSuccess(res.body)); })
+    .then((res) => { dispatch(deleteDocumentsSuccess(res.body)); })
     .catch(console.log);
 };
 

@@ -18,7 +18,7 @@ const DocumentListRow = ({ document, view }) => (
          )
       }
           </h4>
-          <p><Link to={`/document/${document.id}`}> {document.name} </Link></p>
+          <p><Link to={`/document/${document.id}`}> {document.content} </Link></p>
         </div>
         <div className="card-action">
           <a className="mdl-button">{document.category}</a>

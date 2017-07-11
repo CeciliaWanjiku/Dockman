@@ -24,7 +24,6 @@ export default function document(state = [], action) {
       ];
     case types.DELETE_DOCUMENT_SUCCESS: {
       const indexOfDocumentToDelete = state.findIndex(doc => doc.id === action.document.id);
-      console.log('Deleting document...');
       return [
         ...state.slice(0, indexOfDocumentToDelete),
         ...state.slice(indexOfDocumentToDelete + 1)

@@ -97,7 +97,7 @@ export class ManageDocumentPage extends React.Component {
         <button
           onClick={this.deleteDocument}
           className="btn btn-default"
-          style={{ backgroundColor: 'red', marginTop: '-50px', marginLeft: '700px' }}
+          style={{ backgroundColor: 'tomato', marginTop: '-50px', marginLeft: '700px' }}
         >
            Delete Document
        </button>

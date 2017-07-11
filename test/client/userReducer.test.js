@@ -23,6 +23,15 @@ describe('users Reducer', () => {
     expect(newState[1].name).toEqual('B');
     // expect(newState[2].name).toEqual('C');
   });
+  it('it should delete a user when passed DELETE_USER_SUCCESS if the search value exists', () => {
+    const initialState = [];
+    const users = [
+      { id: 'A', username: 'A', firstName: 'M', }
+    ];
+    const action = actions.deleteUsersSuccess(users);
+    const newState = user(initialState, action);
+    expect(newState.length).toEqual(0);
+  });
 
   it('should update user when passed UPDATE_USER_SUCCESS', () => {
     // arrange
@@ -44,5 +53,14 @@ describe('users Reducer', () => {
     expect(updatedUser.name).toEqual('New Name');
     expect(untouchedUser.name).toEqual('A');
     expect(newState.length).toEqual(3);
+  });
+  it('it should get search result when passed SEARCH_USER_SUCCESS if the search value exists', () => {
+    const initialState = [];
+    const users = [
+      { id: 'A', username: 'A', firstName: 'M', }
+    ];
+    const action = actions.searchUsersSuccess(users);
+    const newState = user(initialState, action);
+    expect(newState.length).toEqual(1);
   });
 });

@@ -37,7 +37,7 @@ class UserDocumentsPage extends React.Component {
     return (
       <div>
         <h4> My Documents </h4>
-        <a className="btn-floating btn-large waves-effect waves-light red">
+        <a className="btn-floating btn-large waves-effect waves-light red" style={{ backgroundColor: 'tomato' }}>
           <i className="material-icons" onClick={this.redirectToAddDocumentPage}>add</i></a>
         <Search />
         <DocumentList documents={this.props.documents} />

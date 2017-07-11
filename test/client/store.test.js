@@ -14,8 +14,8 @@ describe('Store', () => {
     };
     const store = mockStore(document);
 
-    const expectedActions =  { type: 'CREATE_DOCUMENT_SUCCESS', document }
-    
+    const expectedActions = { type: 'CREATE_DOCUMENT_SUCCESS', document };
+
     // act
     const action = documentActions.createDocumentsSuccess(document);
     store.dispatch(action);

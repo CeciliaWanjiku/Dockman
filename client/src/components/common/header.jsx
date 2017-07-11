@@ -3,7 +3,6 @@ import jwtDecode from 'jwt-decode';
 import { Link, IndexLink } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import LoadingDots from './LoadingDots.jsx';
 import * as sessionActions from '../../actions/sessionActions.js';
 
 class Header extends React.Component {

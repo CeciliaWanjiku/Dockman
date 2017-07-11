@@ -30,9 +30,6 @@ const middleware = [thunk];
 const mockStore = configureMockStore(middleware);
 
 describe('Async Actions', () => {
-  // afterEach(() => {
-  //   nock.cleanAll();
-  // });
 
   it('should create BEGIN_AJAX_CALL and LOAD_USERS_SUCCESS when loading users', (done) => {
     nock('http://localhost:8090/')

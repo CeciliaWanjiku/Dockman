@@ -64,21 +64,22 @@ describe('Document Reducer', () => {
     // expect(document.name).toEqual('New Title');
     // expect(newState.length).toEqual(3);
   });
-  // it('should search documents when passed SEARCH_DOCUMENT_SUCCESS', () => {
-  //   // arrange
-  //   const initialState = [
-  //     { id: 'A', name: 'A' },
-  //     { id: 'B', name: 'B' },
-  //     { id: 'C', name: 'C' }
-  //   ];
-  //   const document = { id: 'B', name: 'New Title' };
-  //   const action = actions.searchDocumentsSuccess(document);
-
-  //   // act
-  //   const newState = document(initialState, action);
-  //   // assert
-
-  //   expect(document.name).toEqual('document');
-  //   expect(newState.length).toEqual(3);
-  // });
+  it('it should get search result when passed SEARCH_DOCUMENT_SUCCESS', () => {
+    const initialState = [];
+    const documents = [
+      { id: 'A', name: 'A', content: 'M', }
+    ];
+    const action = actions.searchDocumentsSuccess(documents);
+    const newState = document(initialState, action);
+    expect(newState.length).toEqual(1);
+  });
+  it('it should delete a document when passed DELETE_DOCUMENT_SUCCESS', () => {
+    const initialState = [];
+    const documents = [
+      { id: 'A', name: 'A', content: 'M', }
+    ];
+    const action = actions.deleteDocumentsSuccess(documents);
+    const newState = document(initialState, action);
+    expect(newState.length).toEqual(0);
+  });
 });
