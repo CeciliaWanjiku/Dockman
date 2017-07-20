@@ -10,7 +10,7 @@ import Search from './search.jsx';
 class DocumentsPage extends React.Component {
   constructor(props, context) {
     super(props);
-    this.state = { activePage: 1, limit: 5, totalDocuments: null, searchValue: '' };
+    this.state = { activePage: 1, limit: 5, searchValue: '' };
 
     this.redirectToAddDocumentPage = this.redirectToAddDocumentPage.bind(this);
     this.handlePageChange = this.handlePageChange.bind(this);

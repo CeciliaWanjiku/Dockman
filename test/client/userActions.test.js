@@ -44,6 +44,7 @@ describe('Async Actions', () => {
     const store = mockStore({ users: [] }, expectedActions, done());
     store.dispatch(userActions.loadUsers()).then(() => {
       const actions = store.getActions();
+      console.log('action....', actions);
       expect(actions[0].type).toEqual(types.BEGIN_AJAX_CALL);
       expect(actions[1].type).toEqual(types.LOAD_USERS_SUCCESS);
       done();

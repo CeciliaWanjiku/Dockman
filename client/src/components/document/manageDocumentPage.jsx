@@ -60,7 +60,6 @@ export class ManageDocumentPage extends React.Component {
 
     if (/\/create$/.test(this.props.location.pathname)) {
       this.state.document.category = this.state.document.category || 'public';
-      console.log('Creating with: ', this.state.document);
       this.props.actions.createDocument(this.state.document);
     } else {
       this.props.actions.updateDocument(this.state.document);
@@ -76,7 +75,6 @@ export class ManageDocumentPage extends React.Component {
   deleteDocument(event) {
     this.props.actions.deleteDocument(this.state.document)
       .then(() => {
-        console.log('deleted');
         toastr.success('Document Deleted');
         browserHistory.push('/document/userdocuments');
       });
@@ -84,6 +82,7 @@ export class ManageDocumentPage extends React.Component {
 
 
   render() {
+   
     return (
       <div>
         <DocumentForm
@@ -93,6 +92,7 @@ export class ManageDocumentPage extends React.Component {
           document={this.state.document}
           errors={this.state.error}
           saving={this.state.saving}
+          session={this.props.session}
         />
         <button
           onClick={this.deleteDocument}
@@ -120,6 +120,7 @@ const mapStateToProps = (state, ownProps) => {
   const document = getDocumentById(state.documents, ownProps.params.id);
   return {
     document,
+    session: state.session
   };
 };
 

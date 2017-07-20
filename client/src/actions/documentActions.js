@@ -39,8 +39,6 @@ export const loadPublicDocuments = (limit, offset) => (dispatch) => {
       if (err || !res) {
         return err;
       }
-      console.log('there is', res.body.data);
-      console.log('count heere', res.body.count);
       res.body.data.count = res.body.count;
       dispatch(loadPublicDocumentsSuccess(res.body.data));
     });
@@ -76,7 +74,6 @@ export const userDocuments = (limit, offset, userRole) => (dispatch) => {
 };
 
 export const deleteDocument = doc => (dispatch) => {
-  console.log('Getting here...');
   return deleteEndpoint(`/api/documents/${doc.id}`)
     .set('access-token', localStorage.getItem('jwt'))
     .then((res) => { dispatch(deleteDocumentsSuccess(res.body)); })

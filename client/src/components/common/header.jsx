@@ -41,7 +41,7 @@ class Header extends React.Component {
             : <Link to="/user/create" activeClassName="active">{'Sign Up  | '}</Link>
           }
           {user
-            ? <Link to={`/user/${user.id}`} activeClassName="active">{user.data.name} </Link>
+            ? <Link to={'/document/userdocuments'} activeClassName="active">{user.data.name} </Link>
             : <Link to="/userLogin" activeClassName="active">Login </Link>
           }
           {user

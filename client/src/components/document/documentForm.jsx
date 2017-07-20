@@ -17,6 +17,10 @@ class DocumentForm extends React.Component {
     };
   }
   render() {
+    // console.log('whhatthefff', this.props.session);
+    // const token = this.props.session.token || localStorage.getItem('jwt');
+    // const user = token && jwtDecode(token);
+    // console.log('decoded token', user);
     const document = this.props.document;
     return (
       <form

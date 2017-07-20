@@ -8,12 +8,12 @@ const passport = require('passport');
 const dotenv = require('dotenv');
 
 
-
 // Set up the express app
 const app = express();
 const compiler = webpack(config);
 
 const env = process.env.NODE_ENV || 'development';
+console.log('env', env);
 if (env !== 'production') {
   dotenv.config();
 }

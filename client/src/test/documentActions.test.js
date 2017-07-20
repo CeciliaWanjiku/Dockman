@@ -34,7 +34,7 @@ describe('Async Actions', () => {
     nock.cleanAll();
   });
 
-  it('should create BEGIN_AJAX_CALL and LOAD_DOCUMENTS_SUCCESS when loading documents', (done) => {
+  it('should LOAD_DOCUMENTS_SUCCESS when loading documents', (done) => {
     nock('http://localhost:8090/api/documents/')
       .get('/documents')
       .reply(200, { body: { document: [{ id: 1, name: 'Doc1', content: 'testcontent', category: 'public' }] } });

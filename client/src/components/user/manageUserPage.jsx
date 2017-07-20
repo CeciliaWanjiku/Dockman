@@ -23,9 +23,7 @@ class ManageUserPage extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('NEXT PROPS USER>>>', nextProps, 'THIS PROPS>>>', this.props);
     const userWrapper = nextProps.user || this.props.user;
-    console.log('USERWRAPPER', userWrapper);
     if (!userWrapper.user || (userWrapper.user && !userWrapper.user.success)) {
       this.setState({ saving: false });
     } else {
@@ -89,14 +87,13 @@ class ManageUserPage extends React.Component {
   }
   redirect() {
     this.setState({ saving: false });
-    console.log('USER:', this.state.user);
     toastr.success('User saved');
     browserHistory.push('/userLogin');
   }
 
   deleteUser(event) {
     this.props.actions.deleteUser(this.state.user);
-    toastr.success('User deleted Deleted');
+    toastr.success('User deleted');
     browserHistory.push('/user');
   }
 
